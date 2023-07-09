@@ -1,6 +1,6 @@
 baseURL = 'https://ikebo.github.io/'
 languageCode = 'en-us'
-title = 'Ike'Log'
+title = "Ike'Log"
 theme = 'hugo-PaperMod' 
 
 [params]
