@@ -1,6 +1,6 @@
-baseURL = 'http://example.org/'
+baseURL = 'https://ikebo.github.io/'
 languageCode = 'en-us'
-title = 'My New Hugo Site'
+title = 'Ike'Log'
 theme = 'hugo-PaperMod' 
 
 [params]
