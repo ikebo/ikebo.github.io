@@ -2,17 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://ikebo.github.io/post/hello-world/</loc>
+    <loc>https://ikebo.cc/post/hello-world/</loc>
     <lastmod>2023-07-09T17:44:27+08:00</lastmod>
   </url><url>
-    <loc>https://ikebo.github.io/</loc>
+    <loc>https://ikebo.cc/</loc>
     <lastmod>2023-07-09T17:44:27+08:00</lastmod>
   </url><url>
-    <loc>https://ikebo.github.io/post/</loc>
+    <loc>https://ikebo.cc/post/</loc>
     <lastmod>2023-07-09T17:44:27+08:00</lastmod>
   </url><url>
-    <loc>https://ikebo.github.io/categories/</loc>
+    <loc>https://ikebo.cc/categories/</loc>
   </url><url>
-    <loc>https://ikebo.github.io/tags/</loc>
+    <loc>https://ikebo.cc/series/</loc>
+  </url><url>
+    <loc>https://ikebo.cc/tags/</loc>
   </url>
 </urlset>

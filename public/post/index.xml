@@ -2,17 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Posts on Ike&#39;Log</title>
-    <link>https://ikebo.github.io/post/</link>
+    <link>https://ikebo.cc/post/</link>
     <description>Recent content in Posts on Ike&#39;Log</description>
+    <image>
+      <title>Ike&#39;Log</title>
+      <url>https://ikebo.cc/papermod-cover.png</url>
+      <link>https://ikebo.cc/papermod-cover.png</link>
+    </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 09 Jul 2023 17:44:27 +0800</lastBuildDate><atom:link href="https://ikebo.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 09 Jul 2023 17:44:27 +0800</lastBuildDate><atom:link href="https://ikebo.cc/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hello World</title>
-      <link>https://ikebo.github.io/post/hello-world/</link>
+      <link>https://ikebo.cc/post/hello-world/</link>
       <pubDate>Sun, 09 Jul 2023 17:44:27 +0800</pubDate>
       
-      <guid>https://ikebo.github.io/post/hello-world/</guid>
+      <guid>https://ikebo.cc/post/hello-world/</guid>
       <description>Hello World </description>
     </item>
     
