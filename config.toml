@@ -167,6 +167,10 @@ Hi, this is Egbert Ke, a code farmer, nice to meet you. I’m documenting my lea
   url = "https://github.com/ikebo"
 
   [[params.socialIcons]]
+  name = "CSDN"
+  url = "https://blog.csdn.net/k_runtu"
+
+  [[params.socialIcons]]
   name = "KoFi"
   url = "https://ko-fi.com/ikebo"
 
