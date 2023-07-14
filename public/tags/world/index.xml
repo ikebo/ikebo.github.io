@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Tags on Ike&#39;Log</title>
-    <link>https://ikebo.cc/tags/</link>
-    <description>Recent content in Tags on Ike&#39;Log</description>
+    <title>world on Ike&#39;Log</title>
+    <link>https://ikebo.cc/tags/world/</link>
+    <description>Recent content in world on Ike&#39;Log</description>
     <image>
       <title>Ike&#39;Log</title>
       <url>https://ikebo.cc/papermod-cover.png</url>
@@ -11,14 +11,14 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 09 Jul 2023 17:44:27 +0800</lastBuildDate><atom:link href="https://ikebo.cc/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 09 Jul 2023 17:44:27 +0800</lastBuildDate><atom:link href="https://ikebo.cc/tags/world/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>world</title>
-      <link>https://ikebo.cc/tags/world/</link>
+      <title>Hello World</title>
+      <link>https://ikebo.cc/post/hello-world/</link>
       <pubDate>Sun, 09 Jul 2023 17:44:27 +0800</pubDate>
       
-      <guid>https://ikebo.cc/tags/world/</guid>
-      <description></description>
+      <guid>https://ikebo.cc/post/hello-world/</guid>
+      <description>Hello World </description>
     </item>
     
   </channel>

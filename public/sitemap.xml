@@ -11,6 +11,12 @@
     <loc>https://ikebo.cc/post/</loc>
     <lastmod>2023-07-09T17:44:27+08:00</lastmod>
   </url><url>
+    <loc>https://ikebo.cc/tags/</loc>
+    <lastmod>2023-07-09T17:44:27+08:00</lastmod>
+  </url><url>
+    <loc>https://ikebo.cc/tags/world/</loc>
+    <lastmod>2023-07-09T17:44:27+08:00</lastmod>
+  </url><url>
     <loc>https://ikebo.cc/archives/</loc>
   </url><url>
     <loc>https://ikebo.cc/categories/</loc>
@@ -18,7 +24,5 @@
     <loc>https://ikebo.cc/search/</loc>
   </url><url>
     <loc>https://ikebo.cc/series/</loc>
-  </url><url>
-    <loc>https://ikebo.cc/tags/</loc>
   </url>
 </urlset>
