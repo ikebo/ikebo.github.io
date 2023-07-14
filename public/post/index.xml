@@ -11,7 +11,38 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 09 Jul 2023 17:44:27 +0800</lastBuildDate><atom:link href="https://ikebo.cc/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 15 Jul 2023 00:35:20 +0800</lastBuildDate><atom:link href="https://ikebo.cc/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>博客再再开张</title>
+      <link>https://ikebo.cc/post/%E5%8D%9A%E5%AE%A2%E5%86%8D%E5%86%8D%E5%BC%80%E5%BC%A0/</link>
+      <pubDate>Sat, 15 Jul 2023 00:35:20 +0800</pubDate>
+      
+      <guid>https://ikebo.cc/post/%E5%8D%9A%E5%AE%A2%E5%86%8D%E5%86%8D%E5%BC%80%E5%BC%A0/</guid>
+      <description>大概在两年前，我写了一篇《博客再开张》的文章，记录了我的博客迁移之旅。
+最近，我的博客再次迁移。
+迁移到了github，使用hugo + papermod 强力驱动☺️
+为什么要迁移 说到底，就是维护成本
+之前的维护成本为什么高 1，服务器 需要自己购买服务器，自运维，运维对象包括服务器续费，web服务维护(运行在docker中)
+2，数据 博客数据需要定期备份, 写脚本定时dump下来，推送到github中存储起来
+3，备案 之前有个备案站点，每年需要重新审核一次，而且我不太喜欢备案，现在已将备案信息删除，域名和服务器不再具有备案信息。
+4，证书 免费证书每3个月需要维护一次，自动续期的话需要单独跑个进程。使用cloudflare服务的话，国内响应速度太慢。
+所以，维护成本相对还是比较高的，加上平时业余时间不是很多，时间长了人就乏了，迫切需要维护成本低的博客方案。
+为什么要写博客 有一天，我看到了别人的博客，看到他们写的文字，记录自己的想记录的东西。
+我知道，那是我一直想做的事情，我必须继续做下去。
+不写博客，当我回过头来，我会失落，会后悔，就这么感性的原因。
+博客能记录自己文字，让自己的思绪有个干净的地方停留，以后能够回顾自己的心路历程。如果能给别人带来一些思考或者帮助，那也是极好的。
+迁移之后维护成本为什么低 1，serverless
+都是静态文件，no backend, no fucking logic.
+2, continus deploy
+I just need write a fucking markdown and git push.
+为什么一开始没有使用这个方案 一开始是在CSDN上写，写了110多篇，记录自己日常学习时候的小收获，包括刷的算法题，解决过的case等，那是最初纯粹的初衷。 然后，想自己徒手写博客，锻炼自己的工程能力，项目经验等，于是自己徒手撸了一个简单博客，前后端都自己写。
+然后，感觉功能比较弱，想要一个类似wordpress的博客，于是选了typecho建立博客
+然后，i have no much time. 想简单点，just write something. 但是又不想用CSDN这样的平台，因为感觉平台不纯粹， 我自己写的东西，被平台免费拿走去赚广告费，还因为用了他们免费的博客服务沾沾自喜，no.
+于是到了现在这一步，serverless，纯静态站.
+后续计划 1，博客迁移，将之前写的博客迁移到这个站点（不包括CSDN） 2，完善站点功能，评论，站点统计，可能还会加个adsence😋
+朋友，你也开始写博客吧，You need it.</description>
+    </item>
+    
     <item>
       <title>Hello World</title>
       <link>https://ikebo.cc/post/hello-world/</link>
