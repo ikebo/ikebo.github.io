@@ -24,6 +24,11 @@ weight = 1
   series = "series"
 
 [[languages.en.menu.main]]
+name = "Posts"
+url = "/"
+weight = 4
+
+[[languages.en.menu.main]]
 name = "Archive"
 url = "archives"
 weight = 5
@@ -172,6 +177,15 @@ Hi, this is Egbert Ke, a code farmer, nice to meet you. I’m documenting my lea
 
   [params.assets]
   disableHLJS = true
+  
+  [params.fuseOpts]
+  isCaseSensitive = false
+  shouldSort = true
+  location = 0
+  distance = 1_000
+  threshold = 0.4
+  minMatchCharLength = 0
+  keys = [ "title", "permalink", "summary", "content" ]
 
 [markup.goldmark.renderer]
 unsafe = true
