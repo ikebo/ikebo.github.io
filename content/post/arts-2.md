@@ -1,5 +1,5 @@
 ---
-title: "Arts 2"
+title: "ARTS打卡 - 第二周"
 date: 2023-08-28T23:58:50+08:00
 draft: false
 ---
