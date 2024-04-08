@@ -1,7 +1,7 @@
 ---
 title: "从tg交易中学习到的人性"
 date: 2023-07-15T23:12:15+08:00
-draft: false
+draft: true
 tags:
   - telegram
   - trade online
