@@ -2,6 +2,8 @@
 title: "Understanding Character Sets and Collations in MySQL"
 date: 2024-04-30T11:27:57+08:00
 draft: false
+tags:
+  - MySQL
 ---
 
 If you have ever worked with [MySQL](https://severalnines.com/product/clustercontrol/for_mysql), you inevitably came across character sets and collations. In this blog post, we will try to give you a more in-depth look at what those two are and how you should use them.
