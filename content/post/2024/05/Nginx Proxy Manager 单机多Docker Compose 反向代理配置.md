@@ -21,9 +21,9 @@ tags:
 手动将多个docker compose加入到同一个docker network.
 
 具体参考:
-1、https://nginxproxymanager.com/advanced-config
-2、https://stackoverflow.com/questions/38088279/communication-between-multiple-docker-compose-projects
-3、https://github.com/NginxProxyManager/nginx-proxy-manager/issues/555
+  1、https://nginxproxymanager.com/advanced-config
+  2、https://stackoverflow.com/questions/38088279/communication-between-multiple-docker-compose-projects
+  3、https://github.com/NginxProxyManager/nginx-proxy-manager/issues/555
 
 
 ## 05.20 更新
@@ -39,7 +39,7 @@ tags:
 艹！
 
 参考过的几个有用文章：
-1、https://juejin.cn/post/7180619106407120933
-2、https://gist.github.com/bruno-brant/e119da3713a657036ff7e3446d98176a
+  1、https://juejin.cn/post/7180619106407120933
+  2、https://gist.github.com/bruno-brant/e119da3713a657036ff7e3446d98176a
 
 一般软件打的镜像都比较轻量，用的alpine版的linux比较多，进容器后用apk update && apk add... 装一些常用软件，方便排查问题。
