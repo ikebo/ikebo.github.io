@@ -12,21 +12,16 @@ tags:
 
 
 # 尝试过的解决方式
-
-1、地址用docker0的地址，端口用其他container暴露出来的端口，不行
-
-2、换机器，不行
-
-3、换docker、docker-compose 版本，不行
+1、地址用docker0的地址，端口用其他container暴露出来的端口，不行<br/>
+2、换机器，不行<br/>
+3、换docker、docker-compose 版本，不行<br/>
 
 # 最终的解决方式
 手动将多个docker compose加入到同一个docker network.
 
 具体参考:</br>
 1、https://nginxproxymanager.com/advanced-config</br>
-
 2、https://stackoverflow.com/questions/38088279/communication-between-multiple-docker-compose-projects</br>
-
 3、https://github.com/NginxProxyManager/nginx-proxy-manager/issues/555
 
 
