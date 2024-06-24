@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>docker compose on Ike&#39;Log</title>
+    <link>https://ikebo.cc/tags/docker-compose/</link>
+    <description>Recent content in docker compose on Ike&#39;Log</description>
+    <image>
+      <title>Ike&#39;Log</title>
+      <url>https://ikebo.cc/papermod-cover.png</url>
+      <link>https://ikebo.cc/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 21 May 2024 19:17:55 +0800</lastBuildDate><atom:link href="https://ikebo.cc/tags/docker-compose/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Nginx Proxy Manager 单机多Docker Compose 反向代理配置</title>
+      <link>https://ikebo.cc/post/2024/05/nginx-proxy-manager-%E5%8D%95%E6%9C%BA%E5%A4%9Adocker-compose-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Tue, 21 May 2024 19:17:55 +0800</pubDate>
+      
+      <guid>https://ikebo.cc/post/2024/05/nginx-proxy-manager-%E5%8D%95%E6%9C%BA%E5%A4%9Adocker-compose-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/</guid>
+      <description>问题描述 单机下部署多个docker-compose, 并用nginx proxy manager 反代其他docker compose的流量，出现连不上其他docker compose 下的container的问题
+尝试过的解决方式 1、地址用docker0的地址，端口用其他container暴露出来的端口，不行 2、换机器，不行 3、换docker、docker-compose 版本，不行
+最终的解决方式 手动将多个docker compose加入到同一个docker network.
+具体参考: 1、https://nginxproxymanager.com/advanced-config 2、https://stackoverflow.com/questions/38088279/communication-between-multiple-docker-compose-projects 3、https://github.com/NginxProxyManager/nginx-proxy-manager/issues/555
+05.20 更新 最终还是要解决容器内无法访问宿主机IP的问题，非常诡异： 1、容器内可以ping通其他容器的hostname, 端口也是通的 2、容器内可以ping通宿主机ip (eth0) 3、但是容器无法连上宿主机的端口 4、公网可以正常访问宿主机的服务(端口是通的)
+排查一圈发现是防火墙的原因，Ubuntu 22.04 TLS, 记得要把防火墙关了！(ufw disable)
+艹！
+参考过的几个有用文章： 1、https://juejin.cn/post/7180619106407120933 2、https://gist.github.com/bruno-brant/e119da3713a657036ff7e3446d98176a
+一般软件打的镜像都比较轻量，用的alpine版的linux比较多，进容器后用apk update &amp;amp;&amp;amp; apk add&amp;hellip; 装一些常用软件，方便排查问题。</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>MySQL | Ike&#39;Log</title>
+<meta name="keywords" content="">
+<meta name="description" content="Egbert Ke&#39;s Blog">
+<meta name="author" content="Egbert Ke">
+<link rel="canonical" href="https://ikebo.cc/tags/mysql/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.7140587df96a2b1a49eb723fa7063dc0c641a6cb638f3140e8d3beb4deae4f5c.css" integrity="sha256-cUBYfflqKxpJ63I/pwY9wMZBpstjjzFA6NO&#43;tN6uT1w=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://ikebo.cc/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ikebo.cc/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ikebo.cc/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://ikebo.cc/apple-touch-icon.png">
+<link rel="mask-icon" href="https://ikebo.cc/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="https://ikebo.cc/tags/mysql/index.xml">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="MySQL" />
+<meta property="og:description" content="Egbert Ke&#39;s Blog" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://ikebo.cc/tags/mysql/" /><meta property="og:image" content="https://ikebo.cc/papermod-cover.png"/>
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ikebo.cc/papermod-cover.png"/>
+
+<meta name="twitter:title" content="MySQL"/>
+<meta name="twitter:description" content="Egbert Ke&#39;s Blog"/>
+
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://ikebo.cc/" accesskey="h" title="Ike&#39;Log (Alt + H)">Ike&#39;Log</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://ikebo.cc/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ikebo.cc/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ikebo.cc/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ikebo.cc/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header"><div class="breadcrumbs"><a href="https://ikebo.cc/">Home</a>&nbsp;»&nbsp;<a href="https://ikebo.cc/tags/">Tags</a></div>
+  <h1>
+    MySQL
+    <a href="/tags/mysql/index.xml" title="RSS" aria-label="RSS">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" height="23">
+        <path d="M4 11a9 9 0 0 1 9 9" />
+        <path d="M4 4a16 16 0 0 1 16 16" />
+        <circle cx="5" cy="19" r="1" />
+      </svg>
+    </a>
+  </h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>Understanding Character Sets and Collations in MySQL
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>If you have ever worked with MySQL, you inevitably came across character sets and collations. In this blog post, we will try to give you a more in-depth look at what those two are and how you should use them.
+What Are Character Sets and Collations? Simply put, character sets in MySQL are sets of symbols and encodings – collations are sets of rules for comparing characters in a character set....</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-04-30 11:27:57 +0800 CST'>April 30, 2024</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;Egbert Ke</footer>
+  <a class="entry-link" aria-label="post link to Understanding Character Sets and Collations in MySQL" href="https://ikebo.cc/post/2024/04/understanding-character-sets-and-collations-in-mysql/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>MySQL 如何对order by优化
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>对于order by的优化，MySQL若可以利用索引的有序性进行排序，则优先使用索引进行排序，这种情况的执行效率是最快的；若无法有效利用索引的情况下，MySQL主要有3排序种算法对其进行优化每个算法都有一定的适用场景。
+一、 利用索引排序 B-tree索引可以很好的支持单点查询、范围查询、有序性查询。所以对于order by 的排序查询，我们可以利用B-tree的有序性来有效的利用索引进行排序查询。当然，如果可以利用索引进行排序对我们的SQL查询本身也是有一定的要求限制的。
+1.1 利用索引排序的特点 排序列必须有B-tree索引 如果为多表关联查询，排序列必须是对驱动表字段的排序 1.2、示例 ##建表语句，sbtest3与sbtest4表字段与索引一致，sbtest3的表数据量为30000，sbtest4的表数据量为60000 CREATE TABLE `sbtest4` ( `id` int(11) NOT NULL AUTO_INCREMENT, `k` int(11) NOT NULL DEFAULT &#39;0&#39;, `c` char(120) NOT NULL DEFAULT &#39;&#39;, `pad` char(60) NOT NULL DEFAULT &#39;&#39;, PRIMARY KEY (`id`), KEY `k_4` (`k`) ) ENGINE=InnoDB AUTO_INCREMENT=62768 DEFAULT CHARSET=utf8mb4 ##单表排序查询 ##order by字段为B-tree索引字段，可以看到执行计划有效利用了索引进行排序查询 root@mysql57 13:25: [db2]&gt; explain select * from sbtest4 t4 order by t4.k desc limit 5; &#43;----&#43;-------------&#43;-------&#43;------------&#43;-------&#43;---------------&#43;------&#43;---------&#43;------&#43;------&#43;----------&#43;-------&#43; | id | select_type | table | partitions | type | possible_keys | key | key_len | ref | rows | filtered | Extra | &#43;----&#43;-------------&#43;-------&#43;------------&#43;-------&#43;---------------&#43;------&#43;---------&#43;------&#43;------&#43;----------&#43;-------&#43; | 1 | SIMPLE | t4 | NULL | index | NULL | k_4 | 4 | NULL | 5 | 100....</p>
+  </div>
+  <footer class="entry-footer"><span title='2021-06-20 00:00:00 +0000 UTC'>June 20, 2021</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Egbert Ke</footer>
+  <a class="entry-link" aria-label="post link to MySQL 如何对order by优化" href="https://ikebo.cc/post/migrate/part2/mysql-%E5%A6%82%E4%BD%95%E5%AF%B9order-by%E4%BC%98%E5%8C%96/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>mysql中的varchar
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>长度范围是0到65535
+varchar(255) 和 varchar(256)的区别 长度超过255时，用2个字节存储列的实际长度，未超过时用一个字段</p>
+  </div>
+  <footer class="entry-footer"><span title='2019-07-05 00:00:00 +0000 UTC'>July 5, 2019</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Egbert Ke</footer>
+  <a class="entry-link" aria-label="post link to mysql中的varchar" href="https://ikebo.cc/post/migrate/part2/mysql%E4%B8%AD%E7%9A%84varchar/"></a>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2024 <a href="https://ikebo.cc/">Ike&#39;Log</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

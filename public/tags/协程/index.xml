@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>协程 on Ike&#39;Log</title>
+    <link>https://ikebo.cc/tags/%E5%8D%8F%E7%A8%8B/</link>
+    <description>Recent content in 协程 on Ike&#39;Log</description>
+    <image>
+      <title>Ike&#39;Log</title>
+      <url>https://ikebo.cc/papermod-cover.png</url>
+      <link>https://ikebo.cc/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 05 Jul 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://ikebo.cc/tags/%E5%8D%8F%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python 中的协程</title>
+      <link>https://ikebo.cc/post/migrate/python-%E4%B8%AD%E7%9A%84%E5%8D%8F%E7%A8%8B/</link>
+      <pubDate>Fri, 05 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/post/migrate/python-%E4%B8%AD%E7%9A%84%E5%8D%8F%E7%A8%8B/</guid>
+      <description>Python 中的协程 函数也叫子程序，其调用过程一般为：Main中调用A，等待A结束后调用B，等待B结束后调用C&amp;hellip; 函数的调用一般是单入口。
+相比于函数，协程可以有多个入口来暂停(切换到其他协程执行)和恢复协程的执行。另外，协程的调用不像函数调用需要主函数按照特定顺序依次调用子程序，协程之间是协作关系，可以来回切换。
+相比于线程，他们都是通过切换达到协作的目的。线程是由操作系统调度来实现切换，而协程是语言级别的切换，开销更小。
+Python中，可以用生成器中的yield实现协程（支持不完全）
+协程实现生产者／消费者模型1 import time def consumer(): r = &amp;#39;&amp;#39; while True: n = yield r if not n: return print(&amp;#39;consuming {}&amp;#39;.format(n)) time.sleep(1) r = &amp;#39;200 OK&amp;#39; def produce(c): next(c) # 启动协程，Python2写法： c.next() n = 0 while n &amp;lt; 5: n = n + 1 print(&amp;#39;producing: {}&amp;#39;.format(n)) r = c.send(n) print(&amp;#39;consumer return: {}&amp;#39;.format(r)) c.close() # 关闭协程 c = consumer() produce(c) 运行结果：
+producing: 1 consuming 1 consumer return: 200 OK producing: 2 consuming 2 consumer return: 200 OK producing: 3 consuming 3 consumer return: 200 OK producing: 4 consuming 4 consumer return: 200 OK producing: 5 consuming 5 consumer return: 200 OK 用连接协程的方式创建管道2 def producer(sentence, next_coroutine): tokens = sentence.</description>
+    </item>
+    
+  </channel>
+</rss>

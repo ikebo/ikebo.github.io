@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>thread local on Ike&#39;Log</title>
+    <link>https://ikebo.cc/tags/thread-local/</link>
+    <description>Recent content in thread local on Ike&#39;Log</description>
+    <image>
+      <title>Ike&#39;Log</title>
+      <url>https://ikebo.cc/papermod-cover.png</url>
+      <link>https://ikebo.cc/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 17 Jul 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://ikebo.cc/tags/thread-local/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ThreadLocal</title>
+      <link>https://ikebo.cc/post/migrate/part2/threadlocal/</link>
+      <pubDate>Wed, 17 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/post/migrate/part2/threadlocal/</guid>
+      <description>TheadLocal 用于多线程环境下，线程之间可以使用相同的变量，而这个变量只与当前线程环境有关。werkzeug中有类似的实现，使每个路由处理函数都可使用相同的request变量，而这个对象的内容只与当前请求有关。
+例如:1
+import threading # 创建全局ThreadLocal对象: local_school = threading.local() def process_student(): # 获取当前线程关联的student: std = local_school.student print(&amp;#39;Hello, %s (in %s)&amp;#39; % (std, threading.current_thread().name)) def process_thread(name): # 绑定ThreadLocal的student: local_school.student = name process_student() t1 = threading.Thread(target= process_thread, args=(&amp;#39;Alice&amp;#39;,), name=&amp;#39;Thread-A&amp;#39;) t2 = threading.Thread(target= process_thread, args=(&amp;#39;Bob&amp;#39;,), name=&amp;#39;Thread-B&amp;#39;) t1.start() t2.start() t1.join() t2.join() 执行结果：
+Hello, Alice (in Thread-A) Hello, Bob (in Thread-B) 廖雪峰的官方网站&amp;#160;&amp;#x21a9;&amp;#xfe0e;</description>
+    </item>
+    
+  </channel>
+</rss>

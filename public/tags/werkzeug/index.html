@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>werkzeug | Ike&#39;Log</title>
+<meta name="keywords" content="">
+<meta name="description" content="Egbert Ke&#39;s Blog">
+<meta name="author" content="Egbert Ke">
+<link rel="canonical" href="https://ikebo.cc/tags/werkzeug/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.7140587df96a2b1a49eb723fa7063dc0c641a6cb638f3140e8d3beb4deae4f5c.css" integrity="sha256-cUBYfflqKxpJ63I/pwY9wMZBpstjjzFA6NO&#43;tN6uT1w=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://ikebo.cc/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ikebo.cc/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ikebo.cc/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://ikebo.cc/apple-touch-icon.png">
+<link rel="mask-icon" href="https://ikebo.cc/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="https://ikebo.cc/tags/werkzeug/index.xml">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="werkzeug" />
+<meta property="og:description" content="Egbert Ke&#39;s Blog" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://ikebo.cc/tags/werkzeug/" /><meta property="og:image" content="https://ikebo.cc/papermod-cover.png"/>
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ikebo.cc/papermod-cover.png"/>
+
+<meta name="twitter:title" content="werkzeug"/>
+<meta name="twitter:description" content="Egbert Ke&#39;s Blog"/>
+
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://ikebo.cc/" accesskey="h" title="Ike&#39;Log (Alt + H)">Ike&#39;Log</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://ikebo.cc/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ikebo.cc/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ikebo.cc/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ikebo.cc/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header"><div class="breadcrumbs"><a href="https://ikebo.cc/">Home</a>&nbsp;»&nbsp;<a href="https://ikebo.cc/tags/">Tags</a></div>
+  <h1>
+    werkzeug
+    <a href="/tags/werkzeug/index.xml" title="RSS" aria-label="RSS">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" height="23">
+        <path d="M4 11a9 9 0 0 1 9 9" />
+        <path d="M4 4a16 16 0 0 1 16 16" />
+        <circle cx="5" cy="19" r="1" />
+      </svg>
+    </a>
+  </h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>为什么使用object.__setattr__
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>werkzeug 0.6.1中Local的初始化是这样的：
+class Local(object): __slots__ = (&#39;__storage__&#39;, &#39;__lock__&#39;) def __init__(self): object.__setattr__(self, &#39;__storage__&#39;, {}) object.__setattr__(self, &#39;__lock__&#39;, allocate_lock()) 我当时很奇怪为什么要用object.__setattr__, 而不是直接用self.__storage__, 当我直接用self.__storage__ = {}实现的时候才发现问题：
+self.__storage__会调用__setattr__，而__setattr__中会调用self.__lock__.acquire()，因为此时self.__lock__还没有定义, 所以会调用self.__getattr__，而self.__getattr__中也会调用self.__lock__.acquire(), 此后就会一直调用self.__getattr__，最终导致StackOverflow。
+而显示调用object.__setattr__就不会触发Local内部的__setattr__，从而避免上述情况。而且两者的效果是一样的，object.__setattr__的第一个参数是self，也就是这个实例，所以并不用担心是不是在父类定义了一个公共属性。
+类似的还有使用object.__getattribute__的情况，一般也是为了避免无限递归。</p>
+  </div>
+  <footer class="entry-footer"><span title='2019-07-23 00:00:00 +0000 UTC'>July 23, 2019</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Egbert Ke</footer>
+  <a class="entry-link" aria-label="post link to 为什么使用object.__setattr__" href="https://ikebo.cc/post/migrate/part2/%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8object.__setattr__/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>理解werkzeug中的Local对象
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>ThreadLocal是线程级别的local，如果在greenlet或者协程这种微线程环境下，或者在多个请求共用一个线程的情况下，线程级别是不够的。ThreadLocal是thread-safe和thread-specific的, 而有些情况需要greenlet-safe和greenlet-specific或者request-safe和request-specific。
+werkzeug 0.1版中Local的实现是这样的：
+try: from py.magic import greenlet get_current_greenlet = greenlet.getcurrent del greenlet except (RuntimeError, ImportError): get_current_greenlet = lambda: None try: from thread import get_ident as get_current_thread from threading import Lock except ImportError: from dummy_thread import get_ident as get_current_thread from dummy_threading import Lock from werkzeug.utils import ClosingIterator def get_ident(): &#34;&#34;&#34; Return a unique number for the current greenlet in the current thread. &#34;&#34;&#34; return hash((get_current_thread(), get_current_greenlet())) class Local(object): def __init__(self): self....</p>
+  </div>
+  <footer class="entry-footer"><span title='2019-07-18 00:00:00 +0000 UTC'>July 18, 2019</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Egbert Ke</footer>
+  <a class="entry-link" aria-label="post link to 理解werkzeug中的Local对象" href="https://ikebo.cc/post/migrate/part2/%E7%90%86%E8%A7%A3werkzeug%E4%B8%AD%E7%9A%84local%E5%AF%B9%E8%B1%A1/"></a>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2024 <a href="https://ikebo.cc/">Ike&#39;Log</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

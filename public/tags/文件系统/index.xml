@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>文件系统 on Ike&#39;Log</title>
+    <link>https://ikebo.cc/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/</link>
+    <description>Recent content in 文件系统 on Ike&#39;Log</description>
+    <image>
+      <title>Ike&#39;Log</title>
+      <url>https://ikebo.cc/papermod-cover.png</url>
+      <link>https://ikebo.cc/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 18 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://ikebo.cc/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>文件怎么在不同的文件系统间转存</title>
+      <link>https://ikebo.cc/post/migrate/part2/%E6%96%87%E4%BB%B6%E6%80%8E%E4%B9%88%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%9A%84%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E9%97%B4%E8%BD%AC%E5%AD%98/</link>
+      <pubDate>Tue, 18 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/post/migrate/part2/%E6%96%87%E4%BB%B6%E6%80%8E%E4%B9%88%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%9A%84%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E9%97%B4%E8%BD%AC%E5%AD%98/</guid>
+      <description>文件 文件是一堆有特定格式的数据，在硬盘中由一堆特定顺序的磁盘块组成。
+文件系统 文件系统是操作系统用于明确存储设备（常见的是磁盘，也有基于NAND Flash的固态硬盘）或分区上的文件的方法和数据结构；即在存储设备上组织文件的方法。
+同一个文件，文件内容肯定相同，放在不同的文件系统中，不同的是文件内容的存放方式。
+when a file is copied between different filesystem types, the content isn&amp;rsquo;t changed, only the way the file is written to disk.
+举个具体的例子，本机磁盘有两个分区，格式化成不同的文件系统，当把一个文件从其中一个分区拷贝到另一个分区时，完全可以，文件内容一样，不同的是文件在磁盘中的组织方式，而且这种组织方式的不同对用户是透明的，我们只需要关注文件内容和格式本身，不需要关注文件所处的文件系统。</description>
+    </item>
+    
+  </channel>
+</rss>

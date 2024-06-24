@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>await on Ike&#39;Log</title>
+    <link>https://ikebo.cc/tags/await/</link>
+    <description>Recent content in await on Ike&#39;Log</description>
+    <image>
+      <title>Ike&#39;Log</title>
+      <url>https://ikebo.cc/papermod-cover.png</url>
+      <link>https://ikebo.cc/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 09 Jul 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://ikebo.cc/tags/await/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python中的async/await</title>
+      <link>https://ikebo.cc/post/migrate/python%E4%B8%AD%E7%9A%84async%E5%92%8Cawait/</link>
+      <pubDate>Tue, 09 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/post/migrate/python%E4%B8%AD%E7%9A%84async%E5%92%8Cawait/</guid>
+      <description>async/await是实现异步IO的语法糖，是Python3.7新出的关键字。async def可创建协程，而await可用来等待一个可等待对象的执行完成。这大大简化了协程的创建(在Python2中创建协程需要yield和send协同操作)
+下面这个例子很简洁的说明了什么是异步IO1：
+import asyncio async def count(): print(&amp;#34;One&amp;#34;) await asyncio.sleep(1) print(&amp;#34;Two&amp;#34;) async def main(): await asyncio.gather(count(), count(), count()) if __name__ == &amp;#34;__main__&amp;#34;: import time s = time.perf_counter() asyncio.run(main()) elapsed = time.perf_counter() - s print(f&amp;#34;{__file__} executed in {elapsed:0.2f} seconds.&amp;#34;) 运行结果：
+$ python3 countasync.py One One One Two Two Two countasync.py executed in 1.01 seconds. gather会等待所有协程都返回后再返回一个结果列表，as_completed会当协程返回后立即返回：
+&amp;gt;&amp;gt;&amp;gt; import asyncio &amp;gt;&amp;gt;&amp;gt; async def coro(seq) -&amp;gt; list: ... &amp;#34;&amp;#34;&amp;#34;&amp;#39;IO&amp;#39; wait time is proportional to the max element.</description>
+    </item>
+    
+  </channel>
+</rss>

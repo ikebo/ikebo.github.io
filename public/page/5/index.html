@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+	<meta name="generator" content="Hugo 0.104.0" /><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Ike&#39;Log</title>
+
+<meta name="description" content="Egbert Ke&#39;s Blog">
+<meta name="author" content="Egbert Ke">
+<link rel="canonical" href="https://ikebo.cc/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.7140587df96a2b1a49eb723fa7063dc0c641a6cb638f3140e8d3beb4deae4f5c.css" integrity="sha256-cUBYfflqKxpJ63I/pwY9wMZBpstjjzFA6NO&#43;tN6uT1w=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://ikebo.cc/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ikebo.cc/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ikebo.cc/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://ikebo.cc/apple-touch-icon.png">
+<link rel="mask-icon" href="https://ikebo.cc/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="https://ikebo.cc/index.xml">
+<link rel="alternate" type="application/json" href="https://ikebo.cc/index.json">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Ike&#39;Log" />
+<meta property="og:description" content="Egbert Ke&#39;s Blog" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://ikebo.cc/" /><meta property="og:image" content="https://ikebo.cc/papermod-cover.png"/>
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ikebo.cc/papermod-cover.png"/>
+
+<meta name="twitter:title" content="Ike&#39;Log"/>
+<meta name="twitter:description" content="Egbert Ke&#39;s Blog"/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Ike'Log",
+  "url": "https://ikebo.cc/",
+  "description": "Egbert Ke\u0026#39;s Blog",
+  "thumbnailUrl": "https://ikebo.cc/favicon.ico",
+  "sameAs": [
+      "index.xml", "https://github.com/ikebo", "https://blog.csdn.net/k_runtu", "https://ko-fi.com/ikebo"
+  ]
+}
+</script>
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://ikebo.cc/" accesskey="h" title="Ike&#39;Log (Alt + H)">Ike&#39;Log</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://ikebo.cc/" title="Posts">
+                    <span class="active">Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ikebo.cc/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ikebo.cc/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ikebo.cc/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>V8 Ignition：JS 引擎与字节码的不解之缘
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>http://arewefastyet.com 网站测试并展示了数个 JavaScript 引擎的性能数据，是各家 JS 引擎性能的比武场：
+我们看到在这个比武场上，最近 Chrome 出现了多个新条目，其中很多条目都是关于 v8 的 Ignition 新架构的组合，他们是 v8 引擎最近推出的 JS 字节码解释器。
+纵览各个 JS 引擎的实现，我们发现基于字节码的实现是主流。例如苹果公司的 JavaScriptCore （JSC） 引擎，2008 年时他们引入了 SquirrelFish（市场名 Nitro），实现了一个字节码寄存器机（Register Machine）。再如 Mozilla 公司的 SpiderMonkey，他们使用字节码的历史更久，可以追溯到 1998 年的 Netscape 4（见 https://dxr.mozilla.org/classic/source/js/src/jsemit.c ），SpiderMonkey 实现的是堆栈机（Stack Machine）。微软的 Chakra 也使用了字节码，他们实现的是寄存器机（Register Machine）。而 v8 之前的做法是比较“脱俗”的，他们跳过了字节码这一层，直接把 JS 编译成机器码。而在刚刚过去的五一假日前夕，v8 5.9 发布了，其中的 Ignition 字节码解释器将默认启动 ：https://v8project.blogspot.co.id/2017/04/v8-release-59.html 。v8 自此回到了字节码的怀抱。
+这让笔者不禁怀念起 2007 年 Ruby 1.9 的发布。当时 Ruby 1.9 也是第一次引入了字节码，名为 YARV，由笹田耕一领导主导开发完成。当时，Ruby 还在使用松本行弘的初级的解释器实现，亦即，解释器每次遍历代码的抽象语法树（AST）来进行 Ruby 代码的解释执行。而 YARV 则把抽象语法树（AST）先编译成字节码，然后再运行。引入字节码之后，Ruby 的性能得到了显著的提升。
+而这次 V8 引入字节码却是向着相反的方向后退。因为之前 v8 选择了直接将 JS 代码编译到机器代码执行，机器码的执行性能已经非常之高，而这次引入字节码则是选择编译 JS 代码到一个中间态的字节码，执行时是解释执行，性能是低于机器代码的。最终的性能测试势必会降低，而不是提高。那么 V8 为什么要做这样一个退步的选择呢？为 V8 引入字节码的动机又是什么呢？笔者总结下来有三条：...</p>
+  </div>
+  <footer class="entry-footer"><span title='2021-09-08 00:00:00 +0000 UTC'>September 8, 2021</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Egbert Ke</footer>
+  <a class="entry-link" aria-label="post link to V8 Ignition：JS 引擎与字节码的不解之缘" href="https://ikebo.cc/post/migrate/part2/v8-ignitionjs-%E5%BC%95%E6%93%8E%E4%B8%8E%E5%AD%97%E8%8A%82%E7%A0%81%E7%9A%84%E4%B8%8D%E8%A7%A3%E4%B9%8B%E7%BC%98/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>v8与webkit的关系
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Part11 Chrome页面的绘制（绘制，就是把一个HTML文件变成一个活灵活现的页面展示的过程…），只有一半轮子是Chrome自己做的，还有一部分来自于WebKit，这个Apple打造的Web渲染器。。。
+之所以说是一半轮子来源于WebKit，是因为WebKit本身包含两部分主要内容，一部分是做Html渲染的，另一部分是做JavaScript解析的。在Chrome中，只有Html的渲染采用了WebKit的代码，而在JavaScript上，重新搭建了一个NB哄哄的V8引擎。目标是，用WebKit &#43; V8的强强联手，打造一款上网冲浪的法拉利，从效果来看，还着实做的不错。。。
+不过，虽说Chrome和WebKit都是开源的，并联手工作。但是，Chrome还是刻意的和WebKit保持了距离，为其始乱终弃埋下了伏笔。Chrome在WebKit上封装了一层，称为WebKit Glue。Glue层中，大部分类型的结构和接口都和WebKit类似，Chrome中依托WebKit的组件，都只是调用WebKit Glue层的接口，而不是直接调用WebKit中的类型。按照Chrome自己文档中的话来说，就是，虽然我们再用WebKit实现页面的渲染，但通过这个设计（加一个间接层…）已经从某种程度大大降低了与WebKit的耦合，使得可以很容易将WebKit换成某个未来可能出现的更好的渲染引擎。。。
+Part22 我们知道不同浏览器用的不同的渲染引擎：
+Tridend(IE)、Gecko(FF)、WebKit(Safari,Chrome,Andriod浏览器)
+当然 Chrome 重构了一下 WebKit 然后管它叫 Blink。但是大体架构还是和 WebKit 一致的。
+我们看看我们常说的 V8 和 WebKit 有什么关系吧。
+下面是 WebKit 的大致结构：
+实线框内模块是所有移植的共有部分，虚线框内不同的厂商可以自己实现。
+就是说 JS 引擎(JS 虚拟机)，WebKit 是默认的是 JSCore，而 Google 则自己实现了一版吊炸天的 V8。
+因此虽然同样是WebKit，Safari 用的是 JSCore, Chrome 用的是 V8。
+v8与webkit的关系 ↩︎
+webkit vs v8 ↩︎</p>
+  </div>
+  <footer class="entry-footer"><span title='2021-09-08 00:00:00 +0000 UTC'>September 8, 2021</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Egbert Ke</footer>
+  <a class="entry-link" aria-label="post link to v8与webkit的关系" href="https://ikebo.cc/post/migrate/part2/v8%E4%B8%8Ewebkit%E7%9A%84%E5%85%B3%E7%B3%BB/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>我为什么而奋斗<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>今天偶尔看到当时字节的简历筛选截图，一点感想，记录一下
+我没有家庭背景，没有学校背景。
+我所做的只是为了证明，自己并不比那些有学校背景的人差，这件事我从大学入学就开始做，一直到现在，期间虽然有所懈怠，但大方向并没有变。
+这个过程会很累，也比较漫长，但这是我一定要做的事情。
+我需要付出更多的努力，做到一般人做不到的事情。
+途径是什么呢，最主要的就是代码了吧，去开源社区，创造自己的一点影响力。
+别让自己再被别人瞧不起，这是我想做的，也是我一直会坚持的。
+加油吧，这条路，也许会越走越孤独，但这就是你阿。</p>
+  </div>
+  <footer class="entry-footer"><span title='2021-08-29 00:00:00 +0000 UTC'>August 29, 2021</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Egbert Ke</footer>
+  <a class="entry-link" aria-label="post link to 我为什么而奋斗" href="https://ikebo.cc/post/migrate/part2/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E8%80%8C%E5%A5%8B%E6%96%97/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>Ubuntu16.04 编译shadowsocks-libev
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>记录一下
+安装依赖 apt install -y gettext build-essential autoconf pkg-config libtool libpcre3-dev asciidoc xmlto libev-dev libc-ares-dev automake libmbedtls-dev libsodium-dev 下载代码 git clone https://github.com/shadowsocks/shadowsocks-libev.git cd shadowsocks-libev git submodule update --init --recursive //下载子模块 编译 ./autogen.sh ./configure make &amp;&amp; make install </p>
+  </div>
+  <footer class="entry-footer"><span title='2021-08-05 00:00:00 +0000 UTC'>August 5, 2021</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Egbert Ke</footer>
+  <a class="entry-link" aria-label="post link to Ubuntu16.04 编译shadowsocks-libev" href="https://ikebo.cc/post/migrate/part2/ubuntu16.04-%E7%BC%96%E8%AF%91shadowsocks-libev/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>权限系统与RBAC模型概述
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>前言 一年前，我负责的一个项目中需要权限管理。当时凭着自己的逻辑设计出了一套权限管理模型，基本原理与RBAC非常相似，只是过于简陋。当时google了一些权限管理的资料，从中了解到早就有了RBAC这个东西。可惜一直没狠下心来学习。
+更详细的RBAC模型非常复杂。本文只做了一些基础的理论性概述。本文资料完全来自互联网。
+权限系统与RBAC模型概述 RBAC（Role-Based Access Control ）基于角色的访问控制。
+在20世纪90年代期间，大量的专家学者和专门研究单位对RBAC的概念进行了深入研究，先后提出了许多类型的RBAC模型，其中以美国George Mason大学信息安全技术实验室（LIST）提出的RBAC96模型最具有系统性，得到普遍的公认。
+RBAC认为权限的过程可以抽象概括为：判断【Who是否可以对What进行How的访问操作（Operator）】这个逻辑表达式的值是否为True的求解过程。
+即将权限问题转换为Who、What、How的问题。who、what、how构成了访问权限三元组。
+RBAC支持公认的安全原则：最小特权原则、责任分离原则和数据抽象原则。
+最小特权原则得到支持，是因为在RBAC模型中可以通过限制分配给角色权限的多少和大小来实现，分配给与某用户对应的角色的权限只要不超过该用户完成其任务的需要就可以了。 责任分离原则的实现，是因为在RBAC模型中可以通过在完成敏感任务过程中分配两个责任上互相约束的两个角色来实现，例如在清查账目时，只需要设置财务管理员和会计两个角色参加就可以了。 数据抽象是借助于抽象许可权这样的概念实现的，如在账目管理活动中，可以使用信用、借方等抽象许可权，而不是使用操作系统提供的读、写、执行等具体的许可权。但RBAC并不强迫实现这些原则，安全管理员可以允许配置RBAC模型使它不支持这些原则。因此，RBAC支持数据抽象的程度与RBAC模型的实现细节有关。 RBAC96是一个模型族，其中包括RBAC0~RBAC3四个概念性模型。
+基本模型RBAC0定义了完全支持RBAC概念的任何系统的最低需求。
+RBAC1和RBAC2两者都包含RBAC0，但各自都增加了独立的特点，它们被称为高级模型。
+RBAC1中增加了角色分级的概念，一个角色可以从另一个角色继承许可权。
+RBAC2中增加了一些限制，强调在RBAC的不同组件中在配置方面的一些限制。
+RBAC3称为统一模型，它包含了RBAC1和RBAC2，利用传递性，也把RBAC0包括在内。这些模型构成了RBAC96模型族。
+RBAC模型简述
+RBAC0的模型中包括用户（U）、角色（R）和许可权（P）等3类实体集合。
+RABC0权限管理的核心部分，其他的版本都是建立在0的基础上的，看一下类图：
+RBAC0定义了能构成一个RBAC控制系统的最小的元素集合。
+在RBAC之中,包含用户users(USERS)、角色roles(ROLES)、目标objects(OBS)、操作operations(OPS)、许可权permissions(PRMS)五个基本数据元素，此模型指明用户、角色、访问权限和会话之间的关系。
+每个角色至少具备一个权限，每个用户至少扮演一个角色；可以对两个完全不同的角色分配完全相同的访问权限；会话由用户控制，一个用户可以创建会话并激活多个用户角色，从而获取相应的访问权限，用户可以在会话中更改激活角色，并且用户可以主动结束一个会话。
+用户和角色是多对多的关系，表示一个用户在不同的场景下可以拥有不同的角色。
+例如项目经理也可以是项目架构师等；当然了一个角色可以给多个用户，例如一个项目中有多个组长，多个组员等。
+这里需要提出的是，将用户和许可进行分离，是彼此相互独立，使权限的授权认证更加灵活。
+角色和许可（权限）是多对多的关系，表示角色可以拥有多分权利，同一个权利可以授给多个角色都是非常容易理解的，想想现实生活中，当官的级别不同的权限的情景，其实这个模型就是对权限这方面的一个抽象，联系生活理解就非常容易了。
+RBAC1，基于RBAC0模型，引入角色间的继承关系，即角色上有了上下级的区别，角色间的继承关系可分为一般继承关系和受限继承关系。一般继承关系仅要求角色继承关系是一个绝对偏序关系，允许角色间的多继承。而受限继承关系则进一步要求角色继承关系是一个树结构，实现角色间的单继承。
+这种模型合适于角色之间的层次明确，包含明确。
+RBAC2，基于RBAC0模型的基础上，进行了角色的访问控制。
+RBAC2模型中添加了责任分离关系。RBAC2的约束规定了权限被赋予角色时，或角色被赋予用户时，以及当用户在某一时刻激活一个角色时所应遵循的强制性规则。责任分离包括静态责任分离和动态责任分离。约束与用户-角色-权限关系一起决定了RBAC2模型中用户的访问许可，此约束有多种。
+互斥角色 ：同一用户只能分配到一组互斥角色集合中至多一个角色，支持责任分离的原则。互斥角色是指各自权限互相制约的两个角色。对于这类角色一个用户在某一次活动中只能被分配其中的一个角色，不能同时获得两个角色的使用权。常举的例子：在审计活动中，一个角色不能同时被指派给会计角色和审计员角色。 基数约束 ：一个角色被分配的用户数量受限；一个用户可拥有的角色数目受限；同样一个角色对应的访问权限数目也应受限，以控制高级权限在系统中的分配。例如公司的领导人有限的； 先决条件角色 ：可以分配角色给用户仅当该用户已经是另一角色的成员；对应的可以分配访问权限给角色，仅当该角色已经拥有另一种访问权限。指要想获得较高的权限，要首先拥有低一级的权限。就像我们生活中，国家主席是从副主席中选举的一样。 运行时互斥 ：例如，允许一个用户具有两个角色的成员资格，但在运行中不可同时激活这两个角色。 RBAC3，也就是最全面级的权限管理，它是基于RBAC0的基础上，将RBAC1和RBAC2进行整合了，最前面，也最复杂的：
+综上为权限管理模型的相关介绍，其实在任何系统中都会涉及到权限管理的模块，无论复杂简单，我们都可以通过以RBAC模型为基础，进行相关灵活运用来解决我们的问题。
+RBAC的优缺点
+RBAC模型没有提供操作顺序控制机制。这一缺陷使得RBAC模型很难应用关于那些要求有严格操作次序的实体系统。
+例如，在购物控制系统中要求系统对购买步骤的控制，在客户未付款之前不应让他把商品拿走。RBAC模型要求把这种控制机制放到模型
+实用的RBAC模型的数据库建模 以下模型均来自于互联网
+扩展RBAC用户角色权限设计方案 RBAC（Role-Based Access Control，基于角色的访问控制），就是用户通过角色与权限进行关联。简单地说，一个用户拥有若干角色，每一个角色拥有若干权限。这样，就构造成“用户-角色-权限”的授权模型。在这种模型中，用户与角色之间，角色与权限之间，一般者是多对多的关系。（如下图） 角色是什么？可以理解为一定数量的权限的集合，权限的载体。例如：一个论坛系统，“超级管理员”、“版主”都是角色。版主可管理版内的帖子、可管理版内的用户等，这些是权限。要给某个用户授予这些权限，不需要直接将权限授予用户，可将“版主”这个角色赋予该用户。当用户的数量非常大时，要给系统每个用户逐一授权（授角色），是件非常烦琐的事情。这时，就需要给用户分组，每个用户组内有多个用户。除了可给用户授权外，还可以给用户组授权。这样一来，用户拥有的所有权限，就是用户个人拥有的权限与该用户所在用户组拥有的权限之和。（下图为用户组、用户与角色三者的关联关系） 在应用系统中，权限表现成什么？对功能模块的操作，对上传文件的删改，菜单的访问，甚至页面上某个按钮、某个图片的可见性控制，都可属于权限的范畴。有些权限设计，会把功能操作作为一类，而把文件、菜单、页面元素等作为另一类，这样构成“用户-角色-权限-资源”的授权模型。而在做数据表建模时，可把功能操作和资源统一管理，也就是都直接与权限表进行关联，这样可能更具便捷性和易扩展性。（见下图） 请留意权限表中有一列“权限类型”，我们根据它的取值来区分是哪一类权限，如“MENU”表示菜单的访问权限、“OPERATION”表示功能模块的操作权限、“FILE”表示文件的修改权限、“ELEMENT”表示页面元素的可见性控制等。 这样设计的好处有二。其一，不需要区分哪些是权限操作，哪些是资源，（实际上，有时候也不好区分，如菜单，把它理解为资源呢还是功能模块权限呢？）。其二，方便扩展，当系统要对新的东西进行权限控制时，我只需要建立一个新的关联表“权限XX关联表”，并确定这类权限的权限类型字符串。 这里要注意的是，权限表与权限菜单关联表、权限菜单关联表与菜单表都是一对一的关系。（文件、页面权限点、功能操作等同理）。也就是每添加一个菜单，就得同时往这三个表中各插入一条记录。这样，可以不需要权限菜单关联表，让权限表与菜单表直接关联，此时，须在权限表中新增一列用来保存菜单的ID，权限表通过“权限类型”和这个ID来区分是种类型下的哪条记录。 到这里，RBAC权限模型的扩展模型的完整设计图如下： 随着系统的日益庞大，为了方便管理，可引入角色组对角色进行分类管理，跟用户组不同，角色组不参与授权。例如：某电网系统的权限管理模块中，角色就是挂在区局下，而区局在这里可当作角色组，它不参于权限分配。另外，为方便上面各主表自身的管理与查找，可采用树型结构，如菜单树、功能树等，当然这些可不需要参于权限分配。
+百度百科所示的模型 本文参考文献中的一种设计 辨析：角色与用户组有何区别？
+两者的主要差别是：用户组是用户的集合，但不是许可权的集合；而角色却同时具有用户集合和许可权集合的概念，角色的作用把这两个集合联系在一起的中间媒介。
+在一个系统中，如果用户组的许可权和成员仅可以被系统安全员修改的话，在这种机制下，用户组的机制是非常接近于角色的概念的。角色也可以在用户组的基础上实现，这有利于保持原有系统中的控制关系。在这种情况下，角色相当于一个策略部件，与用户组的授权及责任关系相联系，而用户组是实现角色的机制，因此，两者之间是策略与实现机制之间的关系。
+ACL模型 访问控制列表，是前几年盛行的一种权限设计，它的核心在于用户直接和权限挂钩。...</p>
+  </div>
+  <footer class="entry-footer"><span title='2021-07-14 00:00:00 +0000 UTC'>July 14, 2021</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Egbert Ke</footer>
+  <a class="entry-link" aria-label="post link to 权限系统与RBAC模型概述" href="https://ikebo.cc/post/migrate/part2/%E6%9D%83%E9%99%90%E7%B3%BB%E7%BB%9F%E4%B8%8Erbac%E6%A8%A1%E5%9E%8B%E6%A6%82%E8%BF%B0/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="https://ikebo.cc/page/4/">
+      «&nbsp;Prev&nbsp;
+    </a>
+    <a class="next" href="https://ikebo.cc/page/6/">Next&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2024 <a href="https://ikebo.cc/">Ike&#39;Log</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+	<meta name="generator" content="Hugo 0.104.0" /><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Ike&#39;Log</title>
+
+<meta name="description" content="Egbert Ke&#39;s Blog">
+<meta name="author" content="Egbert Ke">
+<link rel="canonical" href="https://ikebo.cc/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.7140587df96a2b1a49eb723fa7063dc0c641a6cb638f3140e8d3beb4deae4f5c.css" integrity="sha256-cUBYfflqKxpJ63I/pwY9wMZBpstjjzFA6NO&#43;tN6uT1w=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://ikebo.cc/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ikebo.cc/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ikebo.cc/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://ikebo.cc/apple-touch-icon.png">
+<link rel="mask-icon" href="https://ikebo.cc/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="https://ikebo.cc/index.xml">
+<link rel="alternate" type="application/json" href="https://ikebo.cc/index.json">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Ike&#39;Log" />
+<meta property="og:description" content="Egbert Ke&#39;s Blog" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://ikebo.cc/" /><meta property="og:image" content="https://ikebo.cc/papermod-cover.png"/>
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ikebo.cc/papermod-cover.png"/>
+
+<meta name="twitter:title" content="Ike&#39;Log"/>
+<meta name="twitter:description" content="Egbert Ke&#39;s Blog"/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Ike'Log",
+  "url": "https://ikebo.cc/",
+  "description": "Egbert Ke\u0026#39;s Blog",
+  "thumbnailUrl": "https://ikebo.cc/favicon.ico",
+  "sameAs": [
+      "index.xml", "https://github.com/ikebo", "https://blog.csdn.net/k_runtu", "https://ko-fi.com/ikebo"
+  ]
+}
+</script>
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://ikebo.cc/" accesskey="h" title="Ike&#39;Log (Alt + H)">Ike&#39;Log</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://ikebo.cc/" title="Posts">
+                    <span class="active">Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ikebo.cc/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ikebo.cc/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ikebo.cc/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>软件制图方法
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>前言 “架构制图”这词乍一听似乎有些晦涩，但如果提起“工程制图”，相信绝大部分工科背景的程序员们都不会陌生，甚至还能共同感慨下那些年一起伏在宿舍左手圆规，右手直尺，徒手作图到深夜的日子。
+软件工程也是工程，因此传统工程制图的一些基本理论，在软件行业同样适用。但另一方面，软件与实体制造业之间还是有着本质区别，所以在制图方面的需求和方式也大相径庭，无法直接套用。作为软件行业的从业者，你可以完全不懂工程制图，但你不得不懂架构制图 —— 这是任何程序员职业生涯的的必修课。
+本文在后半段将介绍如何用图去描述（describe）和传达（communicate）你的架构设计。值得强调的是，本文并不会侧重于单一的方法和工具，而是更希望关注那些优秀方法背后的通用方法论，即架构制图的本质、共性和最佳实践。希望本文能起到引子作用，激发大家对自己日常工作中关于架构和制图部分的关注、审视与思考；如果还真能帮助大家提升一点点制图效率和效果，那就更好不过了。
+什么是软件架构？ 1. 软件架构定义 IEEE 给出的定义：架构是环境中该系统的一组基础概念（concepts）和属性（properties），具体表现就是它的元素（elements）、关系（relationships），以及设计与演进的基本原则（principles）。
+CMU 软件工程研究院的定义：架构是用于推演出该系统的一组结构（structures），具体是由软件元素（elements）、元素之间的关系（relationships），以及各自的**属性（properties）**共同组成。
+Uncle Bob 在 Clean Architecture 一书中给出的定义：架构是创建者给予该系统的形态（shape）。这个形态的具体形式来源于对系统组件（components）的划分和排列，以及这些组件之间互相通讯的方式。
+2. 架构核心要素 综合上述各种权威定义，软件系统的架构通常需要包含如下四类核心要素：
+元素（elements）：将系统拆分为一组元素 - 模块、组件、结构体、子系统； 关系（relationships）：不同元素之间的关系 - 交互、依赖 、继承、组合、聚合； 属性（properties）：每个元素具备的属性 - 名称、职责、接口、实现限制等； 原理（principles）：为什么这么设计 - 拆分依据、设计原则、决策原因等。 为什么架构很重要？ 1. 架构是系统实现的蓝图 最近有部很火的网剧叫《摩天大楼》，讲述了一段匪夷所思的悬疑故事。为什么扯这个呢？因为我想借用这个剧的标题来问个问题：摩天大楼是由谁建起来的？也许你心里会默念：废话，不就是建筑工人们一砖一瓦堆起来的嘛。仔细再想想？背后是不是还有一堆操碎了心的建筑设计师（比如剧中帅气的林大森）和土木工程师们？他们虽然不搬砖也不扛水泥，但如果没有他们产出的那些繁琐严谨的设计图纸，摩天大楼是是不可能像农村自建房一样仅凭工人们各自的经验与想象力就能快速平稳地竖立起来的。
+正是靠着这些图纸所描绘出来的工程蓝图（blueprints），才让成百上千工人们的分工合作和验收标准有了依据：大家只需要照着蓝图，按部就班地把自己所负责的那些砖瓦添上去就行了；只要蓝图正确，且施工过程也没有偏差，最终顺利完工只是个时间问题。
+与建筑、汽车或者任何其他工程行业一样，软件在落地实现（编码）之前也需要先有蓝图；而其中最重要的一份蓝图，就是架构设计。没有架构，仅凭程序员自己脑子里的模糊设想，也许你可以像传统手艺人一样独自创造出一些美好有用的小东西（比如 Linux 0.01 版本），但不太可能以工程的方式协同一个团队共同建造起一个与摩天大楼规模类似的复杂软件系统（比如现代的 Linux 系统）。一方面，人类的思维能力终归有限，必须依靠架构这种高度抽象和简化的蓝图，才能让复杂系统的创造、理解、分析和治理变得可行；另一方面，量级达到一定程度的大型系统，也只能依靠多人分工合作才能完成，而架构也正是多人沟通协作的重要基础。
+2. 架构是沟通协作的基础 软件项目的最终价值产出就是软件系统，而架构作为软件系统的灵魂和骨架，可以起到如下作用：
+理解对齐：所有软件系统的目的都是为了实现用户需求，但实现的途径有无限种可能性（相比传统工程行业，软件的灵活性更大、知识迭代更快）。架构设计就是去选择其中一条最合适的实现途径，因此其中会涉及非常多关键的选路决策（为什么要这么拆分？为什么选择 A 技术而不是 B？）。这些重要的技术决策需要通过架构描述这种形式被记录和同步，才能让项目组所有成员对整个系统的理解对齐，形成共识。 工作量化：项目管理最重要的步骤之一就是工时评估，它是确定项目排期和里程碑的直接依据。显然，只通过 PRD / 交互图是无法科学量化出项目工作量的，因为很难直观判断出一句简短需求或一个简单页面背后，究竟要写多少代码、实现起来难度有多大。有了清晰明确的架构之后，理论上绝大部分开发工作都能做到可见、可预测和可拆解，自然而然也就能够被更准确地量化。当然，精准的工作量评估在 IT 行业内也一直是个未解之谜，实际的工期会受太多未知因素影响，包括程序员的技能熟练度、心情好不好、有没有吃饱等。 标准术语：编程作为一种具有创造力的工作，从某种角度看跟写科幻小说是类似的。好的科幻小说都喜欢造概念，比如三体中的智子，如果没看过小说肯定不知道这是个啥玩意儿。软件系统在造概念这一点上，相比科幻小说只有过之而无不及，毕竟小说里的世界通常还是以现实为背景，而软件中的世界就全凭造物者（程序员）的想象（建模）了。稍微复杂一点的软件系统，都会引入一些领域特定甚至全新创作的概念。为了避免在项目过程中出现鸡同鸭讲的沟通障碍和理解歧义，就必须对描述这些概念的术语进行统一。而架构的一个重要目的，就是定义和解释清楚系统中涉及的所有关键概念，并在整个架构设计和描述过程中使用标准和一致的术语，真正做到让大家的沟通都在一个频道上。 言之有物：就跟讨论产品交互时需要对着原型图、讨论代码细节时需要直接看代码一样，架构是在讨论一些较高维技术问题时的必要实物（具体的实物化形式就是所谓架构描述）。否则，要么一堆人对着空气谈（纸上谈兵都说不上），要么每次沟通时都重新找块白板画一画（费时费力且容易遗落信息，显然不是长久之计）。 知识沉淀 &amp; 新人培训：架构应该被作为与代码同等重要的文档资产持续沉淀和维护，同时也是项目新人快速理解和上手系统的重要依据。不要让你的系统跟公司内某些祖传遗留系统一样 —— 只有代码遗留了下来，架构文档却没有；只能靠一些口口相传的残留设计记忆，苦苦维系着项目的生命延续。 3. 架构决定了产品质量 如何衡量一个软件产品的质量？上图是 ISO/IEC 25010 标准定义的软件产品质量模型，包括以下 8 个大类：...</p>
+  </div>
+  <footer class="entry-footer"><span title='2021-05-17 00:00:00 +0000 UTC'>May 17, 2021</span>&nbsp;·&nbsp;3 min&nbsp;·&nbsp;Egbert Ke</footer>
+  <a class="entry-link" aria-label="post link to 软件制图方法" href="https://ikebo.cc/post/migrate/part2/%E8%BD%AF%E4%BB%B6%E5%88%B6%E5%9B%BE%E6%96%B9%E6%B3%95/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>goroutine 记录
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>作者回复: 所以说不要用“协程”这个概念，因为“协程（coroutine）”指的是程序在同一个线程内的自行调度，是应用程序本身完全可控的。而 goroutine 的调度是 Go 语言的运行时系统发起的。
+你不要揣测 Go 语言的调度器会怎样调度。你首先要知道哪些代码点是调度的时机（注意，到了调度时机也不一定发生调度，只是时机而已）。你还要知道如果想让多个 goroutine 按照你拟定的流程执行就需要用到 Channel 以及各种同步工具。
+你说的“跳转到”只能在 coroutine 场景下才能这么说。在 goroutine 的场景下，没有“跳转”这么一说。
+其一，你在上面的 for 语句中启用了一个 goroutine，你怎么就能断定后面的代码一定会先于这个 go 函数执行？不要做这种假设。因为连 goroutine 的调度都是并发的。
+其二，两个 goroutine 一个 channel，一个 goroutine 发，一个 goroutine 取。这个 ch1 什么时候满、什么时候空，你基本上是确定不了的。因为两个 for 循环 在迭代的过程中都可能因被调用而换下 CPU。
+其三，你要知道，几乎任何函数调用都存在调度时机，更何况是像 fmt.Println 这种需要 I/O 的重型操作。所以，为什么你那前一个 for 循环结束之后就不能被调度了呢？
+以上是我通过你的文字表达猜测并回答的，并不一定完全匹配你要问的问题。还有问题的话再问我。
+我觉得你对“并发”和“调度”这两个概念不清楚。我建议你好好看看专栏里讲 goroutine 的那几篇文章。有必要的话，买我的《Go 并发编程实战》第二版从头学一下。
+研究下各种协程的实现，以及goroutine的实现</p>
+  </div>
+  <footer class="entry-footer"><span title='2021-05-06 00:00:00 +0000 UTC'>May 6, 2021</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Egbert Ke</footer>
+  <a class="entry-link" aria-label="post link to goroutine 记录" href="https://ikebo.cc/post/migrate/part2/goroutine-%E8%AE%B0%E5%BD%95/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>大厂晋升指南-职级详解
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>所有职级，能力可以分为3个维度，4个复杂度（COMD模型）
+P5 在别人的知道下做事，主要在技术和业务上，技术80% 业务20%
+P5 的核心能力要求是在别人的指导下完成任务，主要提升目标是从学生转变为“打工人”。
+技术方面，P5 需要打好基础，学习岗位要求的基础技术。采用“碎片化时间，系统化学习”的方法提高你的技术学习效率。
+业务方面，P5 需要熟悉各项业务功能的实现逻辑。对于 2C 业务，你要成为产品的深度用户；对于 2B 业务，你就要多跟客户交流。
+管理方面，P5 的重点是熟悉项目流程，避免踩坑。你需要注意学习公司的管理制度。
+P6 独挡一面
+P6 的核心能力要求是独立负责端到端的项目任务，主要提升目标是成为独立自主的“项目能手”。
+技术方面，P6 需要掌握团队用到的各种技术的“套路”，重点提升技术深度，学习时要避免贪多求全的心态，优先深入学习跟工作内容强相关的技术。
+业务方面，P6 需要掌握某类业务相关的所有功能，并深度理解处理逻辑，主要的提升方法是“5W1H8C1D”分析法和竞品分析。
+管理方面，P6 需要负责项目子任务推进，包括工作量评估、计划制定和沟通协调等。评估工作量的时候，建议使用 WBS 分解法，先拆解成容易评估的小任务，然后独立评估每项任务，最后汇总。
+P7 P7 的核心能力要求是指挥单个团队达成目标，主要提升目标是成为让人信服的团队专家。
+技术维度上，P7 需要精通团队相关的技术，重点提升技术宽度，主要提升方法是“比较学习法”。在这个阶段，你既要避免因为管理而丢掉技术，也要避免“生搬硬套”新技术。
+业务维度上，P7 需要掌握业务整体情况，从用户特征、用户价值、获客方式和获利方式 4 个方面理解业务 6～12 个月的规划。对于 2C 业务，AARRR 漏斗模型是必须掌握的；对于 2B 业务，还应该了解行业强相关的手段和措施。
+管理维度上，P7 需要负责指挥单个团队。对于担任 Team Leader 的 P7 来说，需要系统化地掌握管理的基本技能，避免事必躬亲或者做甩手掌柜；对于不是 Team Leader 的 P7 来说，要学会做一个靠谱的项目负责人。
+P8 P8 的核心能力要求是指挥多个团队达成目标，主要提升目标是成为有影响力的领域专家。
+技术维度上，P8 需要精通领域相关的技术，重点提升领域技术宽度，可以通过研究开源项目和参加技术大会来拓宽自己的技术宽度，也可以在技术大会上做主题演讲来提升自己的影响力。
+业务维度上，P8 需要熟悉多个业务，并且开始需要掌握战略规划相关的技能，以帮助自己理解业务整体规划，可以采取“宝洁战略模型”的方法快速提升自己的业务理解力。
+管理维度上，P8 需要负责指挥多个团队，提升自己管理技能的核心是学会抓住三个管理重点：搭建团队梯队，参与目标制定，关注技术演进。
+P9 P9 的核心能力要求是导演成熟作品，主要提升目标是成为跨领域整合的业务导演。
+技术维度上，P9 需要具备跨领域整合的能力，重点提升领域技术广度，可以通过环式学习法来提升自己的技术广度，通过关注和跟进新技术来提升自己的创新能力。...</p>
+  </div>
+  <footer class="entry-footer"><span title='2021-05-04 00:00:00 +0000 UTC'>May 4, 2021</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Egbert Ke</footer>
+  <a class="entry-link" aria-label="post link to 大厂晋升指南-职级详解" href="https://ikebo.cc/post/migrate/part2/%E5%A4%A7%E5%8E%82%E6%99%8B%E5%8D%87%E6%8C%87%E5%8D%97-%E8%81%8C%E7%BA%A7%E8%AF%A6%E8%A7%A3/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>来自极客时间的评论：认知天性：让学习变得轻而易举的心理学规律
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>这本书介绍了各种高效学习的方法，其中有几种方法，比较颠覆认知，书中认为学习时，应该有间隔的进行，而非集中式的重复进行，这样带来的好处是：能带来更长久的记忆，也就是长期记忆，而集中式练习则是短期记忆。花十分钟记忆十个单词所留存的记忆，不如分两次五分钟记忆十个单词所留存的记忆来得深刻。理由是：长期记忆的形成，需要有个巩固的过程，可能是数小时，可能是数天，在这期间，记忆痕迹得到加深，所学的新知识与旧知识建立连接，带来稳固的长期记忆，因此不要频繁的进行集中式学习，而是有间隔的进行，频繁的集中练习只会带来短期记忆，有间隔的学习所耗费的精力远大于频繁的重复式学习，使用这种方式，学习起来也更加困难，但也不容易遗忘。理论上来说，遗忘的越多，重新回忆起来的难度越大，但所保持的效果越持久，不过，还是不要等到所学知识遗忘的差不多了后再去重新学习，那样的话，你基本回忆不起来，只能重新从头开始，得不偿失，等到所学知识有点儿遗忘再去学会比较好。
+拿学习专栏来说，不要反复地去学习同一章节，而是有间隔地进行，这会带来长期记忆，在学完一章内容后，不要立刻练习所学内容，而是应该等遗忘一些后进行，效果要好于学完一章节后立刻进行练习的方式，学完后不容易忘，在学完后立刻进行练习，学完后容易忘。书中建议：学习知识或技能时，通过自我检测的方式，代替重复学习，并且有间隔地进行自测，就拿学习算法来说，不要一遍接一遍地重复去学，而应该在学习完某一算法后，通过自测的方式来逼迫自己的大脑去检索所学，拒绝机械式的重复重复再重复，这样所学的知识会更加稳固，留存的记忆更持久，书中还提到：自我检测后的延迟反馈会进一步加强学习效果，也就是在进行自测后，不要立马查看答案，而是应该间隔一段时间再查看。
+在练习所学时，有顺序的练习比无顺序的练习效果差，且这期间，穿插不同类容类型的学习方式，所产生的效果，要比在熟练某一知识后，再进入下一学习内容的练习效果要好，不仅能保持长久的记忆，使所学知识不易遗忘，还能提高学习者的辨识能力，也就是在面对各种复杂问题时，能正确识别问题类型，根据所学知识，从脑海中搜寻出对应问题的解决方案。回想一下我们上学时的课本内容安排，都是有顺序地，由浅入深地进行，而我们在学习时，就是通过不断练习同一知识点直至完全掌握后，依次有顺序地进入下一知识点的学习，直到课程学完。这种通过大量练习同一类型的题目的方式，使我们在考试遇到时，能得心应手地解决，但面对综合题时，这些问题都被混合在了一起，且没有顺序，我们难以辨别题目真正要考察什么问题，无法辨别问题的类型，从而无法正确地运用所学知识解决问题。拿到生活上来说，你遇到的问题也是没有顺序，且都是混合在一起的，你难以辨别各个问题之间的差异，不清楚要解决的问题到底是什么，从而无法选取合适的解决方案解决问题。
+面对这种现状，前面提到的穿插不同内容类型的学习方式能帮到你。简单来说，就是在当前学习内容掌握的还不熟练的情况下，跳入下一阶段的学习，这种方式比在当前学习内容练习熟练后，再顺序进入下一阶段的学习方式，效果要好。例如，你在学完数组，哈希表，树，堆等数据结构后，在练习时，要在数组还未掌握熟练时，就进入树的练习，而不是等到完全掌握熟练一项内容才进入下一阶段的练习，你不能每学一样知识，待熟练后才进入下一阶段，应该以随机非顺序的方式进行，这种非顺序的穿插不同类型的学习方式能促进知识的活学活用。
+这种学习方式如果转换到专栏学习的话，相当于在一个章节内容还未熟练的情况下就要进入下一章节的学习，比如，在学习完专栏章节1，2，3后，从章节2开始练习，待初步掌握，还未熟练时，进入章节1的练习，然后在未熟练时又进入章节2的学习，这种在练习期间，穿插各种不同学习内容的方式，比大量练习同一主题内容完全熟练后，再进入别的主题学习，效果要好得多，书中说的是远好于。
+这样看来，这种学习方式还是很适合学习难度高的专业知识的，它能使所学知识停留在长期记忆，并能促进知识的活学活用，你一定不想体会辛辛苦苦好不容易学完算法后，在下一次要用到时想不起来的尴尬境地，或者在遇到综合各种算法问题时，束手无措的苦苦挣扎，而以上的学习方式或许能帮到你。
+总结：
+间隔进行，更容易形成长期记忆 不能每学一样知识，待熟练后才进入下一阶段，应该以随机费顺序的方式进行。 有点道理阿。</p>
+  </div>
+  <footer class="entry-footer"><span title='2021-05-04 00:00:00 +0000 UTC'>May 4, 2021</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Egbert Ke</footer>
+  <a class="entry-link" aria-label="post link to 来自极客时间的评论：认知天性：让学习变得轻而易举的心理学规律" href="https://ikebo.cc/post/migrate/part2/%E6%9D%A5%E8%87%AA%E6%9E%81%E5%AE%A2%E6%97%B6%E9%97%B4%E7%9A%84%E8%AF%84%E8%AE%BA%E8%AE%A4%E7%9F%A5%E5%A4%A9%E6%80%A7%E8%AE%A9%E5%AD%A6%E4%B9%A0%E5%8F%98%E5%BE%97%E8%BD%BB%E8%80%8C%E6%98%93%E4%B8%BE%E7%9A%84%E5%BF%83%E7%90%86%E5%AD%A6%E8%A7%84%E5%BE%8B/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>了解微型创业
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>最近听了一场知乎live，讲的是微型创业，在此记录一下。
+理解小众市场 微型创业首先是小，面向的是小众市场，一两个人就可以搞定。小的特点，就是成本低，灵活，针对性强，能解决特定问题。 如何发现/选择小众市场 发现需求而不是创造需求，发现需求就成功了一半
+1.画个圈圈型
+从自身爱好出发，有一双善于发现的眼睛，加上别有用心一点。
+2.望远镜型
+善于利用工具，利用微信指数了解热点，市场的变化。谷歌趋势，百度指数。
+利用谷歌关键词发现市场，用谷歌搜索Instagram 发现关键词 Instagram download pictures， 继续谷歌，点开排名第一的网站，输入图片链接地址就可以下载下来。盈利方式就是谷歌的ad scene广告系统，每年人民币20w. 网上的资源和开源的工具都很多，如果你足够机智，肯定能用好网上的工具。
+3.犀牛鸟型
+共生关系，国际国内大象级app很多，微信、Facebook，YouTube，有人做微信机器人的额产品收入非常可观，通过机器人管理微信群消息。github搜索wxbot，找到相关代码资源。比如YouTube的视频转gif动图链接，每个月700万流量，7000美元一个月，YouTube mp3.org 输入视频提取音频，技术难度没有，月流量2.7亿，270万美元。这种做大象周边小众市场的例子还有很多，只要你多琢磨琢磨，一刀切进去肯定是有肉吃的。
+4.总在河边走型
+想做某个市场但是不懂，先勇敢地跳进去，然后再深入。比如跨境电商，赚差价。比如区块链，很多小白不懂区块链，但是需求很大，如果深入研究把东西教给大家。
+验证需求 MVP 简单落地页 广告投放
+重点：市场比你的产品要重要的多，一个没有市场的软件应用仅仅是个产品而已，大部分开发人员都是有个点子，花了几个月把产品做出来，结果发现没有人购买。这样的产品，即使花再大的力气也没什么卵用，产品成功的最重要因素，不是人，不是市场的运营也不是产品，而是 是否有一群人愿意付费购买。所以在确定不是伪需求之前一定要上个线，走两步，验证需求的第一步，mvp，就是最小化可行性产品，开发产品时最好先做一个原型。通过测试收集用户的反馈，快速迭代，最终适应市场的需求。做个独立页面，是否有用户原因购买，不需要开发完成。
+营销和流量 建立跟踪，底层最重要的是数据，前提是建立好数据的跟踪。
+最初的推广 Reddit Product Hunt v2ex
+一定要和用户建立联系 浏览页面时弹出层，留下优享，数据证明非常有效
+SEO 一定要优化，兵家必争之地，SEO做好会产生长期价值，时间长了会发现，每天的稳定流量大部分来自SEO，对于程序员没什么难度，认真做好每个细节就好。</p>
+  </div>
+  <footer class="entry-footer"><span title='2021-04-30 00:00:00 +0000 UTC'>April 30, 2021</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Egbert Ke</footer>
+  <a class="entry-link" aria-label="post link to 了解微型创业" href="https://ikebo.cc/post/migrate/part2/%E4%BA%86%E8%A7%A3%E5%BE%AE%E5%9E%8B%E5%88%9B%E4%B8%9A/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="https://ikebo.cc/page/6/">
+      «&nbsp;Prev&nbsp;
+    </a>
+    <a class="next" href="https://ikebo.cc/page/8/">Next&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2024 <a href="https://ikebo.cc/">Ike&#39;Log</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

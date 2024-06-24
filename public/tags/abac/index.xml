@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>ABAC on Ike&#39;Log</title>
+    <link>https://ikebo.cc/tags/abac/</link>
+    <description>Recent content in ABAC on Ike&#39;Log</description>
+    <image>
+      <title>Ike&#39;Log</title>
+      <url>https://ikebo.cc/papermod-cover.png</url>
+      <link>https://ikebo.cc/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 14 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://ikebo.cc/tags/abac/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>权限系统设计模型分析（DAC，MAC，RBAC，ABAC）</title>
+      <link>https://ikebo.cc/post/migrate/part2/%E6%9D%83%E9%99%90%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%9E%8B%E5%88%86%E6%9E%90dacmacrbacabac/</link>
+      <pubDate>Wed, 14 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/post/migrate/part2/%E6%9D%83%E9%99%90%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%9E%8B%E5%88%86%E6%9E%90dacmacrbacabac/</guid>
+      <description>术语 这里对后面会用到的词汇做一个说明，老司机请直接翻到常见设计模式。
+用户 发起操作的主体。
+对象（Subject） 指操作所针对的客体对象，比如订单数据或图片文件。
+权限控制表 (ACL: Access Control List) 用来描述权限规则或用户和权限之间关系的数据表。
+权限 (Permission) 用来指代对某种对象的某一种操作，例如“添加文章的操作”。
+权限标识 权限的代号，例如用“ARTICLE_ADD”来指代“添加文章的操作”权限。
+常见设计模式 自主访问控制（DAC: Discretionary Access Control） 系统会识别用户，然后根据被操作对象（Subject）的权限控制列表（ACL: Access Control List）或者权限控制矩阵（ACL: Access Control Matrix）的信息来决定用户的是否能对其进行哪些操作，例如读取或修改。
+而拥有对象权限的用户，又可以将该对象的权限分配给其他用户，所以称之为“自主（Discretionary）”控制。
+这种设计最常见的应用就是文件系统的权限设计，如微软的NTFS。
+DAC最大缺陷就是对权限控制比较分散，不便于管理，比如无法简单地将一组文件设置统一的权限开放给指定的一群用户。
+Windows的文件权限
+强制访问控制（MAC: Mandatory Access Control） MAC是为了弥补DAC权限控制过于分散的问题而诞生的。在MAC的设计中，每一个对象都都有一些权限标识，每个用户同样也会有一些权限标识，而用户能否对该对象进行操作取决于双方的权限标识的关系，这个限制判断通常是由系统硬性限制的。比如在影视作品中我们经常能看到特工在查询机密文件时，屏幕提示需要“无法访问，需要一级安全许可”，这个例子中，文件上就有“一级安全许可”的权限标识，而用户并不具有。
+MAC非常适合机密机构或者其他等级观念强烈的行业，但对于类似商业服务系统，则因为不够灵活而不能适用。
+RedHat MLS
+Red Hat: MLS
+基于角色的访问控制（RBAC: Role-Based Access Control) 因为DAC和MAC的诸多限制，于是诞生了RBAC，并且成为了迄今为止最为普及的权限设计模型。
+RBAC在用户和权限之间引入了“角色（Role）”的概念（暂时忽略Session这个概念）：
+RBAC核心设计
+图片来自Apache Directory
+如图所示，每个用户关联一个或多个角色，每个角色关联一个或多个权限，从而可以实现了非常灵活的权限管理。角色可以根据实际业务需求灵活创建，这样就省去了每新增一个用户就要关联一遍所有权限的麻烦。简单来说RBAC就是：用户关联角色，角色关联权限。另外，RBAC是可以模拟出DAC和MAC的效果的。
+例如数据库软件MongoDB便是采用RBAC模型，对数据库的操作都划分成了权限（MongoDB权限文档）：
+权限标识 说明 find 具有此权限的用户可以运行所有和查询有关的命令，如：aggregate、checkShardingIndex、count等。 insert 具有此权限的用户可以运行所有和新建数据有关的命令：insert和create等。 collStats 具有此权限的用户可以对指定database或collection执行collStats命令。 viewRole 具有此权限的用户可以查看指定database的角色信息。 … 基于这些权限，MongoDB提供了一些预定义的角色（MongoDB预定义角色文档，用户也可以自己定义角色）：
+角色 find insert collStats viewRole … read ✔ ✔ … readWrite ✔ ✔ ✔ … dbAdmin ✔ ✔ … userAdmin ✔ … 最后授予用户不同的角色，就可以实现不同粒度的权限分配了。</description>
+    </item>
+    
+  </channel>
+</rss>

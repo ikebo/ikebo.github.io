@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>docker compose | Ike&#39;Log</title>
+<meta name="keywords" content="">
+<meta name="description" content="Egbert Ke&#39;s Blog">
+<meta name="author" content="Egbert Ke">
+<link rel="canonical" href="https://ikebo.cc/tags/docker-compose/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.7140587df96a2b1a49eb723fa7063dc0c641a6cb638f3140e8d3beb4deae4f5c.css" integrity="sha256-cUBYfflqKxpJ63I/pwY9wMZBpstjjzFA6NO&#43;tN6uT1w=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://ikebo.cc/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ikebo.cc/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ikebo.cc/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://ikebo.cc/apple-touch-icon.png">
+<link rel="mask-icon" href="https://ikebo.cc/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="https://ikebo.cc/tags/docker-compose/index.xml">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="docker compose" />
+<meta property="og:description" content="Egbert Ke&#39;s Blog" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://ikebo.cc/tags/docker-compose/" /><meta property="og:image" content="https://ikebo.cc/papermod-cover.png"/>
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ikebo.cc/papermod-cover.png"/>
+
+<meta name="twitter:title" content="docker compose"/>
+<meta name="twitter:description" content="Egbert Ke&#39;s Blog"/>
+
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://ikebo.cc/" accesskey="h" title="Ike&#39;Log (Alt + H)">Ike&#39;Log</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://ikebo.cc/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ikebo.cc/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ikebo.cc/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ikebo.cc/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header"><div class="breadcrumbs"><a href="https://ikebo.cc/">Home</a>&nbsp;»&nbsp;<a href="https://ikebo.cc/tags/">Tags</a></div>
+  <h1>
+    docker compose
+    <a href="/tags/docker-compose/index.xml" title="RSS" aria-label="RSS">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" height="23">
+        <path d="M4 11a9 9 0 0 1 9 9" />
+        <path d="M4 4a16 16 0 0 1 16 16" />
+        <circle cx="5" cy="19" r="1" />
+      </svg>
+    </a>
+  </h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2>Nginx Proxy Manager 单机多Docker Compose 反向代理配置
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>问题描述 单机下部署多个docker-compose, 并用nginx proxy manager 反代其他docker compose的流量，出现连不上其他docker compose 下的container的问题
+尝试过的解决方式 1、地址用docker0的地址，端口用其他container暴露出来的端口，不行 2、换机器，不行 3、换docker、docker-compose 版本，不行
+最终的解决方式 手动将多个docker compose加入到同一个docker network.
+具体参考: 1、https://nginxproxymanager.com/advanced-config 2、https://stackoverflow.com/questions/38088279/communication-between-multiple-docker-compose-projects 3、https://github.com/NginxProxyManager/nginx-proxy-manager/issues/555
+05.20 更新 最终还是要解决容器内无法访问宿主机IP的问题，非常诡异： 1、容器内可以ping通其他容器的hostname, 端口也是通的 2、容器内可以ping通宿主机ip (eth0) 3、但是容器无法连上宿主机的端口 4、公网可以正常访问宿主机的服务(端口是通的)
+排查一圈发现是防火墙的原因，Ubuntu 22.04 TLS, 记得要把防火墙关了！(ufw disable)
+艹！
+参考过的几个有用文章： 1、https://juejin.cn/post/7180619106407120933 2、https://gist.github.com/bruno-brant/e119da3713a657036ff7e3446d98176a
+一般软件打的镜像都比较轻量，用的alpine版的linux比较多，进容器后用apk update &amp;&amp; apk add… 装一些常用软件，方便排查问题。</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-05-21 19:17:55 +0800 CST'>May 21, 2024</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Egbert Ke</footer>
+  <a class="entry-link" aria-label="post link to Nginx Proxy Manager 单机多Docker Compose 反向代理配置" href="https://ikebo.cc/post/2024/05/nginx-proxy-manager-%E5%8D%95%E6%9C%BA%E5%A4%9Adocker-compose-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/"></a>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2024 <a href="https://ikebo.cc/">Ike&#39;Log</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

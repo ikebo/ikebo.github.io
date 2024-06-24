@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>v8引擎 on Ike&#39;Log</title>
+    <link>https://ikebo.cc/tags/v8%E5%BC%95%E6%93%8E/</link>
+    <description>Recent content in v8引擎 on Ike&#39;Log</description>
+    <image>
+      <title>Ike&#39;Log</title>
+      <url>https://ikebo.cc/papermod-cover.png</url>
+      <link>https://ikebo.cc/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 08 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://ikebo.cc/tags/v8%E5%BC%95%E6%93%8E/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>V8 Ignition：JS 引擎与字节码的不解之缘</title>
+      <link>https://ikebo.cc/post/migrate/part2/v8-ignitionjs-%E5%BC%95%E6%93%8E%E4%B8%8E%E5%AD%97%E8%8A%82%E7%A0%81%E7%9A%84%E4%B8%8D%E8%A7%A3%E4%B9%8B%E7%BC%98/</link>
+      <pubDate>Wed, 08 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/post/migrate/part2/v8-ignitionjs-%E5%BC%95%E6%93%8E%E4%B8%8E%E5%AD%97%E8%8A%82%E7%A0%81%E7%9A%84%E4%B8%8D%E8%A7%A3%E4%B9%8B%E7%BC%98/</guid>
+      <description>http://arewefastyet.com 网站测试并展示了数个 JavaScript 引擎的性能数据，是各家 JS 引擎性能的比武场：
+我们看到在这个比武场上，最近 Chrome 出现了多个新条目，其中很多条目都是关于 v8 的 Ignition 新架构的组合，他们是 v8 引擎最近推出的 JS 字节码解释器。
+纵览各个 JS 引擎的实现，我们发现基于字节码的实现是主流。例如苹果公司的 JavaScriptCore （JSC） 引擎，2008 年时他们引入了 SquirrelFish（市场名 Nitro），实现了一个字节码寄存器机（Register Machine）。再如 Mozilla 公司的 SpiderMonkey，他们使用字节码的历史更久，可以追溯到 1998 年的 Netscape 4（见 https://dxr.mozilla.org/classic/source/js/src/jsemit.c ），SpiderMonkey 实现的是堆栈机（Stack Machine）。微软的 Chakra 也使用了字节码，他们实现的是寄存器机（Register Machine）。而 v8 之前的做法是比较“脱俗”的，他们跳过了字节码这一层，直接把 JS 编译成机器码。而在刚刚过去的五一假日前夕，v8 5.9 发布了，其中的 Ignition 字节码解释器将默认启动 ：https://v8project.blogspot.co.id/2017/04/v8-release-59.html 。v8 自此回到了字节码的怀抱。
+这让笔者不禁怀念起 2007 年 Ruby 1.9 的发布。当时 Ruby 1.9 也是第一次引入了字节码，名为 YARV，由笹田耕一领导主导开发完成。当时，Ruby 还在使用松本行弘的初级的解释器实现，亦即，解释器每次遍历代码的抽象语法树（AST）来进行 Ruby 代码的解释执行。而 YARV 则把抽象语法树（AST）先编译成字节码，然后再运行。引入字节码之后，Ruby 的性能得到了显著的提升。
+而这次 V8 引入字节码却是向着相反的方向后退。因为之前 v8 选择了直接将 JS 代码编译到机器代码执行，机器码的执行性能已经非常之高，而这次引入字节码则是选择编译 JS 代码到一个中间态的字节码，执行时是解释执行，性能是低于机器代码的。最终的性能测试势必会降低，而不是提高。那么 V8 为什么要做这样一个退步的选择呢？为 V8 引入字节码的动机又是什么呢？笔者总结下来有三条：</description>
+    </item>
+    
+    <item>
+      <title>v8与webkit的关系</title>
+      <link>https://ikebo.cc/post/migrate/part2/v8%E4%B8%8Ewebkit%E7%9A%84%E5%85%B3%E7%B3%BB/</link>
+      <pubDate>Wed, 08 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/post/migrate/part2/v8%E4%B8%8Ewebkit%E7%9A%84%E5%85%B3%E7%B3%BB/</guid>
+      <description>Part11 Chrome页面的绘制（绘制，就是把一个HTML文件变成一个活灵活现的页面展示的过程&amp;hellip;），只有一半轮子是Chrome自己做的，还有一部分来自于WebKit，这个Apple打造的Web渲染器。。。
+之所以说是一半轮子来源于WebKit，是因为WebKit本身包含两部分主要内容，一部分是做Html渲染的，另一部分是做JavaScript解析的。在Chrome中，只有Html的渲染采用了WebKit的代码，而在JavaScript上，重新搭建了一个NB哄哄的V8引擎。目标是，用WebKit + V8的强强联手，打造一款上网冲浪的法拉利，从效果来看，还着实做的不错。。。
+不过，虽说Chrome和WebKit都是开源的，并联手工作。但是，Chrome还是刻意的和WebKit保持了距离，为其始乱终弃埋下了伏笔。Chrome在WebKit上封装了一层，称为WebKit Glue。Glue层中，大部分类型的结构和接口都和WebKit类似，Chrome中依托WebKit的组件，都只是调用WebKit Glue层的接口，而不是直接调用WebKit中的类型。按照Chrome自己文档中的话来说，就是，虽然我们再用WebKit实现页面的渲染，但通过这个设计（加一个间接层&amp;hellip;）已经从某种程度大大降低了与WebKit的耦合，使得可以很容易将WebKit换成某个未来可能出现的更好的渲染引擎。。。
+Part22 我们知道不同浏览器用的不同的渲染引擎：
+Tridend(IE)、Gecko(FF)、WebKit(Safari,Chrome,Andriod浏览器)
+当然 Chrome 重构了一下 WebKit 然后管它叫 Blink。但是大体架构还是和 WebKit 一致的。
+我们看看我们常说的 V8 和 WebKit 有什么关系吧。
+下面是 WebKit 的大致结构：
+实线框内模块是所有移植的共有部分，虚线框内不同的厂商可以自己实现。
+就是说 JS 引擎(JS 虚拟机)，WebKit 是默认的是 JSCore，而 Google 则自己实现了一版吊炸天的 V8。
+因此虽然同样是WebKit，Safari 用的是 JSCore, Chrome 用的是 V8。
+v8与webkit的关系&amp;#160;&amp;#x21a9;&amp;#xfe0e;
+webkit vs v8&amp;#160;&amp;#x21a9;&amp;#xfe0e;</description>
+    </item>
+    
+  </channel>
+</rss>

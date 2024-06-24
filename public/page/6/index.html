@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head>
+	<meta name="generator" content="Hugo 0.104.0" /><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Ike&#39;Log</title>
+
+<meta name="description" content="Egbert Ke&#39;s Blog">
+<meta name="author" content="Egbert Ke">
+<link rel="canonical" href="https://ikebo.cc/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.7140587df96a2b1a49eb723fa7063dc0c641a6cb638f3140e8d3beb4deae4f5c.css" integrity="sha256-cUBYfflqKxpJ63I/pwY9wMZBpstjjzFA6NO&#43;tN6uT1w=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://ikebo.cc/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ikebo.cc/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ikebo.cc/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://ikebo.cc/apple-touch-icon.png">
+<link rel="mask-icon" href="https://ikebo.cc/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="https://ikebo.cc/index.xml">
+<link rel="alternate" type="application/json" href="https://ikebo.cc/index.json">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="Ike&#39;Log" />
+<meta property="og:description" content="Egbert Ke&#39;s Blog" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://ikebo.cc/" /><meta property="og:image" content="https://ikebo.cc/papermod-cover.png"/>
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ikebo.cc/papermod-cover.png"/>
+
+<meta name="twitter:title" content="Ike&#39;Log"/>
+<meta name="twitter:description" content="Egbert Ke&#39;s Blog"/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Ike'Log",
+  "url": "https://ikebo.cc/",
+  "description": "Egbert Ke\u0026#39;s Blog",
+  "thumbnailUrl": "https://ikebo.cc/favicon.ico",
+  "sameAs": [
+      "index.xml", "https://github.com/ikebo", "https://blog.csdn.net/k_runtu", "https://ko-fi.com/ikebo"
+  ]
+}
+</script>
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://ikebo.cc/" accesskey="h" title="Ike&#39;Log (Alt + H)">Ike&#39;Log</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://ikebo.cc/" title="Posts">
+                    <span class="active">Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ikebo.cc/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ikebo.cc/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ikebo.cc/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>权限系统设计模型分析（DAC，MAC，RBAC，ABAC）
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>术语 这里对后面会用到的词汇做一个说明，老司机请直接翻到常见设计模式。
+用户 发起操作的主体。
+对象（Subject） 指操作所针对的客体对象，比如订单数据或图片文件。
+权限控制表 (ACL: Access Control List) 用来描述权限规则或用户和权限之间关系的数据表。
+权限 (Permission) 用来指代对某种对象的某一种操作，例如“添加文章的操作”。
+权限标识 权限的代号，例如用“ARTICLE_ADD”来指代“添加文章的操作”权限。
+常见设计模式 自主访问控制（DAC: Discretionary Access Control） 系统会识别用户，然后根据被操作对象（Subject）的权限控制列表（ACL: Access Control List）或者权限控制矩阵（ACL: Access Control Matrix）的信息来决定用户的是否能对其进行哪些操作，例如读取或修改。
+而拥有对象权限的用户，又可以将该对象的权限分配给其他用户，所以称之为“自主（Discretionary）”控制。
+这种设计最常见的应用就是文件系统的权限设计，如微软的NTFS。
+DAC最大缺陷就是对权限控制比较分散，不便于管理，比如无法简单地将一组文件设置统一的权限开放给指定的一群用户。
+Windows的文件权限
+强制访问控制（MAC: Mandatory Access Control） MAC是为了弥补DAC权限控制过于分散的问题而诞生的。在MAC的设计中，每一个对象都都有一些权限标识，每个用户同样也会有一些权限标识，而用户能否对该对象进行操作取决于双方的权限标识的关系，这个限制判断通常是由系统硬性限制的。比如在影视作品中我们经常能看到特工在查询机密文件时，屏幕提示需要“无法访问，需要一级安全许可”，这个例子中，文件上就有“一级安全许可”的权限标识，而用户并不具有。
+MAC非常适合机密机构或者其他等级观念强烈的行业，但对于类似商业服务系统，则因为不够灵活而不能适用。
+RedHat MLS
+Red Hat: MLS
+基于角色的访问控制（RBAC: Role-Based Access Control) 因为DAC和MAC的诸多限制，于是诞生了RBAC，并且成为了迄今为止最为普及的权限设计模型。
+RBAC在用户和权限之间引入了“角色（Role）”的概念（暂时忽略Session这个概念）：
+RBAC核心设计
+图片来自Apache Directory
+如图所示，每个用户关联一个或多个角色，每个角色关联一个或多个权限，从而可以实现了非常灵活的权限管理。角色可以根据实际业务需求灵活创建，这样就省去了每新增一个用户就要关联一遍所有权限的麻烦。简单来说RBAC就是：用户关联角色，角色关联权限。另外，RBAC是可以模拟出DAC和MAC的效果的。
+例如数据库软件MongoDB便是采用RBAC模型，对数据库的操作都划分成了权限（MongoDB权限文档）：
+权限标识 说明 find 具有此权限的用户可以运行所有和查询有关的命令，如：aggregate、checkShardingIndex、count等。 insert 具有此权限的用户可以运行所有和新建数据有关的命令：insert和create等。 collStats 具有此权限的用户可以对指定database或collection执行collStats命令。 viewRole 具有此权限的用户可以查看指定database的角色信息。 … 基于这些权限，MongoDB提供了一些预定义的角色（MongoDB预定义角色文档，用户也可以自己定义角色）：
+角色 find insert collStats viewRole … read ✔ ✔ … readWrite ✔ ✔ ✔ … dbAdmin ✔ ✔ … userAdmin ✔ … 最后授予用户不同的角色，就可以实现不同粒度的权限分配了。...</p>
+  </div>
+  <footer class="entry-footer"><span title='2021-07-14 00:00:00 +0000 UTC'>July 14, 2021</span>&nbsp;·&nbsp;2 min&nbsp;·&nbsp;Egbert Ke</footer>
+  <a class="entry-link" aria-label="post link to 权限系统设计模型分析（DAC，MAC，RBAC，ABAC）" href="https://ikebo.cc/post/migrate/part2/%E6%9D%83%E9%99%90%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%9E%8B%E5%88%86%E6%9E%90dacmacrbacabac/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>单点登录SSO原理
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>背景 在企业发展初期，企业使用的系统很少，通常一个或者两个，每个系统都有自己的登录模块，运营人员每天用自己的账号登录，很方便。 但随着企业的发展，用到的系统随之增多，运营人员在操作不同的系统时，需要多次登录，而且每个系统的账号都不一样，这对于运营人员 来说，很不方便。于是，就想到是不是可以在一个系统登录，其他系统就不用登录了呢？这就是单点登录要解决的问题。
+单点登录英文全称Single Sign On，简称就是SSO。它的解释是：在多个应用系统中，只需要登录一次，就可以访问其他相互信任的应用系统。
+如图所示，图中有4个系统，分别是Application1、Application2、Application3、和SSO。Application1、Application2、Application3没有登录模块，而SSO只有登录模块，没有其他的业务模块，当Application1、Application2、Application3需要登录时，将跳到SSO系统，SSO系统完成登录，其他的应用系统也就随之登录了。这完全符合我们对单点登录（SSO）的定义。
+技术实现 在说单点登录（SSO）的技术实现之前，我们先说一说普通的登录认证机制。 如上图所示，我们在浏览器（Browser）中访问一个应用，这个应用需要登录，我们填写完用户名和密码后，完成登录认证。这时，我们在这个用户的session中标记登录状态为yes（已登录），同时在浏览器（Browser）中写入Cookie，这个Cookie是这个用户的唯一标识。下次我们再访问这个应用的时候，请求中会带上这个Cookie，服务端会根据这个Cookie找到对应的session，通过session来判断这个用户是否登录。如果不做特殊配置，这个Cookie的名字叫做jsessionid，值在服务端（server）是唯一的。
+同域下的单点登录 一个企业一般情况下只有一个域名，通过二级域名区分不同的系统。比如我们有个域名叫做：a.com，同时有两个业务系统分别为：app1.a.com和app2.a.com。我们要做单点登录（SSO），需要一个登录系统，叫做：sso.a.com。
+我们只要在sso.a.com登录，app1.a.com和app2.a.com就也登录了。通过上面的登陆认证机制，我们可以知道，在sso.a.com中登录了，其实是在sso.a.com的服务端的session中记录了登录状态，同时在浏览器端（Browser）的sso.a.com下写入了Cookie。那么我们怎么才能让app1.a.com和app2.a.com登录呢？这里有两个问题：
+Cookie是不能跨域的，我们Cookie的domain属性是sso.a.com，在给app1.a.com和app2.a.com发送请求是带不上的。 sso、app1和app2是不同的应用，它们的session存在自己的应用内，是不共享的。 那么我们如何解决这两个问题呢？针对第一个问题，sso登录以后，可以将Cookie的域设置为顶域，即.a.com，这样所有子域的系统都可以访问到顶域的Cookie。我们在设置Cookie时，只能设置顶域和自己的域，不能设置其他的域。比如：我们不能在自己的系统中给baidu.com的域设置Cookie。
+Cookie的问题解决了，我们再来看看session的问题。我们在sso系统登录了，这时再访问app1，Cookie也带到了app1的服务端（Server），app1的服务端怎么找到这个Cookie对应的Session呢？这里就要把3个系统的Session共享，如图所示。共享Session的解决方案有很多，例如：Spring-Session。这样第2个问题也解决了。
+同域下的单点登录就实现了，但这还不是真正的单点登录。
+不同域下的单点登录 同域下的单点登录是巧用了Cookie顶域的特性。如果是不同域呢？不同域之间Cookie是不共享的，怎么办？
+这里我们就要说一说CAS流程了，这个流程是单点登录的标准流程。 上图是CAS官网上的标准流程，具体流程如下：
+用户访问app系统，app系统是需要登录的，但用户现在没有登录。 跳转到CAS server，即SSO登录系统，以后图中的CAS Server我们统一叫做SSO系统。 SSO系统也没有登录，弹出用户登录页。 用户填写用户名、密码，SSO系统进行认证后，将登录状态写入SSO的session，浏览器（Browser）中写入SSO域下的Cookie。 SSO系统登录完成后会生成一个ST（Service Ticket），然后跳转到app系统，同时将ST作为参数传递给app系统。 app系统拿到ST后，从后台向SSO发送请求，验证ST是否有效。 验证通过后，app系统将登录状态写入session并设置app域下的Cookie。 至此，跨域单点登录就完成了。以后我们再访问app系统时，app就是登录的。接下来，我们再看看访问app2系统时的流程。
+用户访问app2系统，app2系统没有登录，跳转到SSO。 由于SSO已经登录了，不需要重新登录认证。 SSO生成ST，浏览器跳转到app2系统，并将ST作为参数传递给app2。 app2拿到ST，后台访问SSO，验证ST是否有效。 验证成功后，app2将登录状态写入session，并在app2域下写入Cookie。 这样，app2系统不需要走登录流程，就已经是登录了。SSO，app和app2在不同的域，它们之间的session不共享也是没问题的。
+有的同学问我，SSO系统登录后，跳回原业务系统时，带了个参数ST，业务系统还要拿ST再次访问SSO进行验证，觉得这个步骤有点多余。他想SSO登录认证通过后，通过回调地址将用户信息返回给原业务系统，原业务系统直接设置登录状态，这样流程简单，也完成了登录，不是很好吗？
+其实这样问题时很严重的，如果我在SSO没有登录，而是直接在浏览器中敲入回调的地址，并带上伪造的用户信息，是不是业务系统也认为登录了呢？这是很可怕的。
+总结 单点登录（SSO）的所有流程都介绍完了，原理大家都清楚了。总结一下单点登录要做的事情：
+单点登录（SSO系统）是保障各业务系统的用户资源的安全 。 各个业务系统获得的信息是，这个用户能不能访问我的资源。 单点登录，资源都在各个业务系统这边，不在SSO那一方。 用户在给SSO服务器提供了用户名密码后，作为业务系统并不知道这件事。 SSO随便给业务系统一个ST，那么业务系统是不能确定这个ST是用户伪造的，还是真的有效，所以要拿着这个ST去SSO服务器再问一下，这个用户给我的ST是否有效，是有效的我才能让这个用户访问。 本文转载自阿里云社区</p>
+  </div>
+  <footer class="entry-footer"><span title='2021-06-30 00:00:00 +0000 UTC'>June 30, 2021</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Egbert Ke</footer>
+  <a class="entry-link" aria-label="post link to 单点登录SSO原理" href="https://ikebo.cc/post/migrate/part2/%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95sso%E5%8E%9F%E7%90%86/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>MySQL 如何对order by优化
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>对于order by的优化，MySQL若可以利用索引的有序性进行排序，则优先使用索引进行排序，这种情况的执行效率是最快的；若无法有效利用索引的情况下，MySQL主要有3排序种算法对其进行优化每个算法都有一定的适用场景。
+一、 利用索引排序 B-tree索引可以很好的支持单点查询、范围查询、有序性查询。所以对于order by 的排序查询，我们可以利用B-tree的有序性来有效的利用索引进行排序查询。当然，如果可以利用索引进行排序对我们的SQL查询本身也是有一定的要求限制的。
+1.1 利用索引排序的特点 排序列必须有B-tree索引 如果为多表关联查询，排序列必须是对驱动表字段的排序 1.2、示例 ##建表语句，sbtest3与sbtest4表字段与索引一致，sbtest3的表数据量为30000，sbtest4的表数据量为60000 CREATE TABLE `sbtest4` ( `id` int(11) NOT NULL AUTO_INCREMENT, `k` int(11) NOT NULL DEFAULT &#39;0&#39;, `c` char(120) NOT NULL DEFAULT &#39;&#39;, `pad` char(60) NOT NULL DEFAULT &#39;&#39;, PRIMARY KEY (`id`), KEY `k_4` (`k`) ) ENGINE=InnoDB AUTO_INCREMENT=62768 DEFAULT CHARSET=utf8mb4 ##单表排序查询 ##order by字段为B-tree索引字段，可以看到执行计划有效利用了索引进行排序查询 root@mysql57 13:25: [db2]&gt; explain select * from sbtest4 t4 order by t4.k desc limit 5; &#43;----&#43;-------------&#43;-------&#43;------------&#43;-------&#43;---------------&#43;------&#43;---------&#43;------&#43;------&#43;----------&#43;-------&#43; | id | select_type | table | partitions | type | possible_keys | key | key_len | ref | rows | filtered | Extra | &#43;----&#43;-------------&#43;-------&#43;------------&#43;-------&#43;---------------&#43;------&#43;---------&#43;------&#43;------&#43;----------&#43;-------&#43; | 1 | SIMPLE | t4 | NULL | index | NULL | k_4 | 4 | NULL | 5 | 100....</p>
+  </div>
+  <footer class="entry-footer"><span title='2021-06-20 00:00:00 +0000 UTC'>June 20, 2021</span>&nbsp;·&nbsp;4 min&nbsp;·&nbsp;Egbert Ke</footer>
+  <a class="entry-link" aria-label="post link to MySQL 如何对order by优化" href="https://ikebo.cc/post/migrate/part2/mysql-%E5%A6%82%E4%BD%95%E5%AF%B9order-by%E4%BC%98%E5%8C%96/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>块存储、文件存储和对象存储
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>块存储 典型设备：磁盘阵列、硬盘
+块存储主要是将裸磁盘空间整个映射给主机使用的，就是说例如磁盘阵列里面有5块硬盘（为方便说明，假设每个硬盘1G），然后可以通过划逻辑盘、做Raid、或者LVM（逻辑卷）等种种方式逻辑划分出N个逻辑的硬盘。（假设划分完的逻辑盘也是5个，每个也是1G，但是这5个1G的逻辑盘已经于原来的5个物理硬盘意义完全不同了。例如第一个逻辑硬盘A里面，可能第一个200M是来自物理硬盘1，第二个200M是来自物理硬盘2，所以逻辑硬盘A是由多个物理硬盘逻辑虚构出来的硬盘。）
+接着块存储会采用映射的方式将这几个逻辑盘映射给主机，主机上面的操作系统会识别到有5块硬盘，但是操作系统是区分不出到底是逻辑还是物理的，它一概就认为只是5块裸的物理硬盘而已，跟直接拿一块物理硬盘挂载到操作系统没有区别的，至少操作系统感知上没有区别。
+此种方式下，操作系统还需要对挂载的裸硬盘进行分区、格式化后，才能使用，与平常主机内置硬盘的方式完全无异。
+优点：
+这种方式的好处当然是因为通过了Raid与LVM等手段，对数据提供了保护。 另外也可以将多块廉价的硬盘组合起来，成为一个大容量的逻辑盘对外提供服务，提高了容量。 写入数据的时候，由于是多块磁盘组合出来的逻辑盘，所以几块磁盘可以并行写入的，提升了读写效率。 很多时候块存储采用SAN架构组网，传输速率以及封装协议的原因，使得传输速度与读写速率得到提升。 缺点：
+采用SAN架构组网时，需要额外为主机购买光纤通道卡，还要买光纤交换机，造价成本高。 主机之间的数据无法共享，在服务器不做集群的情况下，块存储裸盘映射给主机，再格式化使用后，对于主机来说相当于本地盘，那么主机A的本地盘根本不能给主机B去使用，无法共享数据。 不利于不同操作系统主机间的数据共享：另外一个原因是因为操作系统使用不同的文件系统，格式化完之后，不同文件系统间的数据是共享不了的。例如一台装了WIN7/XP，文件系统是FAT32/NTFS，而Linux是EXT4，EXT4是无法识别NTFS的文件系统的。就像一只NTFS格式的U盘，插进Linux的笔记本，根本无法识别出来。所以不利于文件共享。 文件存储 典型设备：FTP、NFS服务器
+为了克服上述文件无法共享的问题，所以有了文件存储。
+文件存储也有软硬一体化的设备，但是其实普通拿一台服务器/笔记本，只要装上合适的操作系统与软件，就可以架设FTP与NFS服务了，架上该类服务之后的服务器，就是文件存储的一种了。
+主机A可以直接对文件存储进行文件的上传下载，与块存储不同，主机A是不需要再对文件存储进行格式化的，因为文件管理功能已经由文件存储自己搞定了。
+优点：
+造价交低：随便一台机器就可以了，另外普通以太网就可以，根本不需要专用的SAN网络，所以造价低。 方便文件共享：例如主机A（WIN7，NTFS文件系统），主机B（Linux，EXT4文件系统），想互拷一部电影，本来不行。加了个主机C（NFS服务器），然后可以先A拷到C，再C拷到B就OK了。（例子比较肤浅，请见谅……） 缺点：
+读写速率低，传输速率慢：以太网，上传下载速度较慢，另外所有读写都要1台服务器里面的硬盘来承担，相比起磁盘阵列动不动就几十上百块硬盘同时读写，速率慢了许多。
+对象存储 典型设备：内置大容量硬盘的分布式服务器
+对象存储最常用的方案，就是多台服务器内置大容量硬盘，再装上对象存储软件，然后再额外搞几台服务作为管理节点，安装上对象存储管理软件。管理节点可以管理其他服务器对外提供读写访问功能。
+之所以出现了对象存储这种东西，是为了克服块存储与文件存储各自的缺点，发扬它俩各自的优点。简单来说块存储读写快，不利于共享，文件存储读写慢，利于共享。能否弄一个读写快，利于共享的出来呢。于是就有了对象存储。
+首先，一个文件包含了了属性（术语叫metadata，元数据，例如该文件的大小、修改时间、存储路径等）以及内容（以下简称数据）。
+以往像FAT32这种文件系统，是直接将一份文件的数据与metadata一起存储的，存储过程先将文件按照文件系统的最小块大小来打散（如4M的文件，假设文件系统要求一个块4K，那么就将文件打散成为1000个小块），再写进硬盘里面，过程中没有区分数据/metadata的。而每个块最后会告知你下一个要读取的块的地址，然后一直这样顺序地按图索骥，最后完成整份文件的所有块的读取。
+这种情况下读写速率很慢，因为就算你有100个机械手臂在读写，但是由于你只有读取到第一个块，才能知道下一个块在哪里，其实相当于只能有1个机械手臂在实际工作。
+而对象存储则将元数据独立了出来，控制节点叫元数据服务器（服务器&#43;对象存储管理软件），里面主要负责存储对象的属性（主要是对象的数据被打散存放到了那几台分布式服务器中的信息），而其他负责存储数据的分布式服务器叫做OSD，主要负责存储文件的数据部分。当用户访问对象，会先访问元数据服务器，元数据服务器只负责反馈对象存储在哪些OSD，假设反馈文件A存储在B、C、D三台OSD，那么用户就会再次直接访问3台OSD服务器去读取数据。
+这时候由于是3台OSD同时对外传输数据，所以传输的速度就加快了。当OSD服务器数量越多，这种读写速度的提升就越大，通过此种方式，实现了读写快的目的。
+另一方面，对象存储软件是有专门的文件系统的，所以OSD对外又相当于文件服务器，那么就不存在文件共享方面的困难了，也解决了文件共享方面的问题。
+所以对象存储的出现，很好地结合了块存储与文件存储的优点。
+最后为什么对象存储兼具块存储与文件存储的好处，还要使用块存储或文件存储呢？
+有一类应用是需要存储直接裸盘映射的，例如数据库。因为数据库需要存储裸盘映射给自己后，再根据自己的数据库文件系统来对裸盘进行格式化的，所以是不能够采用其他已经被格式化为某种文件系统的存储的。此类应用更适合使用块存储。 对象存储的成本比起普通的文件存储还是较高，需要购买专门的对象存储软件以及大容量硬盘。如果对数据量要求不是海量，只是为了做文件共享的时候，直接用文件存储的形式好了，性价比高。 </p>
+  </div>
+  <footer class="entry-footer"><span title='2021-05-18 00:00:00 +0000 UTC'>May 18, 2021</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Egbert Ke</footer>
+  <a class="entry-link" aria-label="post link to 块存储、文件存储和对象存储" href="https://ikebo.cc/post/migrate/part2/%E5%9D%97%E5%AD%98%E5%82%A8%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8%E5%92%8C%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2>文件怎么在不同的文件系统间转存
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>文件 文件是一堆有特定格式的数据，在硬盘中由一堆特定顺序的磁盘块组成。
+文件系统 文件系统是操作系统用于明确存储设备（常见的是磁盘，也有基于NAND Flash的固态硬盘）或分区上的文件的方法和数据结构；即在存储设备上组织文件的方法。
+同一个文件，文件内容肯定相同，放在不同的文件系统中，不同的是文件内容的存放方式。
+when a file is copied between different filesystem types, the content isn’t changed, only the way the file is written to disk.
+举个具体的例子，本机磁盘有两个分区，格式化成不同的文件系统，当把一个文件从其中一个分区拷贝到另一个分区时，完全可以，文件内容一样，不同的是文件在磁盘中的组织方式，而且这种组织方式的不同对用户是透明的，我们只需要关注文件内容和格式本身，不需要关注文件所处的文件系统。</p>
+  </div>
+  <footer class="entry-footer"><span title='2021-05-18 00:00:00 +0000 UTC'>May 18, 2021</span>&nbsp;·&nbsp;1 min&nbsp;·&nbsp;Egbert Ke</footer>
+  <a class="entry-link" aria-label="post link to 文件怎么在不同的文件系统间转存" href="https://ikebo.cc/post/migrate/part2/%E6%96%87%E4%BB%B6%E6%80%8E%E4%B9%88%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%9A%84%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E9%97%B4%E8%BD%AC%E5%AD%98/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="https://ikebo.cc/page/5/">
+      «&nbsp;Prev&nbsp;
+    </a>
+    <a class="next" href="https://ikebo.cc/page/7/">Next&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2024 <a href="https://ikebo.cc/">Ike&#39;Log</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

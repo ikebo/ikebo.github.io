@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>signal on Ike&#39;Log</title>
+    <link>https://ikebo.cc/tags/signal/</link>
+    <description>Recent content in signal on Ike&#39;Log</description>
+    <image>
+      <title>Ike&#39;Log</title>
+      <url>https://ikebo.cc/papermod-cover.png</url>
+      <link>https://ikebo.cc/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 06 Feb 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://ikebo.cc/tags/signal/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Unix中的信号是怎么工作的</title>
+      <link>https://ikebo.cc/post/migrate/part2/unix%E4%B8%AD%E7%9A%84%E4%BF%A1%E5%8F%B7%E6%98%AF%E6%80%8E%E4%B9%88%E5%B7%A5%E4%BD%9C%E7%9A%84/</link>
+      <pubDate>Sat, 06 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/post/migrate/part2/unix%E4%B8%AD%E7%9A%84%E4%BF%A1%E5%8F%B7%E6%98%AF%E6%80%8E%E4%B9%88%E5%B7%A5%E4%BD%9C%E7%9A%84/</guid>
+      <description>信号的作用 信号是一种异步通知机制，用来告知进程一个事件已经发生
+信号的产生 信号可以由用户调用kill命令发送，也可以由操作系统在某些事件发生时产生，如计时器到期、子进程结束、访问了不改访问的内存等。
+信号的工作过程1 当一个信号发送给某个进程时，内核会查看该进程的PCB以决定改信号的处理方式，如果该信号的处理动作是SIG_IGN，则会忽略改信号，如果处理动作是SIG_DFL，则内核会找到该信号的默认处理程序地址并执行。 如果该进程定义了该信号的处理程序，则会执行该程序。
+如果进程注册了信号处理程序，则会在进程的待处理信号表中添加一项。当进程下次被调度执行时，内核会首先往该进程的堆栈空间添加一些数据，然后改变执行指令的地址(相当于改变8086架构CPU的CS和IP寄存器的值)，就像进程自己调用了信号处理程序一样。
+当信号处理程序结束时，会继续执行之前的代码。
+内核通常需要知道信号处理程序何时返回，比如当信号处理函数执行时，需要阻止相当的信号被再次传递，或者当信号处理函数执行完后，需要重新调用被信号中断的系统调用。要做到这一点，还需要改变堆栈和指令指针。
+内核怎么知道进程的信号处理程序结束了2 内核往进程中映射了一页内存，改内存中有一个用来通知内核处理程序已完成的系统调用，然后将信号处理程序的返回地址改为该内存页的地址(就是改变栈顶的值)。
+how-do-unix-signals-work&amp;#160;&amp;#x21a9;&amp;#xfe0e;
+how-signals-work-internally&amp;#160;&amp;#x21a9;&amp;#xfe0e;</description>
+    </item>
+    
+    <item>
+      <title>Python 限制函数运行时间</title>
+      <link>https://ikebo.cc/post/migrate/part2/python-%E9%99%90%E5%88%B6%E5%87%BD%E6%95%B0%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4/</link>
+      <pubDate>Wed, 11 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/post/migrate/part2/python-%E9%99%90%E5%88%B6%E5%87%BD%E6%95%B0%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4/</guid>
+      <description>实际项目中会涉及到需要对有些函数的响应时间做一些限制，如果超时就退出函数的执行，停止等待。
+使用signal 使用signal有所限制，需要在linux系统上，并且需要在主线程中使用。方法二使用线程计时，不受此限制。
+# coding=utf-8 import signal import time def set_timeout(num, callback): def wrap(func): def handle(signum, frame): # 收到信号 SIGALRM 后的回调函数，第一个参数是信号的数字，第二个参数是the interrupted stack frame. raise RuntimeError def to_do(*args, **kwargs): try: signal.signal(signal.SIGALRM, handle) # 设置信号和回调函数 signal.alarm(num) # 设置 num 秒的闹钟 print(&amp;#39;start alarm signal.&amp;#39;) r = func(*args, **kwargs) print(&amp;#39;close alarm signal.&amp;#39;) signal.alarm(0) # 关闭闹钟 return r except RuntimeError as e: callback() return to_do return wrap def after_timeout(): # 超时后的处理函数 print(&amp;#34;Time out!&amp;#34;) @set_timeout(2, after_timeout) # 限时 2 秒超时 def connect(): # 要执行的函数 time.</description>
+    </item>
+    
+  </channel>
+</rss>

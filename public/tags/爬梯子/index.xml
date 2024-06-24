@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>爬梯子 on Ike&#39;Log</title>
+    <link>https://ikebo.cc/tags/%E7%88%AC%E6%A2%AF%E5%AD%90/</link>
+    <description>Recent content in 爬梯子 on Ike&#39;Log</description>
+    <image>
+      <title>Ike&#39;Log</title>
+      <url>https://ikebo.cc/papermod-cover.png</url>
+      <link>https://ikebo.cc/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 04 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://ikebo.cc/tags/%E7%88%AC%E6%A2%AF%E5%AD%90/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>大厂晋升指南-职级详解</title>
+      <link>https://ikebo.cc/post/migrate/part2/%E5%A4%A7%E5%8E%82%E6%99%8B%E5%8D%87%E6%8C%87%E5%8D%97-%E8%81%8C%E7%BA%A7%E8%AF%A6%E8%A7%A3/</link>
+      <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/post/migrate/part2/%E5%A4%A7%E5%8E%82%E6%99%8B%E5%8D%87%E6%8C%87%E5%8D%97-%E8%81%8C%E7%BA%A7%E8%AF%A6%E8%A7%A3/</guid>
+      <description>所有职级，能力可以分为3个维度，4个复杂度（COMD模型）
+P5 在别人的知道下做事，主要在技术和业务上，技术80% 业务20%
+P5 的核心能力要求是在别人的指导下完成任务，主要提升目标是从学生转变为“打工人”。
+技术方面，P5 需要打好基础，学习岗位要求的基础技术。采用“碎片化时间，系统化学习”的方法提高你的技术学习效率。
+业务方面，P5 需要熟悉各项业务功能的实现逻辑。对于 2C 业务，你要成为产品的深度用户；对于 2B 业务，你就要多跟客户交流。
+管理方面，P5 的重点是熟悉项目流程，避免踩坑。你需要注意学习公司的管理制度。
+P6 独挡一面
+P6 的核心能力要求是独立负责端到端的项目任务，主要提升目标是成为独立自主的“项目能手”。
+技术方面，P6 需要掌握团队用到的各种技术的“套路”，重点提升技术深度，学习时要避免贪多求全的心态，优先深入学习跟工作内容强相关的技术。
+业务方面，P6 需要掌握某类业务相关的所有功能，并深度理解处理逻辑，主要的提升方法是“5W1H8C1D”分析法和竞品分析。
+管理方面，P6 需要负责项目子任务推进，包括工作量评估、计划制定和沟通协调等。评估工作量的时候，建议使用 WBS 分解法，先拆解成容易评估的小任务，然后独立评估每项任务，最后汇总。
+P7 P7 的核心能力要求是指挥单个团队达成目标，主要提升目标是成为让人信服的团队专家。
+技术维度上，P7 需要精通团队相关的技术，重点提升技术宽度，主要提升方法是“比较学习法”。在这个阶段，你既要避免因为管理而丢掉技术，也要避免“生搬硬套”新技术。
+业务维度上，P7 需要掌握业务整体情况，从用户特征、用户价值、获客方式和获利方式 4 个方面理解业务 6～12 个月的规划。对于 2C 业务，AARRR 漏斗模型是必须掌握的；对于 2B 业务，还应该了解行业强相关的手段和措施。
+管理维度上，P7 需要负责指挥单个团队。对于担任 Team Leader 的 P7 来说，需要系统化地掌握管理的基本技能，避免事必躬亲或者做甩手掌柜；对于不是 Team Leader 的 P7 来说，要学会做一个靠谱的项目负责人。
+P8 P8 的核心能力要求是指挥多个团队达成目标，主要提升目标是成为有影响力的领域专家。
+技术维度上，P8 需要精通领域相关的技术，重点提升领域技术宽度，可以通过研究开源项目和参加技术大会来拓宽自己的技术宽度，也可以在技术大会上做主题演讲来提升自己的影响力。
+业务维度上，P8 需要熟悉多个业务，并且开始需要掌握战略规划相关的技能，以帮助自己理解业务整体规划，可以采取“宝洁战略模型”的方法快速提升自己的业务理解力。
+管理维度上，P8 需要负责指挥多个团队，提升自己管理技能的核心是学会抓住三个管理重点：搭建团队梯队，参与目标制定，关注技术演进。
+P9 P9 的核心能力要求是导演成熟作品，主要提升目标是成为跨领域整合的业务导演。
+技术维度上，P9 需要具备跨领域整合的能力，重点提升领域技术广度，可以通过环式学习法来提升自己的技术广度，通过关注和跟进新技术来提升自己的创新能力。</description>
+    </item>
+    
+  </channel>
+</rss>

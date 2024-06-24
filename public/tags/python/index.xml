@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Python on Ike&#39;Log</title>
+    <link>https://ikebo.cc/tags/python/</link>
+    <description>Recent content in Python on Ike&#39;Log</description>
+    <image>
+      <title>Ike&#39;Log</title>
+      <url>https://ikebo.cc/papermod-cover.png</url>
+      <link>https://ikebo.cc/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 01 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://ikebo.cc/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>aiohttp ClientSession 用法踩坑</title>
+      <link>https://ikebo.cc/post/migrate/part2/aiohttp-clientsession-%E7%94%A8%E6%B3%95%E8%B8%A9%E5%9D%91/</link>
+      <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/post/migrate/part2/aiohttp-clientsession-%E7%94%A8%E6%B3%95%E8%B8%A9%E5%9D%91/</guid>
+      <description>一般是这么用的：
+async with aiohttp.ClientSession() as ses: res = await ses.post(xxx) text = await res.text() xxx 没有问题
+但是为了减少缩进，可能想这样封装一下：
+class HTTP: @staticmethod async def post(*args, **kwargs): async with aiohttp.ClientSession() as ses: return await ses.post(*args, **kwargs) 这是有问题的，with 上下文之后会关闭session的连接和资源，如果payload比较大，在连接关闭之后还没读完的话，可能会卡在await ses.text()那里，导致超时
+所以需要在上下文关闭之前就把内容读取完毕并返回。
+可以这样：
+class HTTP: @staticmethod async def post(*args, **kwargs): async with aiohttp.ClientSession() as ses: async with await ses.post(*args, **kwargs) as res: return res, await res.text() 或者这样：
+class HTTP: @classmethod async def get(cls, *args, **kargs): await cls.</description>
+    </item>
+    
+    <item>
+      <title>问题记录：Python 协程相关</title>
+      <link>https://ikebo.cc/post/migrate/part2/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95python-%E5%8D%8F%E7%A8%8B%E7%9B%B8%E5%85%B3/</link>
+      <pubDate>Thu, 14 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/post/migrate/part2/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95python-%E5%8D%8F%E7%A8%8B%E7%9B%B8%E5%85%B3/</guid>
+      <description>import asyncio import multiprocessing q = multiprocessing.Queue(10000) for i in range(100): q.put(i) async def coro(i): print(&amp;#39;coro... {}&amp;#39;.format(i)) async def device_video_main(j): loop = asyncio.get_event_loop() for i in range(5): asyncio.ensure_future(coro(j), loop=loop) # await asyncio.sleep(1) async def run_integrate(): while True: j = q.get() print(&amp;#39;j: &amp;#39;, j) if True: loop = asyncio.get_event_loop() coro = device_video_main(j) loop.create_task(coro) # asyncio.ensure_future(coro, loop=loop) # await asyncio.sleep(1) # print(loop.is_running()) # async def main(): # loop = asyncio.get_event_loop() # for i in range(3): # asyncio.</description>
+    </item>
+    
+    <item>
+      <title>asyncio.sleep 和 time.sleep 的区别</title>
+      <link>https://ikebo.cc/post/migrate/part2/asyncio.sleep-%E5%92%8C-time.sleep-%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
+      <pubDate>Sun, 10 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/post/migrate/part2/asyncio.sleep-%E5%92%8C-time.sleep-%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
+      <description>time.sleep是针对整个线程，整个线程会挂起，不再执行任何操作。
+asyncio.sleep是针对当前协程而言，告诉事件循环：请去执行别的操作，相当于模拟了一次网络IO，不会阻塞其他协程的执行。
+import time import asyncio async def hello(): print(&amp;#39;Hello ...&amp;#39;) await asyncio.sleep(5) # time.sleep(5) print(&amp;#39;... World!&amp;#39;) async def main(): await asyncio.gather(hello(), hello()) loop = asyncio.get_event_loop() loop.run_until_complete(main()) 运行结果：
+Hello ... Hello ... ... World! ... World! import time import asyncio async def hello(): print(&amp;#39;Hello ...&amp;#39;) # await asyncio.sleep(5) time.sleep(5) print(&amp;#39;... World!&amp;#39;) async def main(): await asyncio.gather(hello(), hello()) loop = asyncio.get_event_loop() loop.run_until_complete(main()) 运行结果：
+Hello ... ... World! Hello ... ... World! </description>
+    </item>
+    
+    <item>
+      <title>SQLAlchemy中常见的query filter</title>
+      <link>https://ikebo.cc/post/migrate/part2/sqlalchemy%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84query-filter/</link>
+      <pubDate>Sun, 08 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/post/migrate/part2/sqlalchemy%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84query-filter/</guid>
+      <description>equals query.filter(User.name == &amp;#39;leela&amp;#39;) not equals: query.filter(User.name != &amp;#39;leela&amp;#39;) LIKE query.filter(User.name.like(&amp;#39;%leela%&amp;#39;)) IN query.filter(User.name.in_([&amp;#39;leela&amp;#39;, &amp;#39;akshay&amp;#39;, &amp;#39;santanu&amp;#39;])) # works with query objects too: query.filter(User.name.in_(session.query(User.name).filter(User.name.like(&amp;#39;%santanu%&amp;#39;)))) NOT IN query.filter(~User.name.in_([&amp;#39;lee&amp;#39;, &amp;#39;sonal&amp;#39;, &amp;#39;akshay&amp;#39;])) IS NULL filter(User.name == None) IS NOT NULL filter(User.name != None) AND from sqlalchemy import and_ filter(and_(User.name == &amp;#39;leela&amp;#39;, User.fullname == &amp;#39;leela dharan&amp;#39;)) #or, default without and_ method comma separated list of conditions are AND filter(User.name == &amp;#39;leela&amp;#39;, User.fullname == &amp;#39;leela dharan&amp;#39;) # or call filter()/filter_by() multiple times filter(User.</description>
+    </item>
+    
+    <item>
+      <title>Python 在CSV文件中写入中文字符</title>
+      <link>https://ikebo.cc/post/migrate/part2/python-%E5%9C%A8csv%E6%96%87%E4%BB%B6%E4%B8%AD%E5%86%99%E5%85%A5%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6/</link>
+      <pubDate>Wed, 25 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/post/migrate/part2/python-%E5%9C%A8csv%E6%96%87%E4%BB%B6%E4%B8%AD%E5%86%99%E5%85%A5%E4%B8%AD%E6%96%87%E5%AD%97%E7%AC%A6/</guid>
+      <description>对于UTF-8编码，Excel要求BOM(字节顺序标记)写在文件的开始，否则它会假设这是ANSI编码，这个就是与locale有依赖性了。
+Python2
+#!python2 #coding:utf8 import csv data = [[u&amp;#39;American&amp;#39;,u&amp;#39;美国人&amp;#39;], [u&amp;#39;Chinese&amp;#39;,u&amp;#39;中国人&amp;#39;]] with open(&amp;#39;results.csv&amp;#39;,&amp;#39;wb&amp;#39;) as f: f.write(u&amp;#39;\ufeff&amp;#39;.encode(&amp;#39;utf8&amp;#39;)) w = csv.writer(f) for row in data: w.writerow([item.encode(&amp;#39;utf8&amp;#39;) for item in row]) Python3
+#!python3 #coding:utf8 import csv data = [[u&amp;#39;American&amp;#39;,u&amp;#39;美国人&amp;#39;], [u&amp;#39;Chinese&amp;#39;,u&amp;#39;中国人&amp;#39;]] with open(&amp;#39;results.csv&amp;#39;,&amp;#39;w&amp;#39;,newline=&amp;#39;&amp;#39;,encoding=&amp;#39;utf-8-sig&amp;#39;) as f: w = csv.writer(f) w.writerows(data) unicodecsv
+#!python2 #coding:utf8 import unicodecsv data = [[u&amp;#39;American&amp;#39;,u&amp;#39;美国人&amp;#39;], [u&amp;#39;Chinese&amp;#39;,u&amp;#39;中国人&amp;#39;]] with open(&amp;#39;results.csv&amp;#39;,&amp;#39;wb&amp;#39;) as f: w = unicodecsv.writer(f,encoding=&amp;#39;utf-8-sig&amp;#39;) w.writerows(data) 转载自简书</description>
+    </item>
+    
+    <item>
+      <title>Python 获取线程中的异常信息</title>
+      <link>https://ikebo.cc/post/migrate/part2/python-%E8%8E%B7%E5%8F%96%E7%BA%BF%E7%A8%8B%E4%B8%AD%E7%9A%84%E5%BC%82%E5%B8%B8%E4%BF%A1%E6%81%AF/</link>
+      <pubDate>Thu, 12 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/post/migrate/part2/python-%E8%8E%B7%E5%8F%96%E7%BA%BF%E7%A8%8B%E4%B8%AD%E7%9A%84%E5%BC%82%E5%B8%B8%E4%BF%A1%E6%81%AF/</guid>
+      <description>通常情况下我们无法将多线程中的异常带回主线程，所以也就无法打印线程中的异常，而通过traceback模块，我们可以对线程做如下修改，从而实现捕获线程异常的目的1。
+import threading import traceback def my_func(): raise BaseException(&amp;#34;thread exception&amp;#34;) class ExceptionThread(threading.Thread): def __init__(self, group=None, target=None, name=None, args=(), kwargs=None, verbose=None): &amp;#34;&amp;#34;&amp;#34; Redirect exceptions of thread to an exception handler. &amp;#34;&amp;#34;&amp;#34; threading.Thread.__init__(self, group, target, name, args, kwargs, verbose) if kwargs is None: kwargs = {} self._target = target self._args = args self._kwargs = kwargs self._exc = None def run(self): try: if self._target: self._target() except BaseException as e: import sys self._exc = sys.</description>
+    </item>
+    
+    <item>
+      <title>Python 限制函数运行时间</title>
+      <link>https://ikebo.cc/post/migrate/part2/python-%E9%99%90%E5%88%B6%E5%87%BD%E6%95%B0%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4/</link>
+      <pubDate>Wed, 11 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/post/migrate/part2/python-%E9%99%90%E5%88%B6%E5%87%BD%E6%95%B0%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4/</guid>
+      <description>实际项目中会涉及到需要对有些函数的响应时间做一些限制，如果超时就退出函数的执行，停止等待。
+使用signal 使用signal有所限制，需要在linux系统上，并且需要在主线程中使用。方法二使用线程计时，不受此限制。
+# coding=utf-8 import signal import time def set_timeout(num, callback): def wrap(func): def handle(signum, frame): # 收到信号 SIGALRM 后的回调函数，第一个参数是信号的数字，第二个参数是the interrupted stack frame. raise RuntimeError def to_do(*args, **kwargs): try: signal.signal(signal.SIGALRM, handle) # 设置信号和回调函数 signal.alarm(num) # 设置 num 秒的闹钟 print(&amp;#39;start alarm signal.&amp;#39;) r = func(*args, **kwargs) print(&amp;#39;close alarm signal.&amp;#39;) signal.alarm(0) # 关闭闹钟 return r except RuntimeError as e: callback() return to_do return wrap def after_timeout(): # 超时后的处理函数 print(&amp;#34;Time out!&amp;#34;) @set_timeout(2, after_timeout) # 限时 2 秒超时 def connect(): # 要执行的函数 time.</description>
+    </item>
+    
+    <item>
+      <title>Python中的operator模块</title>
+      <link>https://ikebo.cc/post/migrate/part2/python%E4%B8%AD%E7%9A%84operator%E6%A8%A1%E5%9D%97/</link>
+      <pubDate>Mon, 09 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/post/migrate/part2/python%E4%B8%AD%E7%9A%84operator%E6%A8%A1%E5%9D%97/</guid>
+      <description>operator 模块提供了一套与Python的内置运算符对应的高效率函数。例如，operator.add(x, y) 与表达式 x+y 相同。 许多函数名与特殊方法名相同，只是没有双下划线。为了向后兼容性，也保留了许多包含双下划线的函数。为了表述清楚，建议使用没有双下划线的函数。
+operator.attrgetter
+def attrgetter(*items): if any(not isinstance(item, str) for item in items): raise TypeError(&amp;#39;attribute name must be a string&amp;#39;) if len(items) == 1: attr = items[0] def g(obj): return resolve_attr(obj, attr) else: def g(obj): return tuple(resolve_attr(obj, attr) for attr in items) return g def resolve_attr(obj, attr): for name in attr.split(&amp;#34;.&amp;#34;): obj = getattr(obj, name) return obj operator.itemgetter
+def itemgetter(*items): if len(items) == 1: item = items[0] def g(obj): return obj[item] else: def g(obj): return tuple(obj[item] for item in items) return g examples</description>
+    </item>
+    
+    <item>
+      <title>Python中的async/await</title>
+      <link>https://ikebo.cc/post/migrate/python%E4%B8%AD%E7%9A%84async%E5%92%8Cawait/</link>
+      <pubDate>Tue, 09 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/post/migrate/python%E4%B8%AD%E7%9A%84async%E5%92%8Cawait/</guid>
+      <description>async/await是实现异步IO的语法糖，是Python3.7新出的关键字。async def可创建协程，而await可用来等待一个可等待对象的执行完成。这大大简化了协程的创建(在Python2中创建协程需要yield和send协同操作)
+下面这个例子很简洁的说明了什么是异步IO1：
+import asyncio async def count(): print(&amp;#34;One&amp;#34;) await asyncio.sleep(1) print(&amp;#34;Two&amp;#34;) async def main(): await asyncio.gather(count(), count(), count()) if __name__ == &amp;#34;__main__&amp;#34;: import time s = time.perf_counter() asyncio.run(main()) elapsed = time.perf_counter() - s print(f&amp;#34;{__file__} executed in {elapsed:0.2f} seconds.&amp;#34;) 运行结果：
+$ python3 countasync.py One One One Two Two Two countasync.py executed in 1.01 seconds. gather会等待所有协程都返回后再返回一个结果列表，as_completed会当协程返回后立即返回：
+&amp;gt;&amp;gt;&amp;gt; import asyncio &amp;gt;&amp;gt;&amp;gt; async def coro(seq) -&amp;gt; list: ... &amp;#34;&amp;#34;&amp;#34;&amp;#39;IO&amp;#39; wait time is proportional to the max element.</description>
+    </item>
+    
+    <item>
+      <title>Python 中的协程</title>
+      <link>https://ikebo.cc/post/migrate/python-%E4%B8%AD%E7%9A%84%E5%8D%8F%E7%A8%8B/</link>
+      <pubDate>Fri, 05 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/post/migrate/python-%E4%B8%AD%E7%9A%84%E5%8D%8F%E7%A8%8B/</guid>
+      <description>Python 中的协程 函数也叫子程序，其调用过程一般为：Main中调用A，等待A结束后调用B，等待B结束后调用C&amp;hellip; 函数的调用一般是单入口。
+相比于函数，协程可以有多个入口来暂停(切换到其他协程执行)和恢复协程的执行。另外，协程的调用不像函数调用需要主函数按照特定顺序依次调用子程序，协程之间是协作关系，可以来回切换。
+相比于线程，他们都是通过切换达到协作的目的。线程是由操作系统调度来实现切换，而协程是语言级别的切换，开销更小。
+Python中，可以用生成器中的yield实现协程（支持不完全）
+协程实现生产者／消费者模型1 import time def consumer(): r = &amp;#39;&amp;#39; while True: n = yield r if not n: return print(&amp;#39;consuming {}&amp;#39;.format(n)) time.sleep(1) r = &amp;#39;200 OK&amp;#39; def produce(c): next(c) # 启动协程，Python2写法： c.next() n = 0 while n &amp;lt; 5: n = n + 1 print(&amp;#39;producing: {}&amp;#39;.format(n)) r = c.send(n) print(&amp;#39;consumer return: {}&amp;#39;.format(r)) c.close() # 关闭协程 c = consumer() produce(c) 运行结果：
+producing: 1 consuming 1 consumer return: 200 OK producing: 2 consuming 2 consumer return: 200 OK producing: 3 consuming 3 consumer return: 200 OK producing: 4 consuming 4 consumer return: 200 OK producing: 5 consuming 5 consumer return: 200 OK 用连接协程的方式创建管道2 def producer(sentence, next_coroutine): tokens = sentence.</description>
+    </item>
+    
+    <item>
+      <title>Python 中的迭代器和生成器</title>
+      <link>https://ikebo.cc/post/migrate/python-%E4%B8%AD%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8C%E7%94%9F%E6%88%90%E5%99%A8/</link>
+      <pubDate>Thu, 04 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/post/migrate/python-%E4%B8%AD%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8C%E7%94%9F%E6%88%90%E5%99%A8/</guid>
+      <description>Python的迭代器和生成器属于比较难理解的内容，不常使用的话又容易忘记。最近在看一些代码的时候经常看到__iter__和yield，发现如果想深入理解的话并不简单。
+迭代器 Python中，能够通过for&amp;hellip;in循环遍历的对象都是可迭代对象iterable objects, 如list, dict等。迭代器是指实现了迭代协议的对象, 可通过next()函数调用并返回下一个值，直到最后抛出StopIteration错误。可迭代对象不一定是迭代器，可通过iter()函数将可迭代对象变成迭代器。
+如：
+class yrange: def __init__(self, n): self.i = 0 self.n = n def __iter__(self): return self def next(self): if self.i &amp;lt; self.n: i = self.i self.i += 1 return i else: raise StopIteration() 运行结果：
+&amp;gt;&amp;gt;&amp;gt; y = yrange(3) &amp;gt;&amp;gt;&amp;gt; y.next() 0 &amp;gt;&amp;gt;&amp;gt; y.next() 1 &amp;gt;&amp;gt;&amp;gt; y.next() 2 &amp;gt;&amp;gt;&amp;gt; y.next() Traceback (most recent call last): File &amp;#34;&amp;lt;stdin&amp;gt;&amp;#34;, line 1, in &amp;lt;module&amp;gt; File &amp;#34;&amp;lt;stdin&amp;gt;&amp;#34;, line 14, in next StopIteration 生成器 生成器简化了迭代器的创建。如：</description>
+    </item>
+    
+  </channel>
+</rss>

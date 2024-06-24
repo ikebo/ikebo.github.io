@@ -191,6 +191,16 @@ Hi, this is Egbert Ke, a code farmer, nice to meet you. I’m documenting my lea
   minMatchCharLength = 0
   keys = [ "title", "permalink", "summary", "content" ]
 
+  [params.valine]
+  enable = true
+  appId = 'LxflBHOFoZd50COAkT8hVDYD-gzGzoHsz'
+  appKey = 'AAfD4NnHhivToOUt7krNV17o'
+  notify = false  # mail notifier , https://github.com/xCss/Valine/wiki
+  verify = false # Verification code
+  avatar = 'monsterid'
+  placeholder = ''
+  visitor = true
+
 [markup.goldmark.renderer]
 unsafe = true
 

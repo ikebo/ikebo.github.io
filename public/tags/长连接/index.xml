@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>长连接 on Ike&#39;Log</title>
+    <link>https://ikebo.cc/tags/%E9%95%BF%E8%BF%9E%E6%8E%A5/</link>
+    <description>Recent content in 长连接 on Ike&#39;Log</description>
+    <image>
+      <title>Ike&#39;Log</title>
+      <url>https://ikebo.cc/papermod-cover.png</url>
+      <link>https://ikebo.cc/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 30 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://ikebo.cc/tags/%E9%95%BF%E8%BF%9E%E6%8E%A5/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>长连接和短连接</title>
+      <link>https://ikebo.cc/post/migrate/part2/%E9%95%BF%E8%BF%9E%E6%8E%A5%E5%92%8C%E7%9F%AD%E8%BF%9E%E6%8E%A5/</link>
+      <pubDate>Fri, 30 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/post/migrate/part2/%E9%95%BF%E8%BF%9E%E6%8E%A5%E5%92%8C%E7%9F%AD%E8%BF%9E%E6%8E%A5/</guid>
+      <description>首先，连接指的是传输层的TCP连接
+连接就是连接，没有长短之说
+是长是短取决于你是否关闭连接
+建立连接后进行一次读写就马上关闭，这条连接对你来说就是短连接，如HTTP0.9, HTTP 1.0(默认关闭，支持Keep-Alive)就是这样
+HTTP 1.1协议的headers中默认有Connection: Keep-Alive，告诉HTTP服务器不要关闭连接，后续的HTTP请求继续用这条连接，那这条连接对你来说就是一条长连接
+另外，socket的SO_KEEPALIVE选项跟http中的Keep-Alive是完全不同的东西，前者是服务器在一条连接至少空闲2小时后发送探活包检测客户端是否还有响应，意在检测半开连接并关闭，后者前文应该已经说明白了。</description>
+    </item>
+    
+  </channel>
+</rss>

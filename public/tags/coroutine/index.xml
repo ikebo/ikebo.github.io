@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>coroutine on Ike&#39;Log</title>
+    <link>https://ikebo.cc/tags/coroutine/</link>
+    <description>Recent content in coroutine on Ike&#39;Log</description>
+    <image>
+      <title>Ike&#39;Log</title>
+      <url>https://ikebo.cc/papermod-cover.png</url>
+      <link>https://ikebo.cc/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 06 May 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://ikebo.cc/tags/coroutine/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>goroutine 记录</title>
+      <link>https://ikebo.cc/post/migrate/part2/goroutine-%E8%AE%B0%E5%BD%95/</link>
+      <pubDate>Thu, 06 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/post/migrate/part2/goroutine-%E8%AE%B0%E5%BD%95/</guid>
+      <description>作者回复: 所以说不要用“协程”这个概念，因为“协程（coroutine）”指的是程序在同一个线程内的自行调度，是应用程序本身完全可控的。而 goroutine 的调度是 Go 语言的运行时系统发起的。
+你不要揣测 Go 语言的调度器会怎样调度。你首先要知道哪些代码点是调度的时机（注意，到了调度时机也不一定发生调度，只是时机而已）。你还要知道如果想让多个 goroutine 按照你拟定的流程执行就需要用到 Channel 以及各种同步工具。
+你说的“跳转到”只能在 coroutine 场景下才能这么说。在 goroutine 的场景下，没有“跳转”这么一说。
+其一，你在上面的 for 语句中启用了一个 goroutine，你怎么就能断定后面的代码一定会先于这个 go 函数执行？不要做这种假设。因为连 goroutine 的调度都是并发的。
+其二，两个 goroutine 一个 channel，一个 goroutine 发，一个 goroutine 取。这个 ch1 什么时候满、什么时候空，你基本上是确定不了的。因为两个 for 循环 在迭代的过程中都可能因被调用而换下 CPU。
+其三，你要知道，几乎任何函数调用都存在调度时机，更何况是像 fmt.Println 这种需要 I/O 的重型操作。所以，为什么你那前一个 for 循环结束之后就不能被调度了呢？
+以上是我通过你的文字表达猜测并回答的，并不一定完全匹配你要问的问题。还有问题的话再问我。
+我觉得你对“并发”和“调度”这两个概念不清楚。我建议你好好看看专栏里讲 goroutine 的那几篇文章。有必要的话，买我的《Go 并发编程实战》第二版从头学一下。
+研究下各种协程的实现，以及goroutine的实现</description>
+    </item>
+    
+    <item>
+      <title>问题记录：Python 协程相关</title>
+      <link>https://ikebo.cc/post/migrate/part2/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95python-%E5%8D%8F%E7%A8%8B%E7%9B%B8%E5%85%B3/</link>
+      <pubDate>Thu, 14 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/post/migrate/part2/%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95python-%E5%8D%8F%E7%A8%8B%E7%9B%B8%E5%85%B3/</guid>
+      <description>import asyncio import multiprocessing q = multiprocessing.Queue(10000) for i in range(100): q.put(i) async def coro(i): print(&amp;#39;coro... {}&amp;#39;.format(i)) async def device_video_main(j): loop = asyncio.get_event_loop() for i in range(5): asyncio.ensure_future(coro(j), loop=loop) # await asyncio.sleep(1) async def run_integrate(): while True: j = q.get() print(&amp;#39;j: &amp;#39;, j) if True: loop = asyncio.get_event_loop() coro = device_video_main(j) loop.create_task(coro) # asyncio.ensure_future(coro, loop=loop) # await asyncio.sleep(1) # print(loop.is_running()) # async def main(): # loop = asyncio.get_event_loop() # for i in range(3): # asyncio.</description>
+    </item>
+    
+  </channel>
+</rss>

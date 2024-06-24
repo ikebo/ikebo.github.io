@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Ignition on Ike&#39;Log</title>
+    <link>https://ikebo.cc/tags/ignition/</link>
+    <description>Recent content in Ignition on Ike&#39;Log</description>
+    <image>
+      <title>Ike&#39;Log</title>
+      <url>https://ikebo.cc/papermod-cover.png</url>
+      <link>https://ikebo.cc/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 08 Sep 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://ikebo.cc/tags/ignition/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>V8 Ignition：JS 引擎与字节码的不解之缘</title>
+      <link>https://ikebo.cc/post/migrate/part2/v8-ignitionjs-%E5%BC%95%E6%93%8E%E4%B8%8E%E5%AD%97%E8%8A%82%E7%A0%81%E7%9A%84%E4%B8%8D%E8%A7%A3%E4%B9%8B%E7%BC%98/</link>
+      <pubDate>Wed, 08 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/post/migrate/part2/v8-ignitionjs-%E5%BC%95%E6%93%8E%E4%B8%8E%E5%AD%97%E8%8A%82%E7%A0%81%E7%9A%84%E4%B8%8D%E8%A7%A3%E4%B9%8B%E7%BC%98/</guid>
+      <description>http://arewefastyet.com 网站测试并展示了数个 JavaScript 引擎的性能数据，是各家 JS 引擎性能的比武场：
+我们看到在这个比武场上，最近 Chrome 出现了多个新条目，其中很多条目都是关于 v8 的 Ignition 新架构的组合，他们是 v8 引擎最近推出的 JS 字节码解释器。
+纵览各个 JS 引擎的实现，我们发现基于字节码的实现是主流。例如苹果公司的 JavaScriptCore （JSC） 引擎，2008 年时他们引入了 SquirrelFish（市场名 Nitro），实现了一个字节码寄存器机（Register Machine）。再如 Mozilla 公司的 SpiderMonkey，他们使用字节码的历史更久，可以追溯到 1998 年的 Netscape 4（见 https://dxr.mozilla.org/classic/source/js/src/jsemit.c ），SpiderMonkey 实现的是堆栈机（Stack Machine）。微软的 Chakra 也使用了字节码，他们实现的是寄存器机（Register Machine）。而 v8 之前的做法是比较“脱俗”的，他们跳过了字节码这一层，直接把 JS 编译成机器码。而在刚刚过去的五一假日前夕，v8 5.9 发布了，其中的 Ignition 字节码解释器将默认启动 ：https://v8project.blogspot.co.id/2017/04/v8-release-59.html 。v8 自此回到了字节码的怀抱。
+这让笔者不禁怀念起 2007 年 Ruby 1.9 的发布。当时 Ruby 1.9 也是第一次引入了字节码，名为 YARV，由笹田耕一领导主导开发完成。当时，Ruby 还在使用松本行弘的初级的解释器实现，亦即，解释器每次遍历代码的抽象语法树（AST）来进行 Ruby 代码的解释执行。而 YARV 则把抽象语法树（AST）先编译成字节码，然后再运行。引入字节码之后，Ruby 的性能得到了显著的提升。
+而这次 V8 引入字节码却是向着相反的方向后退。因为之前 v8 选择了直接将 JS 代码编译到机器代码执行，机器码的执行性能已经非常之高，而这次引入字节码则是选择编译 JS 代码到一个中间态的字节码，执行时是解释执行，性能是低于机器代码的。最终的性能测试势必会降低，而不是提高。那么 V8 为什么要做这样一个退步的选择呢？为 V8 引入字节码的动机又是什么呢？笔者总结下来有三条：</description>
+    </item>
+    
+  </channel>
+</rss>

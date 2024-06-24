@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>sqlalchemy on Ike&#39;Log</title>
+    <link>https://ikebo.cc/tags/sqlalchemy/</link>
+    <description>Recent content in sqlalchemy on Ike&#39;Log</description>
+    <image>
+      <title>Ike&#39;Log</title>
+      <url>https://ikebo.cc/papermod-cover.png</url>
+      <link>https://ikebo.cc/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 08 Dec 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://ikebo.cc/tags/sqlalchemy/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>SQLAlchemy中常见的query filter</title>
+      <link>https://ikebo.cc/post/migrate/part2/sqlalchemy%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84query-filter/</link>
+      <pubDate>Sun, 08 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/post/migrate/part2/sqlalchemy%E4%B8%AD%E5%B8%B8%E8%A7%81%E7%9A%84query-filter/</guid>
+      <description>equals query.filter(User.name == &amp;#39;leela&amp;#39;) not equals: query.filter(User.name != &amp;#39;leela&amp;#39;) LIKE query.filter(User.name.like(&amp;#39;%leela%&amp;#39;)) IN query.filter(User.name.in_([&amp;#39;leela&amp;#39;, &amp;#39;akshay&amp;#39;, &amp;#39;santanu&amp;#39;])) # works with query objects too: query.filter(User.name.in_(session.query(User.name).filter(User.name.like(&amp;#39;%santanu%&amp;#39;)))) NOT IN query.filter(~User.name.in_([&amp;#39;lee&amp;#39;, &amp;#39;sonal&amp;#39;, &amp;#39;akshay&amp;#39;])) IS NULL filter(User.name == None) IS NOT NULL filter(User.name != None) AND from sqlalchemy import and_ filter(and_(User.name == &amp;#39;leela&amp;#39;, User.fullname == &amp;#39;leela dharan&amp;#39;)) #or, default without and_ method comma separated list of conditions are AND filter(User.name == &amp;#39;leela&amp;#39;, User.fullname == &amp;#39;leela dharan&amp;#39;) # or call filter()/filter_by() multiple times filter(User.</description>
+    </item>
+    
+  </channel>
+</rss>

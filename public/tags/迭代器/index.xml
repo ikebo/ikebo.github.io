@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>迭代器 on Ike&#39;Log</title>
+    <link>https://ikebo.cc/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8/</link>
+    <description>Recent content in 迭代器 on Ike&#39;Log</description>
+    <image>
+      <title>Ike&#39;Log</title>
+      <url>https://ikebo.cc/papermod-cover.png</url>
+      <link>https://ikebo.cc/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 04 Jul 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://ikebo.cc/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python 中的迭代器和生成器</title>
+      <link>https://ikebo.cc/post/migrate/python-%E4%B8%AD%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8C%E7%94%9F%E6%88%90%E5%99%A8/</link>
+      <pubDate>Thu, 04 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/post/migrate/python-%E4%B8%AD%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%92%8C%E7%94%9F%E6%88%90%E5%99%A8/</guid>
+      <description>Python的迭代器和生成器属于比较难理解的内容，不常使用的话又容易忘记。最近在看一些代码的时候经常看到__iter__和yield，发现如果想深入理解的话并不简单。
+迭代器 Python中，能够通过for&amp;hellip;in循环遍历的对象都是可迭代对象iterable objects, 如list, dict等。迭代器是指实现了迭代协议的对象, 可通过next()函数调用并返回下一个值，直到最后抛出StopIteration错误。可迭代对象不一定是迭代器，可通过iter()函数将可迭代对象变成迭代器。
+如：
+class yrange: def __init__(self, n): self.i = 0 self.n = n def __iter__(self): return self def next(self): if self.i &amp;lt; self.n: i = self.i self.i += 1 return i else: raise StopIteration() 运行结果：
+&amp;gt;&amp;gt;&amp;gt; y = yrange(3) &amp;gt;&amp;gt;&amp;gt; y.next() 0 &amp;gt;&amp;gt;&amp;gt; y.next() 1 &amp;gt;&amp;gt;&amp;gt; y.next() 2 &amp;gt;&amp;gt;&amp;gt; y.next() Traceback (most recent call last): File &amp;#34;&amp;lt;stdin&amp;gt;&amp;#34;, line 1, in &amp;lt;module&amp;gt; File &amp;#34;&amp;lt;stdin&amp;gt;&amp;#34;, line 14, in next StopIteration 生成器 生成器简化了迭代器的创建。如：</description>
+    </item>
+    
+  </channel>
+</rss>

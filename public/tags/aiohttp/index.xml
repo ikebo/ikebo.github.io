@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>aiohttp on Ike&#39;Log</title>
+    <link>https://ikebo.cc/tags/aiohttp/</link>
+    <description>Recent content in aiohttp on Ike&#39;Log</description>
+    <image>
+      <title>Ike&#39;Log</title>
+      <url>https://ikebo.cc/papermod-cover.png</url>
+      <link>https://ikebo.cc/papermod-cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 01 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://ikebo.cc/tags/aiohttp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>aiohttp ClientSession 用法踩坑</title>
+      <link>https://ikebo.cc/post/migrate/part2/aiohttp-clientsession-%E7%94%A8%E6%B3%95%E8%B8%A9%E5%9D%91/</link>
+      <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/post/migrate/part2/aiohttp-clientsession-%E7%94%A8%E6%B3%95%E8%B8%A9%E5%9D%91/</guid>
+      <description>一般是这么用的：
+async with aiohttp.ClientSession() as ses: res = await ses.post(xxx) text = await res.text() xxx 没有问题
+但是为了减少缩进，可能想这样封装一下：
+class HTTP: @staticmethod async def post(*args, **kwargs): async with aiohttp.ClientSession() as ses: return await ses.post(*args, **kwargs) 这是有问题的，with 上下文之后会关闭session的连接和资源，如果payload比较大，在连接关闭之后还没读完的话，可能会卡在await ses.text()那里，导致超时
+所以需要在上下文关闭之前就把内容读取完毕并返回。
+可以这样：
+class HTTP: @staticmethod async def post(*args, **kwargs): async with aiohttp.ClientSession() as ses: async with await ses.post(*args, **kwargs) as res: return res, await res.text() 或者这样：
+class HTTP: @classmethod async def get(cls, *args, **kargs): await cls.</description>
+    </item>
+    
+  </channel>
+</rss>

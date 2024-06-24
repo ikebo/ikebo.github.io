@@ -11,7 +11,52 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 15 Jul 2023 23:12:28 +0800</lastBuildDate><atom:link href="https://ikebo.cc/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 21 May 2024 19:17:55 +0800</lastBuildDate><atom:link href="https://ikebo.cc/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>docker</title>
+      <link>https://ikebo.cc/tags/docker/</link>
+      <pubDate>Tue, 21 May 2024 19:17:55 +0800</pubDate>
+      
+      <guid>https://ikebo.cc/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>docker compose</title>
+      <link>https://ikebo.cc/tags/docker-compose/</link>
+      <pubDate>Tue, 21 May 2024 19:17:55 +0800</pubDate>
+      
+      <guid>https://ikebo.cc/tags/docker-compose/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MySQL</title>
+      <link>https://ikebo.cc/tags/mysql/</link>
+      <pubDate>Tue, 30 Apr 2024 11:27:57 +0800</pubDate>
+      
+      <guid>https://ikebo.cc/tags/mysql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>架构设计</title>
+      <link>https://ikebo.cc/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/</link>
+      <pubDate>Tue, 09 Apr 2024 16:14:20 +0800</pubDate>
+      
+      <guid>https://ikebo.cc/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>概要设计</title>
+      <link>https://ikebo.cc/tags/%E6%A6%82%E8%A6%81%E8%AE%BE%E8%AE%A1/</link>
+      <pubDate>Tue, 09 Apr 2024 16:14:20 +0800</pubDate>
+      
+      <guid>https://ikebo.cc/tags/%E6%A6%82%E8%A6%81%E8%AE%BE%E8%AE%A1/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>telegram</title>
       <link>https://ikebo.cc/tags/telegram/</link>
@@ -45,6 +90,474 @@
       <pubDate>Sun, 09 Jul 2023 17:44:27 +0800</pubDate>
       
       <guid>https://ikebo.cc/tags/world/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>显示器</title>
+      <link>https://ikebo.cc/tags/%E6%98%BE%E7%A4%BA%E5%99%A8/</link>
+      <pubDate>Wed, 20 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/%E6%98%BE%E7%A4%BA%E5%99%A8/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>编码</title>
+      <link>https://ikebo.cc/tags/%E7%BC%96%E7%A0%81/</link>
+      <pubDate>Wed, 20 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/%E7%BC%96%E7%A0%81/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CAP</title>
+      <link>https://ikebo.cc/tags/cap/</link>
+      <pubDate>Fri, 07 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/cap/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>分布式理论</title>
+      <link>https://ikebo.cc/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%90%86%E8%AE%BA/</link>
+      <pubDate>Fri, 07 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E7%90%86%E8%AE%BA/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>event loop</title>
+      <link>https://ikebo.cc/tags/event-loop/</link>
+      <pubDate>Wed, 08 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/event-loop/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ignition</title>
+      <link>https://ikebo.cc/tags/ignition/</link>
+      <pubDate>Wed, 08 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/ignition/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>node.js</title>
+      <link>https://ikebo.cc/tags/node.js/</link>
+      <pubDate>Wed, 08 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/node.js/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>v8引擎</title>
+      <link>https://ikebo.cc/tags/v8%E5%BC%95%E6%93%8E/</link>
+      <pubDate>Wed, 08 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/v8%E5%BC%95%E6%93%8E/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>webkit</title>
+      <link>https://ikebo.cc/tags/webkit/</link>
+      <pubDate>Wed, 08 Sep 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/webkit/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>shadowsocks</title>
+      <link>https://ikebo.cc/tags/shadowsocks/</link>
+      <pubDate>Thu, 05 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/shadowsocks/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ABAC</title>
+      <link>https://ikebo.cc/tags/abac/</link>
+      <pubDate>Wed, 14 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/abac/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>RBAC</title>
+      <link>https://ikebo.cc/tags/rbac/</link>
+      <pubDate>Wed, 14 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/rbac/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>权限系统</title>
+      <link>https://ikebo.cc/tags/%E6%9D%83%E9%99%90%E7%B3%BB%E7%BB%9F/</link>
+      <pubDate>Wed, 14 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/%E6%9D%83%E9%99%90%E7%B3%BB%E7%BB%9F/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sso</title>
+      <link>https://ikebo.cc/tags/sso/</link>
+      <pubDate>Wed, 30 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/sso/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>查询优化</title>
+      <link>https://ikebo.cc/tags/%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/</link>
+      <pubDate>Sun, 20 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>对象存储</title>
+      <link>https://ikebo.cc/tags/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/</link>
+      <pubDate>Tue, 18 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>文件系统</title>
+      <link>https://ikebo.cc/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/</link>
+      <pubDate>Tue, 18 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>软件架构</title>
+      <link>https://ikebo.cc/tags/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84/</link>
+      <pubDate>Mon, 17 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>coroutine</title>
+      <link>https://ikebo.cc/tags/coroutine/</link>
+      <pubDate>Thu, 06 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/coroutine/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>golang</title>
+      <link>https://ikebo.cc/tags/golang/</link>
+      <pubDate>Thu, 06 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/golang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>爬梯子</title>
+      <link>https://ikebo.cc/tags/%E7%88%AC%E6%A2%AF%E5%AD%90/</link>
+      <pubDate>Tue, 04 May 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/%E7%88%AC%E6%A2%AF%E5%AD%90/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>http</title>
+      <link>https://ikebo.cc/tags/http/</link>
+      <pubDate>Fri, 30 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/http/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>keep-alive</title>
+      <link>https://ikebo.cc/tags/keep-alive/</link>
+      <pubDate>Fri, 30 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/keep-alive/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>socket</title>
+      <link>https://ikebo.cc/tags/socket/</link>
+      <pubDate>Fri, 30 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/socket/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>创业</title>
+      <link>https://ikebo.cc/tags/%E5%88%9B%E4%B8%9A/</link>
+      <pubDate>Fri, 30 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/%E5%88%9B%E4%B8%9A/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>长连接</title>
+      <link>https://ikebo.cc/tags/%E9%95%BF%E8%BF%9E%E6%8E%A5/</link>
+      <pubDate>Fri, 30 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/%E9%95%BF%E8%BF%9E%E6%8E%A5/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>privoxy</title>
+      <link>https://ikebo.cc/tags/privoxy/</link>
+      <pubDate>Thu, 29 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/privoxy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>socks</title>
+      <link>https://ikebo.cc/tags/socks/</link>
+      <pubDate>Thu, 29 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/socks/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>java</title>
+      <link>https://ikebo.cc/tags/java/</link>
+      <pubDate>Thu, 25 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/java/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>lambda</title>
+      <link>https://ikebo.cc/tags/lambda/</link>
+      <pubDate>Thu, 25 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/lambda/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>lazy</title>
+      <link>https://ikebo.cc/tags/lazy/</link>
+      <pubDate>Thu, 25 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/lazy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>signal</title>
+      <link>https://ikebo.cc/tags/signal/</link>
+      <pubDate>Sat, 06 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/signal/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Unix</title>
+      <link>https://ikebo.cc/tags/unix/</link>
+      <pubDate>Sat, 06 Feb 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/unix/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>aiohttp</title>
+      <link>https://ikebo.cc/tags/aiohttp/</link>
+      <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/aiohttp/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Python</title>
+      <link>https://ikebo.cc/tags/python/</link>
+      <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>asyncio</title>
+      <link>https://ikebo.cc/tags/asyncio/</link>
+      <pubDate>Sun, 10 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/asyncio/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sqlalchemy</title>
+      <link>https://ikebo.cc/tags/sqlalchemy/</link>
+      <pubDate>Sun, 08 Dec 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/sqlalchemy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ssr</title>
+      <link>https://ikebo.cc/tags/ssr/</link>
+      <pubDate>Tue, 13 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/ssr/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>git</title>
+      <link>https://ikebo.cc/tags/git/</link>
+      <pubDate>Fri, 09 Aug 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/git/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>werkzeug</title>
+      <link>https://ikebo.cc/tags/werkzeug/</link>
+      <pubDate>Tue, 23 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/werkzeug/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>thread local</title>
+      <link>https://ikebo.cc/tags/thread-local/</link>
+      <pubDate>Wed, 17 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/thread-local/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>async</title>
+      <link>https://ikebo.cc/tags/async/</link>
+      <pubDate>Tue, 09 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/async/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>await</title>
+      <link>https://ikebo.cc/tags/await/</link>
+      <pubDate>Tue, 09 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/await/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>协程</title>
+      <link>https://ikebo.cc/tags/%E5%8D%8F%E7%A8%8B/</link>
+      <pubDate>Fri, 05 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/%E5%8D%8F%E7%A8%8B/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>随机种子</title>
+      <link>https://ikebo.cc/tags/%E9%9A%8F%E6%9C%BA%E7%A7%8D%E5%AD%90/</link>
+      <pubDate>Fri, 05 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/%E9%9A%8F%E6%9C%BA%E7%A7%8D%E5%AD%90/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>uwsgi</title>
+      <link>https://ikebo.cc/tags/uwsgi/</link>
+      <pubDate>Thu, 04 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/uwsgi/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>wsgi</title>
+      <link>https://ikebo.cc/tags/wsgi/</link>
+      <pubDate>Thu, 04 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/wsgi/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>生成器</title>
+      <link>https://ikebo.cc/tags/%E7%94%9F%E6%88%90%E5%99%A8/</link>
+      <pubDate>Thu, 04 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/%E7%94%9F%E6%88%90%E5%99%A8/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>迭代器</title>
+      <link>https://ikebo.cc/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8/</link>
+      <pubDate>Thu, 04 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>epoll</title>
+      <link>https://ikebo.cc/tags/epoll/</link>
+      <pubDate>Wed, 03 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/epoll/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kqueue</title>
+      <link>https://ikebo.cc/tags/kqueue/</link>
+      <pubDate>Wed, 03 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/kqueue/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tmux</title>
+      <link>https://ikebo.cc/tags/tmux/</link>
+      <pubDate>Tue, 02 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://ikebo.cc/tags/tmux/</guid>
       <description></description>
     </item>
     
