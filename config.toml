@@ -206,6 +206,8 @@ unsafe = true
 
 [markup.highlight]
 noClasses = false
+style = 'manni' # 样式参考 https://swapoff.org/chroma/playground
+
 
 [privacy.vimeo]
 disabled = false
