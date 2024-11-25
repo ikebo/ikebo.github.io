@@ -4,80 +4,49 @@ date: 2024-11-25T17:09:13+08:00
 draft: false
 ---
 # Make Tunnel
-``` go
+```go
 func makeTunnel() (c net.Conn, err error) {
-
 	if UseWebsocket || !UseHttp {
-	
 		c, err = connect(Saddr)
-	
 	} else {
-	
 		addr := Saddr
-	
 		if proxyURL != nil {
-	
 			addr = proxyURL.Host
-	
 		}
-	
 		c, err = dial(addr)
-	
 	}
-	
 	if err != nil {
-	
 		return
-	
 	}
-	
 	if UseWebsocket {
-	
 		ws, resp, err := websocket.NewClient(c, &url.URL{Host: Saddr}, nil, 8192, 8192)
-	
 		if err != nil {
-	
 			c.Close()
-		
 			return nil, err
-	
 		}
-	
 		resp.Body.Close()
-		
+
 		c = NewWSConn(ws)
-	
 	} else if UseHttp {
-	
 		httpcli := NewHttpClientConn(c)
-	
 		if err = httpcli.Handshake(); err != nil {
-		
 			c.Close()
-	
 			return nil, err
-	
 		}
-	
 		c = httpcli
-	
 		//defer httpcli.Close()
 	}
-	
+
 	sc := gosocks5.ClientConn(c, clientConfig)
-	
 	if err = sc.Handleshake(); err != nil {
-	
 		c.Close()
-	
 		return nil, err
-	
 	}
-	
 	c = sc
-	
+
 	return
-}```
+}
+```
 
 
 
@@ -146,6 +115,7 @@ func handleSocks5(conn net.Conn, methods []uint8) {
 	}
 }
 ```
+
 
 
 与Server建立连接后 (makeTunnel)，本地listen udp, 将udp连接(uconn) 和 server连接(sconn) pipe起来, 也就是将udp协议数据通过sconn这个tunnel转发出去, tunnel对端是个socks server, socks5协议本身就支持udp, 会将tcp协议中的udp数据解包, 再转发到对应的目标地址。
