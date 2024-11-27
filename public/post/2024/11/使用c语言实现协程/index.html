@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>使用C语言实现协程 | Ike&#39;Log</title>
+<meta name="keywords" content="">
+<meta name="description" content="本文译自 PuTTY 的作者 Simon Tatham 的文章 Coroutines in C，作者在文中介绍了一种基于 达夫设备 的思想实现的协程。注意，斜体部分为翻译过程中的补充。考虑到译者的英文水平有限，部分语句的翻译与原文略有出入，强烈建议读者结合原文观看。
+介绍 编写大型程序总是一件困难的事。其中常见的一个问题就是：如果你有一段代码正在生产数据，同时有另一段代码正在消费这些数据，它俩之间谁应该是 caller（调用者）谁应该是 callee（被调用者）呢_（译者注，即如何维护它俩之间的调用关系）_？
+这里有一段非常简单的 decompressor 代码，以及一段非常简单的 parser 代码：
+// decompressor while (1) { c = getchar(); if (c == EOF) break; if (c == 0xFF) { len = getchar(); c = getchar(); while (len--) { emit(c); } } else { emit(c); } } emit(EOF); // parser while (1) { c = getchar(); if (c == EOF) break; if (isalpha(c)) { do { add_to_token(c); c = getchar(); } while (isalpha(c)); got_token(WORD); } add_to_token(c); got_token(PUNCT); } 两段代码都非常简单易懂。前者通过调用 emit() 每次产生一个字符；后者通过调用 getchar() 每次消费一个字符。只需要调用 emit() 和 getchar() 就可以传送数据了，所以 decompressor 产生的数据可以很轻易地传送到 parser 中。">
+<meta name="author" content="Egbert Ke">
+<link rel="canonical" href="https://ikebo.cc/post/2024/11/%E4%BD%BF%E7%94%A8c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%8D%8F%E7%A8%8B/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.7140587df96a2b1a49eb723fa7063dc0c641a6cb638f3140e8d3beb4deae4f5c.css" integrity="sha256-cUBYfflqKxpJ63I/pwY9wMZBpstjjzFA6NO&#43;tN6uT1w=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://ikebo.cc/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://ikebo.cc/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://ikebo.cc/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://ikebo.cc/apple-touch-icon.png">
+<link rel="mask-icon" href="https://ikebo.cc/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="使用C语言实现协程" />
+<meta property="og:description" content="本文译自 PuTTY 的作者 Simon Tatham 的文章 Coroutines in C，作者在文中介绍了一种基于 达夫设备 的思想实现的协程。注意，斜体部分为翻译过程中的补充。考虑到译者的英文水平有限，部分语句的翻译与原文略有出入，强烈建议读者结合原文观看。
+介绍 编写大型程序总是一件困难的事。其中常见的一个问题就是：如果你有一段代码正在生产数据，同时有另一段代码正在消费这些数据，它俩之间谁应该是 caller（调用者）谁应该是 callee（被调用者）呢_（译者注，即如何维护它俩之间的调用关系）_？
+这里有一段非常简单的 decompressor 代码，以及一段非常简单的 parser 代码：
+// decompressor while (1) { c = getchar(); if (c == EOF) break; if (c == 0xFF) { len = getchar(); c = getchar(); while (len--) { emit(c); } } else { emit(c); } } emit(EOF); // parser while (1) { c = getchar(); if (c == EOF) break; if (isalpha(c)) { do { add_to_token(c); c = getchar(); } while (isalpha(c)); got_token(WORD); } add_to_token(c); got_token(PUNCT); } 两段代码都非常简单易懂。前者通过调用 emit() 每次产生一个字符；后者通过调用 getchar() 每次消费一个字符。只需要调用 emit() 和 getchar() 就可以传送数据了，所以 decompressor 产生的数据可以很轻易地传送到 parser 中。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ikebo.cc/post/2024/11/%E4%BD%BF%E7%94%A8c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%8D%8F%E7%A8%8B/" /><meta property="og:image" content="https://ikebo.cc/papermod-cover.png"/><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2024-11-21T19:59:42+08:00" />
+<meta property="article:modified_time" content="2024-11-21T19:59:42+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ikebo.cc/papermod-cover.png"/>
+
+<meta name="twitter:title" content="使用C语言实现协程"/>
+<meta name="twitter:description" content="本文译自 PuTTY 的作者 Simon Tatham 的文章 Coroutines in C，作者在文中介绍了一种基于 达夫设备 的思想实现的协程。注意，斜体部分为翻译过程中的补充。考虑到译者的英文水平有限，部分语句的翻译与原文略有出入，强烈建议读者结合原文观看。
+介绍 编写大型程序总是一件困难的事。其中常见的一个问题就是：如果你有一段代码正在生产数据，同时有另一段代码正在消费这些数据，它俩之间谁应该是 caller（调用者）谁应该是 callee（被调用者）呢_（译者注，即如何维护它俩之间的调用关系）_？
+这里有一段非常简单的 decompressor 代码，以及一段非常简单的 parser 代码：
+// decompressor while (1) { c = getchar(); if (c == EOF) break; if (c == 0xFF) { len = getchar(); c = getchar(); while (len--) { emit(c); } } else { emit(c); } } emit(EOF); // parser while (1) { c = getchar(); if (c == EOF) break; if (isalpha(c)) { do { add_to_token(c); c = getchar(); } while (isalpha(c)); got_token(WORD); } add_to_token(c); got_token(PUNCT); } 两段代码都非常简单易懂。前者通过调用 emit() 每次产生一个字符；后者通过调用 getchar() 每次消费一个字符。只需要调用 emit() 和 getchar() 就可以传送数据了，所以 decompressor 产生的数据可以很轻易地传送到 parser 中。"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://ikebo.cc/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "使用C语言实现协程",
+      "item": "https://ikebo.cc/post/2024/11/%E4%BD%BF%E7%94%A8c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%8D%8F%E7%A8%8B/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "使用C语言实现协程",
+  "name": "使用C语言实现协程",
+  "description": "本文译自 PuTTY 的作者 Simon Tatham 的文章 Coroutines in C，作者在文中介绍了一种基于 达夫设备 的思想实现的协程。注意，斜体部分为翻译过程中的补充。考虑到译者的英文水平有限，部分语句的翻译与原文略有出入，强烈建议读者结合原文观看。\n介绍 编写大型程序总是一件困难的事。其中常见的一个问题就是：如果你有一段代码正在生产数据，同时有另一段代码正在消费这些数据，它俩之间谁应该是 caller（调用者）谁应该是 callee（被调用者）呢_（译者注，即如何维护它俩之间的调用关系）_？\n这里有一段非常简单的 decompressor 代码，以及一段非常简单的 parser 代码：\n// decompressor while (1) { c = getchar(); if (c == EOF) break; if (c == 0xFF) { len = getchar(); c = getchar(); while (len--) { emit(c); } } else { emit(c); } } emit(EOF); // parser while (1) { c = getchar(); if (c == EOF) break; if (isalpha(c)) { do { add_to_token(c); c = getchar(); } while (isalpha(c)); got_token(WORD); } add_to_token(c); got_token(PUNCT); } 两段代码都非常简单易懂。前者通过调用 emit() 每次产生一个字符；后者通过调用 getchar() 每次消费一个字符。只需要调用 emit() 和 getchar() 就可以传送数据了，所以 decompressor 产生的数据可以很轻易地传送到 parser 中。",
+  "keywords": [
+    
+  ],
+  "articleBody": "本文译自 PuTTY 的作者 Simon Tatham 的文章 Coroutines in C，作者在文中介绍了一种基于 达夫设备 的思想实现的协程。注意，斜体部分为翻译过程中的补充。考虑到译者的英文水平有限，部分语句的翻译与原文略有出入，强烈建议读者结合原文观看。\n介绍 编写大型程序总是一件困难的事。其中常见的一个问题就是：如果你有一段代码正在生产数据，同时有另一段代码正在消费这些数据，它俩之间谁应该是 caller（调用者）谁应该是 callee（被调用者）呢_（译者注，即如何维护它俩之间的调用关系）_？\n这里有一段非常简单的 decompressor 代码，以及一段非常简单的 parser 代码：\n// decompressor while (1) { c = getchar(); if (c == EOF) break; if (c == 0xFF) { len = getchar(); c = getchar(); while (len--) { emit(c); } } else { emit(c); } } emit(EOF); // parser while (1) { c = getchar(); if (c == EOF) break; if (isalpha(c)) { do { add_to_token(c); c = getchar(); } while (isalpha(c)); got_token(WORD); } add_to_token(c); got_token(PUNCT); } 两段代码都非常简单易懂。前者通过调用 emit() 每次产生一个字符；后者通过调用 getchar() 每次消费一个字符。只需要调用 emit() 和 getchar() 就可以传送数据了，所以 decompressor 产生的数据可以很轻易地传送到 parser 中。\n在很多现代操作系统中，你可以在两个进程或线程之间使用管道（pipe）传输数据。在 decompressor 的 emit() 向管道中写数据，在 parser 的 getchar() 从同一个管道中读数据。简单粗暴，同时也非常繁琐和浪费性能。尤其是在你不想因为要做类似的事就得把程序拆分为多线程时。\n在本篇文章中，我为这类结构性问题提供一种极具创造性的解决方案。\n重写 一种常见的解决方案是重写通信渠道两端中的一端，使之成为一个可以被调用的函数。以下分别是 decompressor 和 parser 可能会被重写成的样子：\n// 如果是 decompressor 被重写 int decompressor(void) { static int repchar; static int replen; if (replen \u003e 0) { replen--; return repchar; } c = getchar(); if (c == EOF) return EOF; if (c == 0xFF) { replen = getchar(); repchar = getchar(); replen--; return repchar; } else { return c; } } // 如果是 parser 被重写 void parser(int c) { static enum { START, IN_WORD } state; switch (state) { case IN_WORD: if (isalpha(c)) { add_to_token(c); return; } got_token(WORD); state = START; /* fall through */ case START: add_to_token(c); if (isalpha(c)) { state = IN_WORD; } else { got_token(PUNCT); } break; } } 当然，你不用把 decompressor 和 parser 都重写了，只用重写其中一个即可。如果是像上述代码那样重写 decompressor，即每次调用会返回一个字符，那么只需要在原来的 parser 代码中将 getchar() 替换为 decompressor() 即可。反之，如果是像上述代码那样重写 parser，即每次调用都会消费一个字符，那么只需要在原来的 decompressor 代码中将 emit() 替换为 parser() 即可。\n关键点就在于，无论是重写哪一个，相对于原来的代码而言都相当丑陋。无论是 decompressor 还是 parser 作为 caller 而不是 callee 时，代码都更容易被理解。无论是 decompressor 解压数据还是 parser 解析数据，你都会发现原来的代码更简洁清晰。如果我们不需要重写它们其中任何一个就好了。除非你有强迫症才会想把二者都重写了。\nKnuth 的协程 在 The Art of Computer Programming 这本书中，Donald Knuth 提供了一种此类问题的解决方案。他的回答是完全地抛开调用栈的概念。请停止这种一个程序是 caller 而另一个程序是 callee 的思想，并开始把他们想象为平等的协作者。\n实际来说就是将传统的 call 原语替换为一种略微不同的方式。新的 call 原语会将返回值存储在栈之外的某个地方，然后会跳转到另一个已经保存的返回值中的指定位置。即每当 decompressor 生产了一个字符，它便会保存自己的程序计数器，然后跳转到 parser 中最后一次已知的位置；每当 parser 需要一个新的字符时，它便会保存自己的程序计数器，然后跳转到 decompressor 保存的位置。控制程序会根据需要在二者间来回穿梭。\n这是一个非常棒的理论，但是你只能使用汇编语言这么干，因为常见的高级语言都不支持这种协程式的 call 原语。像 C 这种语言完全依赖于它们自己的栈调用结构，所以只要控制权从一个函数传递到另一个函数，那么它们中必然有一个是 caller，而另一个必然是被 callee。如果你想撰写可移植的代码，那这至少和使用 Unix 管道的方案一样不切实际。\n基于栈的协程 所以我们真正需要的是能在 C 语言层面能够模拟 Knuth 的协程的 call 原语的能力。当然我们必须接受这样一个事实，在 C 语言层面，一个函数必然是 caller，而其他函数则是 callee。对于 caller 而言，我们没有任何问题；我们像原本那样写代码就行，当生产出（或者需要）一个字符时，直接调用其他函数就行。\n问题集中在 callee 这边。对于 callee 而言，我们需要一种「返回且继续」（return and continue）的操作：从一个函数中返回，且当这个函数下次被调用时，从它上一次返回之后的地方开始执行。举个例子，就像我们需要实现这样一个函数：\nint function(void) { int i; for (i = 0; i \u003c 10; i++) { return i; // 实际上没用，但是适合用来举例子 } } 调用 10 次这个函数，会得到 0 ~ 9 的返回值。\n所以我们要怎么实现这个函数呢？当然我们可以使用 goto 关键字来切换控制流。我们可以声明一个 state 变量然后这么做：\nint function(void) { static int i, state = 0; switch (state) { case 0: goto LABEL0; case 1: goto LABEL1; } LABEL0: // 函数开始执行 for (i = 0; i \u003c 10; i++) { state = 1; // 我们会跳转到 LABEL1 return i; LABEL1:; // 从上一次返回之后的地方开始执行 } } 然后就可以了。我们需要在可能恢复控制流的地方设置 label：一个在函数的开头，另一个在 return 之后。我们使用一个 state 变量来保存函数调用的状态_（译者注，虽然 state 是在函数中被定义的，但它是一个 static 变量，只会被初始化一次，且生命周期超越了函数本身）_，它告诉我们应该使用哪个 label 来恢复控制流。在第一次 return 之前，我们将正确的 label 赋值给 state；在之后任意次调用开始时，我们使用 switch 来决定该跳转到哪里。\n不过这看起来依然很丑陋。最糟糕的地方在于，你需要手动地设置 label，并且需要保持 switch 语句和函数体的一致性。每当我们新增一个返回语句，我们都得新增一个 label 然后把它加入到 switch 中；每当我们删除一个返回语句，我们又得删除掉它对应的 label。这使得我们需要付出成倍的工作量。\n达夫设备 著名的达夫设备（Duff’s Device）代码片段揭示了 C 语言的这样一个事实，即 case 语句在子代码块中仍然可以和 switch 语句相匹配_（译者注，关于达夫设备的介绍可参见译者的另一篇文章 深入理解达夫设备）_。Tom Duff 使用这个技巧来优化循环展开的逻辑：\nswitch (count % 8) { case 0: do { *to = *from++; case 7: *to = *from++; case 6: *to = *from++; case 5: *to = *from++; case 4: *to = *from++; case 3: *to = *from++; case 2: *to = *from++; case 1: *to = *from++; } while (--n \u003e 0); } 我们可以将其改造并应用到协程的实现中。我们可以使用 switch 语句直接实现跳转而不是使用它来决定该执行哪条 goto 语句：\nint function(void) { static int i, state = 0; switch (state) { case 0: // 函数开始执行 for (i = 0; i \u003c 10; i++) { state = 1; // 我们会回到 \"case 1\" 的地方 return i; case 1:; // 从上一次返回之后的地方开始执行 } } } 看起来不错。现在我们需要做的就是构造一些精选的宏，这样我们就能以合理的方式将血腥的（gory）细节隐藏起来：\n#define crBegin static int state=0; switch(state) { case 0: #define crReturn(i,x) do { state=i; return x; case i:; } while (0) #define crFinish } int function(void) { static int i; crBegin; for (i = 0; i \u003c 10; i++) { crReturn(1, i); } crFinish; } （注意，使用 do ... while(0) 可以确保当 crReturn 位于 if ... else 之间时，不需要用大括号将其扩起来）\n这差不多就是我们想要的样子了。我们可以使用 crReturn 实现从函数中返回且下次调用时能从上一次返回之后的地方开始执行。当然啦我们必须遵循一些使用规则（必须使用 crBegin 和 crFinish 将函数体包围；将所有在多次函数调用过程中需要保持的变量声明为 static 的；永远不要将 crReturn 和 switch 语句一起使用）；不过这些规则并没有太限制到我们。\n现在唯一的问题就是 crReturn 的第一个参数。就像之前我们声明新 label 时需要避免和任何已有的 label 产生冲突那样，我们需要确保所有 crReturn 中的 state 参数都不一样。如果不这么做的话，编译器就会报错。\n但这个问题也是可以被解决的。ANSI C 提供了一个名为 __LINE__ 的特殊的宏，代表了当前代码所在的行数。所以我们可以把 crReturn 重写为：\n#define crReturn(x) do { state=__LINE__; return x; \\ case __LINE__:; } while (0) 于是我们再也不需要关心 state 参数了，只是我们需要遵守第四条规则（永远不要将两个 crReturn 语句写在同一行）。\n评估 现在我们有了一个可怕的工具，让我们用它把原来的代码重写一下看看。\nint decompressor(void) { static int c, len; crBegin; while (1) { c = getchar(); if (c == EOF) break; if (c == 0xFF) { len = getchar(); c = getchar(); while (len--) { crReturn(c); } } else { crReturn(c); } } crReturn(EOF); crFinish; } void parser(int c) { crBegin; while (1) { // 第一个字符已经存储在 c 中了 if (c == EOF) break; if (isalpha(c)) { do { add_to_token(c); crReturn( ); } while (isalpha(c)); got_token(WORD); } add_to_token(c); got_token(PUNCT); crReturn( ); } crFinish; } 我们把 decompressor 和 parser 都重写为了 callee，但显然并不需要像之前重写的那样需要大规模重组代码。新的代码结构简直就是原始的代码结构的镜像。与晦涩难读的状态机代码相比，读者可以很轻易分辨出 decompressor 解压数据的逻辑和 parser 解析数据的逻辑。一旦你将心智模型迁移到新的模式上，控制流就很简单了：当 decompressor 有一个字符时，它便将其使用 crReturn 返回，并且等待在下一次需要字符时被调用。当 parser 需要一个新字符时，它便使用 crReturn 返回，并且等待有新字符时被再次调用，新字符以参数 c 的形式传入。\n但仍然有一些小的结构上的变化：parser() 现在将它自己的 getchar()（好吧，其实被改为了 crReturn）从循环开始的地方移动到了循环结束的地方，这是因为第一个字符已经以参数 c 的形式被传入到函数中了。我们可以接受这种改变，不过如果你真的介意这种改变的话，我们可以强制要求在开始给 parser() 输入字符之前要先初始化。\n就像之前说的那样，我们没有必要使用这些协程宏把两段代码都重写了。重写其中一个即可，另一个则作为 caller 存在。\n现在可以确定的是我们已经达到了我们的目标：一份不需要将生产者或是消费者重写为状态机就可以移植的 ANSI C 代码。通过使用 C 语言预处理器和 switch 语句一个很少被使用到的特性，我们得以实现一个隐式的状态机。\n编程规范 显然，这个技巧违背了所有书中提到的编程规范。如果你在公司这么写代码，就算你没有被处分，也会被严厉警告！你在宏里嵌入了没有匹配的大括号，在子代码块中使用 case，以及具有可怕破坏性的 crReturn 宏⋯⋯很难想象你还没有因为这种不负责任的编码实践而被开除。你应该对自己感到羞耻。\n但我声明在此处，这些编程规范都是无效的。我在本文中举的例子不是很长，也不是很复杂，并且在被重写为状态机时也仍然是可理解的。但随着函数变得更长，重写的复杂度也会随之增加，同时清晰度也会下降得非常糟糕。\n思考一下。一个由如下代码块组成的函数：\ncase STATE1: // DO SOMETHING if (condition) state = STATE2; else state = STATE3; 和一个由如下代码块组成的函数：\nLABEL1: // DO SOMETHING if (condition) goto LABEL2; else goto LABEL3; 对读者来说，看起来可能是差不多。\n虽然前者是 caller 后者是 callee，但它们在视觉结构上都是一致的，且它们在底层算法的实现上也是一致的。如果一个人会因为使用了我提供的协程宏而开除你，那他同样也会因为你使用 goto 语句构造小的代码块而开除你！不过这一次他们显然是正确的，因为后者会严重损坏算法的结构性。\n代码规范的目标是清晰度。通过将 switch, return, case 语句隐藏在令人困惑的宏里，代码规范会认为你隐藏了程序的语法结构，违反了清晰度要求。但是你又不得不为了揭示读者可能想知道的程序算法结构而这么做！\n任何以坚持语法清晰度为代价的代码规范都应该被重写。请在你的雇主因为你使用这个技巧而要开除你时，把这句话告诉他们。\n精炼和编码 在一个严肃的应用中，这个玩具协程实现基本是不可用的，因为它依赖 static 变量，所以在多线程环境下会重入失效。理想情况下，在一个真实的应用里，你可能会想要在不同上下文中调用同一个函数，并且对于相同上下文中的调用，都应该在相同上下文的最后一次返回之后恢复控制。\n当然这解决起来也很简单了。我们需要一个额外的函数参数，它是一个指向当前上下文结构的指针；我们在这种结构中定义所有本地变量，以及我们的协程 state 变量。\n这看上去是有点丑，因为突然之间你就得使用 ctx -\u003e i 作为循环计数器了，而不是像之前那样简单使用 i 即可；实际上你定义的所有变量都成为了协程上下文结构的一部分。但它解决了重入问题，并且也没有破坏代码结构。\n（当然啦，如果 C 语言有 Pascal 的 with 语句的话，我们就能使用宏将这一层间接寻址隐藏掉。真可惜。不过至少 C++ 程序员们可以通过类来隐式划分作用域，将协程和所有本地变量都作为类的成员来解决）\n这里有一份包含了预先定义好的协程宏的 C 语言头文件。文件中定义了两组宏，前缀分别是 scr 和 ccr。scr 宏是本文中介绍的较为简单的宏实现，你可以和 static 变量搭配使用；ccr 宏则提供了可重入机制。完整的文档请参见头文件中的注释。\n请注意，Visual C++ 6.0 看起来不太喜欢这种协程技巧，因为它默认的调试功能（Program Database for Edit and Continue）和 __LINE__ 宏搭配在一起时，会表现出奇怪的行为。如果你想要使用 VC++ 6.0 编译包含协程的程序，你必须关掉 Edit and Continue 功能（在 Project Settings 里，点击 C/C++ 标签，接着点击 General 再点击 Debug info。随便选择一个除了 “Program Database for Edit and Continue” 之外的选项）。\n（这份头文件遵循 MIT 协议，所以你可以不受限制地在任何地方使用。如果你觉得 MIT 协议不适用于你要做的事，给我发邮件吧，我大概会给授予你额外的权限去做这件事）\n猛击这个链接 获取 coroutine.h。\n感谢阅读！我很享受这种分享的状态。\n引用 Donald Knuth, The Art of Computer Programming, Volume 1. Addison-Wesley, ISBN 0-201-89683-4. Section 1.4.2 describes coroutines in the “pure” form. http://www.lysator.liu.se/c/duffs-device.html 指向了 Tom Duff 自己对达夫设备的讨论。请注意，在讨论的底部，达夫可能已经独立发明了这种协程技巧，或者某种类似的东西。**Update, 2005-03-07：**达夫在一篇博客的评论中 确认了这件事。他所说的「使用 switch 的方式来实现状态机的中断」和我在文中所述的技巧是一样的。 PuTTY 是一个 Win32 平台下的 Telnet 和 SSH 客户端。其中 SSH 协议的代码实现就真实使用到了这种协程技巧。至少在我看来，这是我见过的在一个严肃的产品中使用过的最糟糕的 C 语言特性了。 ",
+  "wordCount" : "918",
+  "inLanguage": "en",
+  "datePublished": "2024-11-21T19:59:42+08:00",
+  "dateModified": "2024-11-21T19:59:42+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "Egbert Ke"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://ikebo.cc/post/2024/11/%E4%BD%BF%E7%94%A8c%E8%AF%AD%E8%A8%80%E5%AE%9E%E7%8E%B0%E5%8D%8F%E7%A8%8B/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Ike'Log",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://ikebo.cc/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://ikebo.cc/" accesskey="h" title="Ike&#39;Log (Alt + H)">Ike&#39;Log</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://ikebo.cc/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ikebo.cc/archives" title="Archive">
+                    <span>Archive</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ikebo.cc/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://ikebo.cc/tags/" title="Tags">
+                    <span>Tags</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://ikebo.cc/">Home</a>&nbsp;»&nbsp;<a href="https://ikebo.cc/post/">Posts</a></div>
+    <h1 class="post-title">
+      使用C语言实现协程
+    </h1>
+    <div class="post-meta"><span title='2024-11-21 19:59:42 +0800 CST'>November 21, 2024</span>&nbsp;·&nbsp;5 min&nbsp;·&nbsp;Egbert Ke
+
+</div>
+  </header> <div class="toc">
+    <details >
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">Table of Contents</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e4%bb%8b%e7%bb%8d" aria-label="介绍">介绍</a></li>
+                <li>
+                    <a href="#%e9%87%8d%e5%86%99" aria-label="重写">重写</a></li>
+                <li>
+                    <a href="#knuth-%e7%9a%84%e5%8d%8f%e7%a8%8b" aria-label="Knuth 的协程">Knuth 的协程</a></li>
+                <li>
+                    <a href="#%e5%9f%ba%e4%ba%8e%e6%a0%88%e7%9a%84%e5%8d%8f%e7%a8%8b" aria-label="基于栈的协程">基于栈的协程</a></li>
+                <li>
+                    <a href="#%e8%be%be%e5%a4%ab%e8%ae%be%e5%a4%87" aria-label="达夫设备">达夫设备</a></li>
+                <li>
+                    <a href="#%e8%af%84%e4%bc%b0" aria-label="评估">评估</a></li>
+                <li>
+                    <a href="#%e7%bc%96%e7%a8%8b%e8%a7%84%e8%8c%83" aria-label="编程规范">编程规范</a></li>
+                <li>
+                    <a href="#%e7%b2%be%e7%82%bc%e5%92%8c%e7%bc%96%e7%a0%81" aria-label="精炼和编码">精炼和编码</a></li>
+                <li>
+                    <a href="#%e5%bc%95%e7%94%a8" aria-label="引用">引用</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>本文译自 PuTTY 的作者 Simon Tatham 的文章 <a href="https://www.chiark.greenend.org.uk/~sgtatham/coroutines.html">Coroutines in C</a>，作者在文中介绍了一种基于 <a href="https://mthli.xyz/duff-device/">达夫设备</a> 的思想实现的协程。注意，<em>斜体部分为翻译过程中的补充</em>。考虑到译者的英文水平有限，部分语句的翻译与原文略有出入，强烈建议读者结合原文观看。</p>
+<h2 id="介绍">介绍<a hidden class="anchor" aria-hidden="true" href="#介绍">#</a></h2>
+<p>编写大型程序总是一件困难的事。其中常见的一个问题就是：如果你有一段代码正在生产数据，同时有另一段代码正在消费这些数据，它俩之间谁应该是 caller（调用者）谁应该是 callee（被调用者）呢_（译者注，即如何维护它俩之间的调用关系）_？</p>
+<p>这里有一段非常简单的 decompressor 代码，以及一段非常简单的 parser 代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// decompressor
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">c</span> <span class="o">=</span> <span class="n">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="n">EOF</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="mh">0xFF</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">len</span> <span class="o">=</span> <span class="n">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">c</span> <span class="o">=</span> <span class="n">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="p">(</span><span class="n">len</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">emit</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">emit</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">emit</span><span class="p">(</span><span class="n">EOF</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// parser
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">c</span> <span class="o">=</span> <span class="n">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="n">EOF</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">isalpha</span><span class="p">(</span><span class="n">c</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">do</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">add_to_token</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">c</span> <span class="o">=</span> <span class="n">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">isalpha</span><span class="p">(</span><span class="n">c</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">        <span class="n">got_token</span><span class="p">(</span><span class="n">WORD</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">add_to_token</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">got_token</span><span class="p">(</span><span class="n">PUNCT</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>两段代码都非常简单易懂。前者通过调用 <code>emit()</code> 每次产生一个字符；后者通过调用 <code>getchar()</code> 每次消费一个字符。只需要调用 <code>emit()</code> 和 <code>getchar()</code> 就可以传送数据了，所以 decompressor 产生的数据可以很轻易地传送到 parser 中。</p>
+<p>在很多现代操作系统中，你可以在两个进程或线程之间使用管道（pipe）传输数据。在 decompressor 的 <code>emit()</code> 向管道中写数据，在 parser 的 <code>getchar()</code> 从同一个管道中读数据。简单粗暴，同时也非常繁琐和浪费性能。尤其是在你不想因为要做类似的事就得把程序拆分为多线程时。</p>
+<p>在本篇文章中，我为这类结构性问题提供一种极具创造性的解决方案。</p>
+<h2 id="重写">重写<a hidden class="anchor" aria-hidden="true" href="#重写">#</a></h2>
+<p>一种常见的解决方案是重写通信渠道两端中的一端，使之成为一个可以被调用的函数。以下分别是 decompressor 和 parser 可能会被重写成的样子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="c1">// 如果是 decompressor 被重写
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">int</span> <span class="nf">decompressor</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="kt">int</span> <span class="n">repchar</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="kt">int</span> <span class="n">replen</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">replen</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">replen</span><span class="o">--</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">repchar</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">c</span> <span class="o">=</span> <span class="n">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="n">EOF</span><span class="p">)</span> <span class="k">return</span> <span class="n">EOF</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="mh">0xFF</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">replen</span> <span class="o">=</span> <span class="n">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">repchar</span> <span class="o">=</span> <span class="n">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">replen</span><span class="o">--</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">repchar</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">c</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 如果是 parser 被重写
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">void</span> <span class="nf">parser</span><span class="p">(</span><span class="kt">int</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="k">enum</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">START</span><span class="p">,</span> <span class="n">IN_WORD</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="n">state</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">switch</span> <span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="nl">IN_WORD</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">isalpha</span><span class="p">(</span><span class="n">c</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">add_to_token</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">got_token</span><span class="p">(</span><span class="n">WORD</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">state</span> <span class="o">=</span> <span class="n">START</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="cm">/* fall through */</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="nl">START</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">add_to_token</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">isalpha</span><span class="p">(</span><span class="n">c</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">state</span> <span class="o">=</span> <span class="n">IN_WORD</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">got_token</span><span class="p">(</span><span class="n">PUNCT</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>当然，你不用把 decompressor 和 parser 都重写了，只用重写其中一个即可。如果是像上述代码那样重写 decompressor，即每次调用会返回一个字符，那么只需要在原来的 parser 代码中将 <code>getchar()</code> 替换为 <code>decompressor()</code> 即可。反之，如果是像上述代码那样重写 parser，即每次调用都会消费一个字符，那么只需要在原来的 decompressor 代码中将 <code>emit()</code> 替换为 <code>parser()</code> 即可。</p>
+<p>关键点就在于，无论是重写哪一个，相对于原来的代码而言都相当丑陋。无论是 decompressor 还是 parser 作为 caller 而不是 callee 时，代码都更容易被理解。无论是 decompressor 解压数据还是 parser 解析数据，你都会发现原来的代码更简洁清晰。如果我们不需要重写它们其中任何一个就好了。除非你有强迫症才会想把二者都重写了。</p>
+<h2 id="knuth-的协程">Knuth 的协程<a hidden class="anchor" aria-hidden="true" href="#knuth-的协程">#</a></h2>
+<p>在 <a href="https://www-cs-faculty.stanford.edu/~knuth/taocp.html">The Art of Computer Programming</a> 这本书中，Donald Knuth 提供了一种此类问题的解决方案。他的回答是完全地抛开调用栈的概念。请停止这种一个程序是 caller 而另一个程序是 callee 的思想，并开始把他们想象为平等的协作者。</p>
+<p>实际来说就是将传统的 call 原语替换为一种略微不同的方式。新的 call 原语会将返回值存储在栈之外的某个地方，然后会跳转到另一个已经保存的返回值中的指定位置。即每当 decompressor 生产了一个字符，它便会保存自己的程序计数器，然后跳转到 parser 中最后一次已知的位置；每当 parser 需要一个新的字符时，它便会保存自己的程序计数器，然后跳转到 decompressor 保存的位置。控制程序会根据需要在二者间来回穿梭。</p>
+<p>这是一个非常棒的理论，但是你只能使用汇编语言这么干，因为常见的高级语言都不支持这种协程式的 call 原语。像 C 这种语言完全依赖于它们自己的栈调用结构，所以只要控制权从一个函数传递到另一个函数，那么它们中必然有一个是 caller，而另一个必然是被 callee。如果你想撰写可移植的代码，那这至少和使用 Unix 管道的方案一样不切实际。</p>
+<h2 id="基于栈的协程">基于栈的协程<a hidden class="anchor" aria-hidden="true" href="#基于栈的协程">#</a></h2>
+<p>所以我们真正需要的是能在 C 语言层面能够模拟 Knuth 的协程的 call 原语的能力。当然我们必须接受这样一个事实，在 C 语言层面，一个函数必然是 caller，而其他函数则是 callee。对于 caller 而言，我们没有任何问题；我们像原本那样写代码就行，当生产出（或者需要）一个字符时，直接调用其他函数就行。</p>
+<p>问题集中在 callee 这边。对于 callee 而言，我们需要一种「返回且继续」（return and continue）的操作：从一个函数中返回，且当这个函数下次被调用时，从它上一次返回之后的地方开始执行。举个例子，就像我们需要实现这样一个函数：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">function</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">i</span><span class="p">;</span> <span class="c1">// 实际上没用，但是适合用来举例子
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>调用 10 次这个函数，会得到 0 ~ 9 的返回值。</p>
+<p>所以我们要怎么实现这个函数呢？当然我们可以使用 goto 关键字来切换控制流。我们可以声明一个 <code>state</code> 变量然后这么做：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">function</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">state</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">switch</span> <span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="mi">0</span><span class="o">:</span> <span class="k">goto</span> <span class="n">LABEL0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="mi">1</span><span class="o">:</span> <span class="k">goto</span> <span class="n">LABEL1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nl">LABEL0</span><span class="p">:</span> <span class="c1">// 函数开始执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">state</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// 我们会跳转到 LABEL1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">return</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="nl">LABEL1</span><span class="p">:;</span> <span class="c1">// 从上一次返回之后的地方开始执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>然后就可以了。我们需要在可能恢复控制流的地方设置 label：一个在函数的开头，另一个在 return 之后。我们使用一个 <code>state</code> 变量来保存函数调用的状态_（译者注，虽然 <code>state</code> 是在函数中被定义的，但它是一个 static 变量，只会被初始化一次，且生命周期超越了函数本身）_，它告诉我们应该使用哪个 label 来恢复控制流。在第一次 return 之前，我们将正确的 label 赋值给 <code>state</code>；在之后任意次调用开始时，我们使用 switch 来决定该跳转到哪里。</p>
+<p>不过这看起来依然很丑陋。最糟糕的地方在于，你需要手动地设置 label，并且需要保持 switch 语句和函数体的一致性。每当我们新增一个返回语句，我们都得新增一个 label 然后把它加入到 switch 中；每当我们删除一个返回语句，我们又得删除掉它对应的 label。这使得我们需要付出成倍的工作量。</p>
+<h2 id="达夫设备">达夫设备<a hidden class="anchor" aria-hidden="true" href="#达夫设备">#</a></h2>
+<p>著名的达夫设备（Duff’s Device）代码片段揭示了 C 语言的这样一个事实，即 case 语句在子代码块中仍然可以和 switch 语句相匹配_（译者注，关于达夫设备的介绍可参见译者的另一篇文章 <a href="https://mthli.xyz/duff-device/">深入理解达夫设备</a>）_。Tom Duff 使用这个技巧来优化循环展开的逻辑：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">switch</span> <span class="p">(</span><span class="n">count</span> <span class="o">%</span> <span class="mi">8</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="mi">0</span><span class="o">:</span> <span class="k">do</span> <span class="p">{</span> <span class="o">*</span><span class="n">to</span> <span class="o">=</span> <span class="o">*</span><span class="n">from</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="mi">7</span><span class="o">:</span>      <span class="o">*</span><span class="n">to</span> <span class="o">=</span> <span class="o">*</span><span class="n">from</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="mi">6</span><span class="o">:</span>      <span class="o">*</span><span class="n">to</span> <span class="o">=</span> <span class="o">*</span><span class="n">from</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="mi">5</span><span class="o">:</span>      <span class="o">*</span><span class="n">to</span> <span class="o">=</span> <span class="o">*</span><span class="n">from</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="mi">4</span><span class="o">:</span>      <span class="o">*</span><span class="n">to</span> <span class="o">=</span> <span class="o">*</span><span class="n">from</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="mi">3</span><span class="o">:</span>      <span class="o">*</span><span class="n">to</span> <span class="o">=</span> <span class="o">*</span><span class="n">from</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>      <span class="o">*</span><span class="n">to</span> <span class="o">=</span> <span class="o">*</span><span class="n">from</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>      <span class="o">*</span><span class="n">to</span> <span class="o">=</span> <span class="o">*</span><span class="n">from</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="o">--</span><span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>我们可以将其改造并应用到协程的实现中。我们可以使用 switch 语句直接实现跳转而不是使用它来决定该执行哪条 goto 语句：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">function</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">state</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">switch</span> <span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="mi">0</span><span class="o">:</span> <span class="c1">// 函数开始执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">state</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// 我们会回到 &#34;case 1&#34; 的地方
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">return</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">case</span> <span class="mi">1</span><span class="o">:</span><span class="p">;</span> <span class="c1">// 从上一次返回之后的地方开始执行
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>看起来不错。现在我们需要做的就是构造一些精选的宏，这样我们就能以合理的方式将血腥的（gory）细节隐藏起来：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#define crBegin static int state=0; switch(state) { case 0:
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define crReturn(i,x) do { state=i; return x; case i:; } while (0)
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define crFinish }
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="kt">int</span> <span class="nf">function</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">crBegin</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">crReturn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">crFinish</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>（注意，使用 <code>do ... while(0)</code> 可以确保当 <code>crReturn</code> 位于 <code>if ... else</code> 之间时，不需要用大括号将其扩起来）</p>
+<p>这差不多就是我们想要的样子了。我们可以使用 <code>crReturn</code> 实现从函数中返回且下次调用时能从上一次返回之后的地方开始执行。当然啦我们必须遵循一些使用规则（必须使用 <code>crBegin</code> 和 <code>crFinish</code> 将函数体包围；将所有在多次函数调用过程中需要保持的变量声明为 static 的；永远不要将 <code>crReturn</code> 和 switch 语句一起使用）；不过这些规则并没有太限制到我们。</p>
+<p>现在唯一的问题就是 <code>crReturn</code> 的第一个参数。就像之前我们声明新 label 时需要避免和任何已有的 label 产生冲突那样，我们需要确保所有 <code>crReturn</code> 中的 <code>state</code> 参数都不一样。如果不这么做的话，编译器就会报错。</p>
+<p>但这个问题也是可以被解决的。ANSI C 提供了一个名为 <code>__LINE__</code> 的特殊的宏，代表了当前代码所在的行数。所以我们可以把 <code>crReturn</code> 重写为：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#define crReturn(x) do { state=__LINE__; return x; \
+</span></span></span><span class="line"><span class="cl"><span class="cp">                         case __LINE__:; } while (0)
+</span></span></span></code></pre></div><p>于是我们再也不需要关心 <code>state</code> 参数了，只是我们需要遵守第四条规则（永远不要将两个 <code>crReturn</code> 语句写在同一行）。</p>
+<h2 id="评估">评估<a hidden class="anchor" aria-hidden="true" href="#评估">#</a></h2>
+<p>现在我们有了一个可怕的工具，让我们用它把原来的代码重写一下看看。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">decompressor</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="kt">int</span> <span class="n">c</span><span class="p">,</span> <span class="n">len</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">crBegin</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">c</span> <span class="o">=</span> <span class="n">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="n">EOF</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="mh">0xFF</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">len</span> <span class="o">=</span> <span class="n">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">c</span> <span class="o">=</span> <span class="n">getchar</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="k">while</span> <span class="p">(</span><span class="n">len</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">crReturn</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">crReturn</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">crReturn</span><span class="p">(</span><span class="n">EOF</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">crFinish</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">parser</span><span class="p">(</span><span class="kt">int</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">crBegin</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 第一个字符已经存储在 c 中了
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="n">EOF</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">isalpha</span><span class="p">(</span><span class="n">c</span><span class="p">))</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">do</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">add_to_token</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="n">crReturn</span><span class="p">(</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">isalpha</span><span class="p">(</span><span class="n">c</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">            <span class="n">got_token</span><span class="p">(</span><span class="n">WORD</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">add_to_token</span><span class="p">(</span><span class="n">c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">got_token</span><span class="p">(</span><span class="n">PUNCT</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">crReturn</span><span class="p">(</span> <span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">crFinish</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>我们把 decompressor 和 parser 都重写为了 callee，但显然并不需要像之前重写的那样需要大规模重组代码。新的代码结构简直就是原始的代码结构的镜像。与晦涩难读的状态机代码相比，读者可以很轻易分辨出 decompressor 解压数据的逻辑和 parser 解析数据的逻辑。一旦你将心智模型迁移到新的模式上，控制流就很简单了：当 decompressor 有一个字符时，它便将其使用 <code>crReturn</code> 返回，并且等待在下一次需要字符时被调用。当 parser 需要一个新字符时，它便使用 <code>crReturn</code> 返回，并且等待有新字符时被再次调用，新字符以参数 <code>c</code> 的形式传入。</p>
+<p>但仍然有一些小的结构上的变化：<code>parser()</code> 现在将它自己的 <code>getchar()</code>（好吧，其实被改为了 <code>crReturn</code>）从循环开始的地方移动到了循环结束的地方，这是因为第一个字符已经以参数 <code>c</code> 的形式被传入到函数中了。我们可以接受这种改变，不过如果你真的介意这种改变的话，我们可以强制要求在开始给 <code>parser()</code> 输入字符之前要先初始化。</p>
+<p>就像之前说的那样，我们没有必要使用这些协程宏把两段代码都重写了。重写其中一个即可，另一个则作为 caller 存在。</p>
+<p>现在可以确定的是我们已经达到了我们的目标：一份不需要将生产者或是消费者重写为状态机就可以移植的 ANSI C 代码。通过使用 C 语言预处理器和 switch 语句一个很少被使用到的特性，我们得以实现一个隐式的状态机。</p>
+<h2 id="编程规范">编程规范<a hidden class="anchor" aria-hidden="true" href="#编程规范">#</a></h2>
+<p>显然，这个技巧违背了所有书中提到的编程规范。如果你在公司这么写代码，就算你没有被处分，也会被严厉警告！你在宏里嵌入了没有匹配的大括号，在子代码块中使用 case，以及具有可怕破坏性的 <code>crReturn</code> 宏⋯⋯很难想象你还没有因为这种不负责任的编码实践而被开除。你应该对自己感到羞耻。</p>
+<p>但我声明在此处，这些编程规范都是无效的。我在本文中举的例子不是很长，也不是很复杂，并且在被重写为状态机时也仍然是可理解的。但随着函数变得更长，重写的复杂度也会随之增加，同时清晰度也会下降得非常糟糕。</p>
+<p>思考一下。一个由如下代码块组成的函数：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="k">case</span> <span class="nl">STATE1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// DO SOMETHING
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="p">(</span><span class="n">condition</span><span class="p">)</span> <span class="n">state</span> <span class="o">=</span> <span class="n">STATE2</span><span class="p">;</span> <span class="k">else</span> <span class="n">state</span> <span class="o">=</span> <span class="n">STATE3</span><span class="p">;</span>
+</span></span></code></pre></div><p>和一个由如下代码块组成的函数：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="nl">LABEL1</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// DO SOMETHING
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="p">(</span><span class="n">condition</span><span class="p">)</span> <span class="k">goto</span> <span class="n">LABEL2</span><span class="p">;</span> <span class="k">else</span> <span class="k">goto</span> <span class="n">LABEL3</span><span class="p">;</span>
+</span></span></code></pre></div><p>对读者来说，看起来可能是差不多。</p>
+<p>虽然前者是 caller 后者是 callee，但它们在视觉结构上都是一致的，且它们在底层算法的实现上也是一致的。如果一个人会因为使用了我提供的协程宏而开除你，那他同样也会因为你使用 goto 语句构造小的代码块而开除你！不过这一次他们显然是正确的，因为后者会严重损坏算法的结构性。</p>
+<p>代码规范的目标是清晰度。通过将 switch, return, case 语句隐藏在令人困惑的宏里，代码规范会认为你隐藏了程序的语法结构，违反了清晰度要求。但是你又不得不为了揭示读者可能想知道的程序算法结构而这么做！</p>
+<p>任何以坚持语法清晰度为代价的代码规范都应该被重写。请在你的雇主因为你使用这个技巧而要开除你时，把这句话告诉他们。</p>
+<h2 id="精炼和编码">精炼和编码<a hidden class="anchor" aria-hidden="true" href="#精炼和编码">#</a></h2>
+<p>在一个严肃的应用中，这个玩具协程实现基本是不可用的，因为它依赖 static 变量，所以在多线程环境下会重入失效。理想情况下，在一个真实的应用里，你可能会想要在不同上下文中调用同一个函数，并且对于相同上下文中的调用，都应该在相同上下文的最后一次返回之后恢复控制。</p>
+<p>当然这解决起来也很简单了。我们需要一个额外的函数参数，它是一个指向当前上下文结构的指针；我们在这种结构中定义所有本地变量，以及我们的协程 <code>state</code> 变量。</p>
+<p>这看上去是有点丑，因为突然之间你就得使用 <code>ctx -&gt; i</code> 作为循环计数器了，而不是像之前那样简单使用 <code>i</code> 即可；实际上你定义的所有变量都成为了协程上下文结构的一部分。但它解决了重入问题，并且也没有破坏代码结构。</p>
+<p>（当然啦，如果 C 语言有 Pascal 的 with 语句的话，我们就能使用宏将这一层间接寻址隐藏掉。真可惜。不过至少 C++ 程序员们可以通过类来隐式划分作用域，将协程和所有本地变量都作为类的成员来解决）</p>
+<p>这里有一份包含了预先定义好的协程宏的 C 语言头文件。文件中定义了两组宏，前缀分别是 <code>scr</code> 和 <code>ccr</code>。<code>scr</code> 宏是本文中介绍的较为简单的宏实现，你可以和 static 变量搭配使用；<code>ccr</code> 宏则提供了可重入机制。完整的文档请参见头文件中的注释。</p>
+<p>请注意，Visual C++ 6.0 看起来不太喜欢这种协程技巧，因为它默认的调试功能（Program Database for Edit and Continue）和 <code>__LINE__</code> 宏搭配在一起时，会表现出奇怪的行为。如果你想要使用 VC++ 6.0 编译包含协程的程序，你必须关掉 Edit and Continue 功能（在 Project Settings 里，点击 C/C++ 标签，接着点击 General 再点击 Debug info。随便选择一个除了 “Program Database for Edit and Continue” 之外的选项）。</p>
+<p>（这份头文件遵循 MIT 协议，所以你可以不受限制地在任何地方使用。如果你觉得 MIT 协议不适用于你要做的事，<a href="mailto://anakin@pobox.com">给我发邮件吧</a>，我大概会给授予你额外的权限去做这件事）</p>
+<p><a href="https://www.chiark.greenend.org.uk/~sgtatham/coroutine.h">猛击这个链接</a> 获取 coroutine.h。</p>
+<p>感谢阅读！我很享受这种分享的状态。</p>
+<h2 id="引用">引用<a hidden class="anchor" aria-hidden="true" href="#引用">#</a></h2>
+<ul>
+<li>Donald Knuth, The Art of Computer Programming, Volume 1. Addison-Wesley, ISBN 0-201-89683-4. Section 1.4.2 describes coroutines in the “pure” form.</li>
+<li><a href="http://www.lysator.liu.se/c/duffs-device.html">http://www.lysator.liu.se/c/duffs-device.html</a> 指向了 Tom Duff 自己对达夫设备的讨论。请注意，在讨论的底部，达夫可能已经独立发明了这种协程技巧，或者某种类似的东西。**Update, 2005-03-07：**达夫在一篇博客的评论中 <a href="http://brainwagon.org/2005/03/05/coroutines-in-c/#comment-1878">确认了这件事</a>。他所说的「使用 switch 的方式来实现状态机的中断」和我在文中所述的技巧是一样的。</li>
+<li><a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/">PuTTY</a> 是一个 Win32 平台下的 Telnet 和 SSH 客户端。其中 SSH 协议的代码实现就真实使用到了这种协程技巧。至少在我看来，这是我见过的在一个严肃的产品中使用过的最糟糕的 C 语言特性了。</li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://ikebo.cc/post/2024/11/tls%E5%8A%A0%E5%AF%86%E8%BF%87%E7%A8%8B%E5%8F%8A%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>TLS加密过程及代码示例</span>
+  </a>
+  <a class="next" href="https://ikebo.cc/post/2024/10/android%E5%AD%A6%E4%B9%A0%E8%B7%AF%E7%BA%BF/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Android学习路线</span>
+  </a>
+</nav>
+
+
+<div class="share-buttons">
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 使用C语言实现协程 on twitter"
+        href="https://twitter.com/intent/tweet/?text=%e4%bd%bf%e7%94%a8C%e8%af%ad%e8%a8%80%e5%ae%9e%e7%8e%b0%e5%8d%8f%e7%a8%8b&amp;url=https%3a%2f%2fikebo.cc%2fpost%2f2024%2f11%2f%25E4%25BD%25BF%25E7%2594%25A8c%25E8%25AF%25AD%25E8%25A8%2580%25E5%25AE%259E%25E7%258E%25B0%25E5%258D%258F%25E7%25A8%258B%2f&amp;hashtags=">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-253.927,424.544c135.939,0 210.268,-112.643 210.268,-210.268c0,-3.218 0,-6.437 -0.153,-9.502c14.406,-10.421 26.973,-23.448 36.935,-38.314c-13.18,5.824 -27.433,9.809 -42.452,11.648c15.326,-9.196 26.973,-23.602 32.49,-40.92c-14.252,8.429 -30.038,14.56 -46.896,17.931c-13.487,-14.406 -32.644,-23.295 -53.946,-23.295c-40.767,0 -73.87,33.104 -73.87,73.87c0,5.824 0.613,11.494 1.992,16.858c-61.456,-3.065 -115.862,-32.49 -152.337,-77.241c-6.284,10.881 -9.962,23.601 -9.962,37.088c0,25.594 13.027,48.276 32.95,61.456c-12.107,-0.307 -23.448,-3.678 -33.41,-9.196l0,0.92c0,35.862 25.441,65.594 59.311,72.49c-6.13,1.686 -12.72,2.606 -19.464,2.606c-4.751,0 -9.348,-0.46 -13.946,-1.38c9.349,29.426 36.628,50.728 68.965,51.341c-25.287,19.771 -57.164,31.571 -91.8,31.571c-5.977,0 -11.801,-0.306 -17.625,-1.073c32.337,21.15 71.264,33.41 112.95,33.41Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 使用C语言实现协程 on linkedin"
+        href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fikebo.cc%2fpost%2f2024%2f11%2f%25E4%25BD%25BF%25E7%2594%25A8c%25E8%25AF%25AD%25E8%25A8%2580%25E5%25AE%259E%25E7%258E%25B0%25E5%258D%258F%25E7%25A8%258B%2f&amp;title=%e4%bd%bf%e7%94%a8C%e8%af%ad%e8%a8%80%e5%ae%9e%e7%8e%b0%e5%8d%8f%e7%a8%8b&amp;summary=%e4%bd%bf%e7%94%a8C%e8%af%ad%e8%a8%80%e5%ae%9e%e7%8e%b0%e5%8d%8f%e7%a8%8b&amp;source=https%3a%2f%2fikebo.cc%2fpost%2f2024%2f11%2f%25E4%25BD%25BF%25E7%2594%25A8c%25E8%25AF%25AD%25E8%25A8%2580%25E5%25AE%259E%25E7%258E%25B0%25E5%258D%258F%25E7%25A8%258B%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 使用C语言实现协程 on reddit"
+        href="https://reddit.com/submit?url=https%3a%2f%2fikebo.cc%2fpost%2f2024%2f11%2f%25E4%25BD%25BF%25E7%2594%25A8c%25E8%25AF%25AD%25E8%25A8%2580%25E5%25AE%259E%25E7%258E%25B0%25E5%258D%258F%25E7%25A8%258B%2f&title=%e4%bd%bf%e7%94%a8C%e8%af%ad%e8%a8%80%e5%ae%9e%e7%8e%b0%e5%8d%8f%e7%a8%8b">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 使用C语言实现协程 on facebook"
+        href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fikebo.cc%2fpost%2f2024%2f11%2f%25E4%25BD%25BF%25E7%2594%25A8c%25E8%25AF%25AD%25E8%25A8%2580%25E5%25AE%259E%25E7%258E%25B0%25E5%258D%258F%25E7%25A8%258B%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 使用C语言实现协程 on whatsapp"
+        href="https://api.whatsapp.com/send?text=%e4%bd%bf%e7%94%a8C%e8%af%ad%e8%a8%80%e5%ae%9e%e7%8e%b0%e5%8d%8f%e7%a8%8b%20-%20https%3a%2f%2fikebo.cc%2fpost%2f2024%2f11%2f%25E4%25BD%25BF%25E7%2594%25A8c%25E8%25AF%25AD%25E8%25A8%2580%25E5%25AE%259E%25E7%258E%25B0%25E5%258D%258F%25E7%25A8%258B%2f">
+        <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+            <path
+                d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+        </svg>
+    </a>
+    <a target="_blank" rel="noopener noreferrer" aria-label="share 使用C语言实现协程 on telegram"
+        href="https://telegram.me/share/url?text=%e4%bd%bf%e7%94%a8C%e8%af%ad%e8%a8%80%e5%ae%9e%e7%8e%b0%e5%8d%8f%e7%a8%8b&amp;url=https%3a%2f%2fikebo.cc%2fpost%2f2024%2f11%2f%25E4%25BD%25BF%25E7%2594%25A8c%25E8%25AF%25AD%25E8%25A8%2580%25E5%25AE%259E%25E7%258E%25B0%25E5%258D%258F%25E7%25A8%258B%2f">
+        <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28" height="30px" width="30px" fill="currentColor">
+            <path
+                d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+        </svg>
+    </a>
+</div>
+  </footer>
+</article>
+
+<div class="post-comment">
+    
+    
+
+<div id="vcomments"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script type="text/javascript">
+  new Valine({
+      el: '#vcomments' ,
+      appId: 'LxflBHOFoZd50COAkT8hVDYD-gzGzoHsz',
+      appKey: 'AAfD4NnHhivToOUt7krNV17o',
+      notify: 'false', 
+      verify: 'false', 
+      avatar:'monsterid', 
+      placeholder: '',
+      visitor: 'true'
+  });
+</script>
+</div>
+    </main>
+    
+<footer class="footer">
+    <span>&copy; 2024 <a href="https://ikebo.cc/">Ike&#39;Log</a></span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>
