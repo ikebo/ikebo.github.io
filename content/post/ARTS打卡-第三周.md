@@ -77,7 +77,7 @@ public class Solution {
 对于个人隐私比较看重的朋友，推荐使用真正No Trace的搜索引擎：startpage.com  斯诺登都推荐过。
 
 # 4、Share
-Life is short. 人生真的苦短，做些自己想做的事，照顾好身边的人。别太玩命，到头来都是韭菜，没有必要。
+Life is short. 人生真的苦短，做些自己想做的事，照顾好身边的人。
 
 
 
