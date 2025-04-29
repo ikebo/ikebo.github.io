@@ -2,7 +2,7 @@ baseURL = 'https://ikebo.cc/'
 languageCode = 'en-us'
 title = "Ike'Log"
 theme = 'hugo-PaperMod' 
-paginate = 5
+pagination.pagerSize = 5
 enableInlineShortcodes = true
 enableRobotsTXT = true
 buildDrafts = false
@@ -213,7 +213,7 @@ style = 'manni' # 样式参考 https://swapoff.org/chroma/playground
 disabled = false
 simple = true
 
-[privacy.twitter]
+[privacy.x]
 disabled = false
 enableDNT = true
 simple = true
@@ -229,5 +229,5 @@ privacyEnhanced = true
 [services.instagram]
 disableInlineCSS = true
 
-[services.twitter]
+[services.x]
 disableInlineCSS = true
