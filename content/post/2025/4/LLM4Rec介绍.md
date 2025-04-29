@@ -103,4 +103,4 @@ draft: false
 * [Collaborative Large Language Model for Recommender Systems](https://github.com/yaochenzhu/LLM4Rec#cllm4rec-collaborative-large-language-model-for-recommender-systems)
 * [Rethinking Large Language Model Architectures for Sequential Recommendations](https://arxiv.org/abs/2402.09543)
 * [Tutorial on Large Language Models for Recommendation: Progresses and Future Direction](https://generative-rec.github.io/tutorial)
-* [LLM4Rec-Awesome-Papers](https://github.com/WLiK/LLM4Rec-Awesome-Papers](https://github.com/WLiK/LLM4Rec-Awesome-Papers)
+* [LLM4Rec-Awesome-Papers](https://github.com/WLiK/LLM4Rec-Awesome-Papers)
