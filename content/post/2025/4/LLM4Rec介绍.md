@@ -98,6 +98,8 @@ draft: false
 > **LLM4Rec 就是把大语言模型的“通用知识 + 生成推理能力”嫁接到推荐系统中，当前已形成“辨别式 (DLLM) 与生成式 (GLLM)”两大路线，但在效率、实时性与评测上仍有待突破。**
 
 
+
+
 ### References
 * [A Survey on Large Language Models for Recommendation](https://arxiv.org/abs/2305.19860)
 * [Collaborative Large Language Model for Recommender Systems](https://github.com/yaochenzhu/LLM4Rec#cllm4rec-collaborative-large-language-model-for-recommender-systems)
